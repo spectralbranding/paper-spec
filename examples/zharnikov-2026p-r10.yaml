@@ -1,0 +1,338 @@
+# paper.yaml — Paper Spec v0.1.0
+# Zharnikov (2026p): The Spectral Anatomy of Purpose — Dove Case Study
+spec_version: "0.1.0"
+
+meta:
+  title: "The Spectral Anatomy of Purpose: A Longitudinal Analysis of Dove Real Beauty Through Multi-Dimensional Brand Perception Theory"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.19139258"
+  date: "2026-01-01"
+  version: "1.0"
+  venue: "Working Paper (Zenodo)"
+  license: "CC-BY-4.0"
+  keywords:
+    - Spectral Brand Theory
+    - brand perception
+    - purpose-driven branding
+    - observer cohorts
+    - Dove Real Beauty
+    - portfolio interference
+    - multi-dimensional brand analysis
+
+claims:
+  - id: "P1"
+    type: proposition
+    statement: >
+      Purpose campaigns produce disproportionate commercial impact when they activate a
+      previously null dimension, creating new perceptual signal space rather than
+      competing within existing dimensional territory.
+    formal: >
+      Let e_d(t) = null for dimension d at time t-1. Activating e_d(t) > 0 creates
+      new perception cloud territory: observers do not need to update existing conviction
+      but to form new conviction in previously empty perceptual space. This produces
+      larger perception cloud growth per unit signal investment than repositioning within
+      an occupied dimension.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: []
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      Identical brand signals produce structurally different perception clouds in different
+      observer cohorts, with the structure of divergence predictable from the interaction
+      between emission profiles and cohort spectral weight vectors.
+    formal: >
+      For cohorts C_k with spectral profiles w_k, the perception cloud Pi_{C_k}(B, t) =
+      {f(e(t), w_j) : j in C_k} differs structurally across cohorts even for identical
+      e(t). The divergence structure is determined by the dimensional weights w_j, not
+      by random noise.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: []
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      When brands within a corporate portfolio emit contradictory signals on the same
+      dimension, the resulting spectral interference generates a coherence penalty
+      proportional to the contradiction magnitude, the observer's dimensional weight on
+      the contradicted dimension, and the observer's awareness of the corporate relationship.
+    formal: >
+      Portfolio interference penalty = alpha * w_d * |e_d(B_i) - e_d(B_j)| where
+      alpha is the awareness gate [0,1], w_d is the observer's weight on dimension d,
+      and |e_d(B_i) - e_d(B_j)| is the contradiction magnitude. Penalty is maximal
+      for aware observers with high dimensional weight on the contradicted dimension.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: []
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      The perceptual intensity of counter-cultural brand signals decays as a function of
+      their adoption by competitors and cultural institutions, following an inverted-U
+      trajectory on the Cultural dimension.
+    formal: >
+      Let Cultural emission e_7(t) be a function of both brand signal output s_7(t) and
+      cultural background level mu_7(t). As competitors and institutions adopt the
+      counter-cultural position, mu_7(t) increases and the distinctiveness
+      e_7(t) - mu_7(t) decreases — even if s_7(t) is held constant. The trajectory
+      follows an inverted-U: rise (2006-2013) then decay (2013-2023) for Dove's
+      Cultural dimension.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: []
+
+  - id: "P5"
+    type: proposition
+    statement: >
+      Brand revenue growth correlates with new-dimension activation events rather than
+      with total campaign investment, because new-dimension activation creates perceptual
+      territory that does not compete with existing brand convictions.
+    formal: >
+      delta Revenue ~ delta(activated dimensions) > delta(signal intensity on existing
+      dimensions). The marginal return on dimensional activation (null to positive
+      state change) exceeds the marginal return on dimensional intensification (positive
+      signal increase) when the activated dimension was previously null.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["P1"]
+
+methodology:
+  type: mixed
+  design: >
+    Spectral case analysis of Dove's "Campaign for Real Beauty" (2004-2026). The method
+    applies SBT's 8-dimensional framework to a focal brand using longitudinal secondary
+    data. Five steps: (1) signal decomposition across 8 dimensions at 4 time points
+    (2003, 2006, 2013, 2023); (2) cohort identification from academic perception
+    studies; (3) perception cloud reconstruction for each cohort; (4) coherence audit
+    at each time point; (5) financial mapping correlating dimensional activation with
+    revenue trajectory. Analysis is interpretive, not econometric. Emission intensities
+    are qualitative assessments, not survey measurements.
+  analysis:
+    method: >
+      Qualitative signal decomposition using public corporate communications, Unilever
+      Annual Reports (2003-2023), advertising content analysis, and academic perception
+      studies (Georgeson 2018, Garick 2023, Bissell & Rask 2010, Hwang et al. 2016,
+      Taylor et al. 2016). Four observer cohorts identified: Purpose-Aligned, Product-
+      Pragmatist, Social-Signal Reader, Skeptic-Critic. Contrast cases: Pepsi "Live
+      for Now" (2017), Gillette "The Best Men Can Be" (2019).
+    software: "None"
+
+acceptance:
+  - claim_id: "P1"
+    criterion: >
+      Across a sample of purpose-driven campaigns, campaigns that activate a previously
+      null dimension (null to positive transition) should produce higher revenue return
+      on investment than campaigns that intensify an already-active dimension (positive
+      to higher-positive), controlling for campaign spend and baseline brand equity.
+    falsification: >
+      Dimensional activation type (null-to-positive vs. positive-to-higher) does not
+      predict campaign ROI after controlling for spend and baseline equity. Revenue
+      growth is driven by signal intensity alone, regardless of the dimension's prior
+      activation state.
+
+  - claim_id: "P2"
+    criterion: >
+      In a multi-cohort study of a purpose-driven brand, cohorts identified by spectral
+      weight clustering (not demographics) should show structurally different perception
+      clouds from the same brand signals — not just different magnitudes but different
+      dimensional profiles. The Skeptic-Critic cohort should show negative conviction
+      specifically on the Ideological dimension while the Purpose-Aligned cohort shows
+      positive conviction on the same signals.
+    falsification: >
+      Observer heterogeneity in brand perception is fully explained by demographic
+      variables (age, gender, income) rather than by spectral weight patterns. No
+      structurally distinct perception clouds exist; observers differ only in degree.
+
+  - claim_id: "P3"
+    criterion: >
+      Observers aware of the Dove-Axe ownership relationship should show lower
+      Ideological dimension conviction for Dove than observers unaware of the
+      relationship, controlling for all other brand knowledge. The penalty magnitude
+      should increase with the observer's Ideological dimension weight.
+    falsification: >
+      Corporate ownership disclosure does not affect Dove brand perception; awareness
+      of the Axe connection produces no measurable change in Ideological conviction.
+
+  - claim_id: "P4"
+    criterion: >
+      Cultural distinctiveness scores for purpose-driven brands (measured as the brand's
+      Cultural emission relative to the category mean) should follow an inverted-U over
+      time, with peak distinctiveness in early counter-cultural phase and decay as
+      competitors adopt similar positioning. Timing of peak should precede broader
+      market adoption of the counter-cultural position.
+    falsification: >
+      Cultural distinctiveness decays monotonically from launch (no inverted-U pattern),
+      or distinctiveness is unrelated to competitor adoption of the counter-cultural position.
+
+  - claim_id: "P5"
+    criterion: >
+      In time-series analysis of Dove's financials, dimensional activation events
+      (transitions from null to positive, or first activation of a new dimension) should
+      predict revenue growth better than changes in total advertising spend. Dimensional
+      activation events should have higher regression coefficients than spend increments.
+    falsification: >
+      Total advertising spend is a better predictor of revenue growth than dimensional
+      activation events. The type of campaign (dimension-activating vs. dimension-
+      maintaining) adds no explanatory power beyond spend level.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    Secondary data only. Sources: Unilever Annual Reports 2003-2023 (revenue, spend);
+    Georgeson (2018) — 326-woman survey on generational campaign perception; Garick
+    (2023) — 1,000 YouTube comment content analysis (72% positive on content, 30%
+    positive on corporation); Bissell & Rask (2010), Hwang et al. (2016), Taylor et al.
+    (2016) — academic perception studies. All sources are publicly available; no
+    proprietary data. Signal intensity scores in Table 1 are author-assessed estimates,
+    not measured values. No inter-rater reliability protocol applied.
+
+code:
+  available: true
+  url: "https://github.com/spectralbranding/sbt-framework"
+  notes: >
+    The sbt-framework repository provides the computational pipeline for SBT analysis
+    including dimension scoring templates and coherence classification. Not used directly
+    in this paper (which is interpretive), but provides tooling for future quantitative
+    replication.
+
+replication:
+  feasible: true
+  estimated_cost: "< $30,000 USD (survey recruitment + coding)"
+  estimated_time: "6-12 months"
+  requirements:
+    - "Multi-dimensional brand perception survey instrument covering all 8 SBT dimensions"
+    - "Representative sample of Dove observers with spectral profile measurement"
+    - "Corporate awareness manipulation (disclosure vs. non-disclosure of Dove-Axe connection)"
+    - "Minimum 100 observers per identified cohort (Purpose-Aligned, Product-Pragmatist, Social-Signal Reader, Skeptic-Critic)"
+    - "Trained coders for inter-rater reliability on signal intensity assessments from campaign materials"
+    - "Pre-registered cohort identification protocol"
+
+dependencies:
+  - doi: "10.5281/zenodo.18945912"
+    claim: "Zharnikov (2026a) SBT — core framework for 8-dimensional emission profiles, observer cohorts, and perception clouds"
+    relationship: "applies"
+    critical: true
+
+  - doi: "10.5281/zenodo.18945659"
+    claim: "Zharnikov (2026j) — formal dynamic model; perception cloud dynamics and absorbing state behavior referenced in P3 and P4"
+    relationship: "applies"
+    critical: true
+
+  - doi: "10.5281/zenodo.19138860"
+    claim: "Zharnikov (2026o) non-ergodic perception — P4 (counter-cultural decay) incorporates non-ergodic dynamics; sequence-dependence cited in proposition text"
+    relationship: "applies"
+    critical: false
+
+  - reference: "Murray, D. P. (2013). Branding 'Real' Social Change in Dove's Campaign for Real Beauty. Feminist Media Studies, 13(1), 83–101."
+    claim: "Genderwashing analysis — empirical evidence for P3 (portfolio contradiction and observer awareness effects)"
+    relationship: "applies"
+    critical: true
+
+results:
+  - claim_id: "P1"
+    status: supported
+    notes: >
+      Dove's Ideological dimension transitioned from null (2003) to 8.0 (2006), producing
+      explosive revenue growth from ~$2B to ~$4B (2004-2007). Contrast cases (Pepsi 2017,
+      Gillette 2019) activated occupied or contradicted dimensions and produced negative
+      outcomes. Analysis is interpretive; no causal identification.
+
+  - claim_id: "P2"
+    status: supported
+    notes: >
+      Four structurally distinct perception clouds identified from published studies:
+      Purpose-Aligned (Ideological dominant, positive conviction), Product-Pragmatist
+      (Experiential/Economic dominant, brand irrelevant to values), Social-Signal Reader
+      (Social dominant, campaign as social currency), Skeptic-Critic (Ideological
+      dominant, negative conviction on corporate coherence). Cohort profiles drawn from
+      Georgeson (2018) and Garick (2023), not from direct SBT measurement.
+
+  - claim_id: "P3"
+    status: supported
+    notes: >
+      Murray (2013) genderwashing analysis and Garick (2023) YouTube data (70% negative
+      on Dove-as-corporation) are consistent with portfolio interference. Awareness gate
+      dynamics documented through investigative journalism and social media dissemination
+      of Dove-Axe ownership information. Causal isolation of awareness effect not established.
+
+  - claim_id: "P4"
+    status: supported
+    notes: >
+      Cultural dimension score declined from 8.5 (2006) to 5.5 (2023) in author's
+      assessment, corresponding to body positivity becoming mainstream. Pattern is
+      consistent with P4's inverted-U prediction. Empirical measurement of cultural
+      distinctiveness over time not conducted.
+
+  - claim_id: "P5"
+    status: supported
+    notes: >
+      Revenue correlates with dimensional activation events (2004-2007 Ideological
+      activation; 2023 Experiential + Ideological refresh), not with spend increases
+      during 2013-2019 maintenance period. Ogilvy analysis cited: Oprah partnership
+      ($6.02/dollar) exceeded masterbrand advertising ($3.40/dollar) despite lower spend.
+      Correlation does not establish causation; confounds acknowledged.
+
+limitations:
+  - description: >
+      Emission intensity scores in Table 1 are author-assessed from qualitative review
+      of secondary sources. No coding protocol, second coder, or inter-rater reliability
+      metric was applied. Formal empirical validation requires multi-dimensional survey
+      instruments applied to representative observer samples.
+    severity: major
+    addressable: true
+
+  - description: >
+      Cohort identification draws on existing academic studies (Georgeson 2018, Garick
+      2023) not designed to test SBT predictions. Dedicated cohort identification studies
+      using SBT's 8-dimensional instrument and cluster analysis have not been conducted.
+    severity: major
+    addressable: true
+
+  - description: >
+      Financial analysis establishes correlation between dimensional activation events
+      and revenue growth. Confounds (general market growth, competitive dynamics,
+      distribution expansion) cannot be ruled out without granular econometric analysis.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      All academic sources are English-language and anchored in US/UK cultural contexts.
+      Dove operates globally; South Asia portfolio contradiction (Dove vs. Fair & Lovely/
+      Glow & Lovely) involves different cultural dynamics. Cross-cultural replication
+      is a priority.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The portfolio interference model is presented in simplified form. A full treatment
+      would require modeling how corporate awareness propagates through social networks,
+      interacts with prior conviction strength, and decays over time.
+    severity: minor
+    addressable: true
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19139258"
+    url: "https://doi.org/10.5281/zenodo.19139258"
+    version: "v1"
+    date: "2026-03-20"
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/sbt-papers"
+
+submission_history:
+  - venue: "Journal of Marketing"
+    id: "JM-26-0421"
+    date_submitted: "2026-03-20"
+    status: "under_review"

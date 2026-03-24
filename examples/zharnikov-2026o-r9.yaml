@@ -1,0 +1,381 @@
+# paper.yaml — Paper Spec v0.1.0
+# Zharnikov (2026o): Non-Ergodic Brand Perception
+spec_version: "0.1.0"
+
+meta:
+  title: "Non-Ergodic Brand Perception: Why Cross-Sectional Brand Tracking Systematically Misrepresents Individual Trajectories"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.19138860"
+  date: "2026-01-01"
+  version: "1.0"
+  venue: "Working Paper (Zenodo)"
+  license: "CC-BY-4.0"
+  keywords:
+    - non-ergodicity
+    - brand perception
+    - path dependence
+    - order effects
+    - brand tracking
+    - belief updating
+    - Spectral Brand Theory
+
+claims:
+  - id: "P1"
+    type: proposition
+    statement: >
+      The same set of brand signals, encountered in different temporal orders, produces
+      structurally different perception profiles in the observer. The difference is not
+      noise; it is a systematic function of the interaction between signal sequence and
+      the observer's evolving perceptual state.
+    formal: >
+      For perception profiles p(seq1) and p(seq2) derived from the same signal set S
+      in different orderings, d(p(seq1), p(seq2)) > 0 in the SBT metric on S^7_+.
+      Non-commutativity of stochastic integrals on S^7_+ implies path dependence.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: []
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      Negative brand conviction functions as an absorbing state: once an observer crosses
+      the threshold from negative attitude to negative conviction, the probability of
+      return to neutral or positive perception is negligible. Positive brand conviction
+      does not function as an absorbing state: even strongly positive conviction can be
+      disrupted by sufficiently negative signals.
+    formal: >
+      Let x(t) in S^7_+ be the observer's perception profile. The boundary partial S^7_+
+      is absorbing: P(x_i(t) > 0 for all t > tau | x_i(tau) = 0) = 0. For positive
+      interior states, P(x_i(t) to 0 | x_i(0) > 0) < 1 for any finite sequence of
+      negative signals.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["P1"]
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      Cross-sectional brand tracking systematically overestimates brand health for brands
+      with absorbing-state risk. The magnitude of overestimation increases with: (a) the
+      brand's proximity to absorbing boundaries (lower coherence), (b) the variance of
+      signal quality, and (c) the duration of the tracking period.
+    formal: >
+      Ensemble average x_bar^E(t) = (1/N) sum_i x_i(t) diverges from true population
+      average as absorbed observers (x_i = 0) are removed from the ensemble.
+      E[x_bar^E(t)] > E[true population average] with divergence increasing in t,
+      signal variance, and absorption rate.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["P2"]
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      The first signal an observer encounters in a given perceptual dimension anchors all
+      subsequent updates in that dimension. The anchoring effect diminishes with each
+      subsequent signal but does not vanish: the first signal permanently biases the
+      steady-state perception in the direction of its valence.
+    formal: >
+      For a dimension with no prior signal (structural absence), the first signal s_0
+      sets the perceptual anchor. Under multiplicative updating, the contribution of s_0
+      to the state at time T is C(s_0) * product_{t=1}^{T} g(s_t) where g(s_t) is a
+      monotone function satisfying g(0) < 1. The anchor persists: lim_{T to inf}
+      partial/partial s_0 x(T) > 0.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["P1"]
+
+  - id: "P5"
+    type: proposition
+    statement: >
+      Observer cohorts with different dimension weights, exposed to identical signal
+      sequences, produce divergent perception trajectories. The divergence increases over
+      time and does not converge — there is no long-run equilibrium in which different
+      cohorts perceive the brand identically.
+    formal: >
+      For cohorts C_A and C_B with weight vectors w_A != w_B, and signal sequence
+      (s_1, ..., s_T): d(p_A(T), p_B(T)) is non-decreasing in T and diverges.
+      Formally, lim_{T to inf} d(p_A(T), p_B(T)) > 0 a.s. because the stationarity
+      condition fails under heterogeneous weight vectors.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["P1"]
+
+  - id: "C1"
+    type: proposition
+    statement: >
+      (Signal Relativity) Each new signal is interpreted relative to current perception,
+      not on an absolute scale. The update function satisfies f(x, s) = x * g(s/x)
+      rather than f(x, s) = x + h(s). When observers ask "is this twice as good as I
+      already believed?" rather than "does this add ten points?", dynamics are
+      multiplicative.
+    formal: "f(x, s) = x * g(s/x) where g is monotone; compare to additive: f(x,s) = x + h(s)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: []
+
+  - id: "C2"
+    type: proposition
+    statement: >
+      (Confirmation Bias Modulation) Prior perception modulates signal interpretation
+      strength. Adjustment weight depends on the order in which evidence is encountered
+      and on the current belief state, consistent with multiplicative accumulation per
+      Hogarth and Einhorn's (1992) belief-adjustment model.
+    formal: >
+      w_k = w(S_{k-1}, s_k) — weight depends on current state. Implies w_k * s_k
+      is path-dependent: the impact of s_k scales with S_{k-1}.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: []
+
+  - id: "C3"
+    type: proposition
+    statement: >
+      (Proportional Decay) Forgetting reduces perception by a fraction per unit time
+      rather than a constant amount. The governing equation is dx/dt = -lambda * x,
+      yielding x(t) = x(0) * exp(-lambda * t). Exponential (proportional) decay is
+      multiplicative; linear decay (dx/dt = -c) is additive and ergodic.
+    formal: "dx/dt = -lambda * x => x(t) = x(0) * exp(-lambda * t)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: []
+
+methodology:
+  type: theoretical
+  design: >
+    Conceptual framework construction and formal proposition derivation. The paper
+    translates the mathematical machinery of the SDE model on S^7_+ (Zharnikov, 2026j)
+    into propositions accessible to consumer psychology and brand management researchers.
+    Existing empirical literature (Asch 1946, Hogarth & Einhorn 1992, Kardes &
+    Kalyanaram 1992, Grier & Brumbaugh 1999, Puntoni et al. 2011) is mapped to
+    propositions post-hoc to show consistency; no new primary data collected.
+  analysis:
+    method: >
+      Formal derivation of five propositions from the non-ergodic model; identification
+      of three sufficient conditions (C1-C3) for multiplicative updating; empirical
+      mapping of existing consumer psychology evidence to each proposition.
+    software: "None"
+
+acceptance:
+  - claim_id: "P1"
+    criterion: >
+      Longitudinal individual-level tracking experiment: expose matched observer groups
+      to identical brand signal sets in different orders, measure perception profiles
+      across all 8 SBT dimensions. Final profiles should differ systematically between
+      sequences, with the direction of difference predictable from the signal-state
+      interaction model.
+    falsification: >
+      Final perception profiles are statistically indistinguishable between sequence
+      conditions after controlling for individual variation, indicating that order does
+      not affect outcome and dynamics are effectively ergodic for the measured brand
+      and signal set.
+
+  - claim_id: "P2"
+    criterion: >
+      Longitudinal panel study: measure the rate at which observers cross from negative
+      attitude to negative conviction (absorption event), then track recovery probability
+      over 24+ months. Recovery probability for absorbed observers should approach zero;
+      recovery probability for non-absorbed negative-attitude observers should be
+      substantially higher.
+    falsification: >
+      Absorbed observers (those classified as holding negative conviction) recover to
+      neutral or positive perception at the same rate as non-absorbed negative-attitude
+      observers, demonstrating that conviction is not an absorbing state.
+
+  - claim_id: "P3"
+    criterion: >
+      Compare ensemble-average brand tracking scores against time-average scores
+      from individual panel data, separately for brands with high and low coherence.
+      Low-coherence brands should show greater divergence between ensemble and time
+      averages, with the ensemble average overstating health.
+    falsification: >
+      Ensemble and time averages converge across brands regardless of coherence level;
+      the tracking artifact predicted by P3 is not empirically present.
+
+  - claim_id: "P4"
+    criterion: >
+      Experimental study in which naive observers (no prior brand exposure) are shown
+      a first signal in a specific dimension, followed by several subsequent signals.
+      The valence and intensity of the first signal should predict the long-run
+      dimensional perception better than the average of all subsequent signals.
+    falsification: >
+      The first signal has no special predictive power over subsequent dimensional
+      perception beyond its information content; later signals are weighted equivalently
+      per their information value.
+
+  - claim_id: "P5"
+    criterion: >
+      Cohort-differentiated panel study: identify cohorts by spectral weight clustering,
+      expose all cohorts to identical signal sequences, measure perception divergence
+      over time. Divergence should increase monotonically and not converge.
+    falsification: >
+      Perception trajectories across cohorts converge as signal exposure accumulates,
+      indicating that cohort differences wash out over time — the ergodic prediction.
+
+  - claim_id: "C1"
+    criterion: >
+      Panel data test: fit log-linear model (log perception at t+1 on log perception
+      at t and log signal strength) versus linear additive model. If C1 holds, the
+      log-linear model should fit significantly better.
+    falsification: >
+      Linear additive model fits as well as or better than log-linear model across
+      multiple brand-market contexts, indicating additive rather than relative signal
+      processing.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    No primary data collected. The paper maps existing published evidence (Asch 1946,
+    Hogarth & Einhorn 1992, Kardes & Kalyanaram 1992, Grier & Brumbaugh 1999, Puntoni
+    et al. 2011, Slovic 1993, Siray 2016) to propositions. The illustrative Table 2
+    (ensemble vs. time average divergence) uses hypothetical numbers, not empirical
+    data. The paper identifies required data structures for future empirical tests in
+    Section 7.3.
+
+code:
+  available: true
+  url: "https://github.com/spectralbranding/sbt-framework"
+  notes: >
+    The sbt-framework repository implements SBT's computational pipeline including
+    dimension scoring, coherence classification, and cohort clustering. Not code used
+    in this paper (which is theoretical), but provides the canonical implementation
+    for running the empirical tests specified in Section 7.3.
+
+replication:
+  feasible: true
+  estimated_cost: "< $50,000 USD (longitudinal panel + participant recruitment)"
+  estimated_time: "18-36 months (longitudinal tracking required)"
+  requirements:
+    - "Longitudinal individual-level panel study with repeated brand perception measurement"
+    - "Multi-dimensional instrument covering all 8 SBT dimensions per observer"
+    - "Experimental arm with controlled signal sequence manipulation"
+    - "Minimum 200 observers per cohort, tracked for at least 6 waves"
+    - "Absorption event coding protocol (attitude vs. conviction threshold)"
+    - "Pre-registered protocol on OSF or AsPredicted"
+
+dependencies:
+  - doi: "10.1038/s41567-019-0732-0"
+    claim: "Peters (2019) ergodicity framework — foundational motivation; non-ergodic brand perception parallels non-ergodic wealth dynamics"
+    relationship: "applies"
+    critical: true
+
+  - doi: "10.5281/zenodo.18945912"
+    claim: "Zharnikov (2026a) SBT — 8-dimensional perception space in which P1-P5 are embedded"
+    relationship: "extends"
+    critical: true
+
+  - doi: "10.5281/zenodo.18945659"
+    claim: "Zharnikov (2026j) — formal SDE model on S^7_+; P1-P5 are conceptual translations of its theorems"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Hogarth, R. M., & Einhorn, H. J. (1992). Order effects in belief updating: The belief-adjustment model. Cognitive Psychology, 24(1), 1–55."
+    claim: "Belief-adjustment model — formal basis for C2 (confirmation bias modulation) and evidence for P1 and P4"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Peters, O., & Gell-Mann, M. (2016). Evaluating gambles using dynamics. Chaos, 26(2), 023103."
+    claim: "Ergodicity correction in expected utility — motivates the ensemble vs. time average distinction"
+    relationship: "applies"
+    critical: false
+
+results:
+  - claim_id: "P1"
+    status: not_tested
+    notes: >
+      Consistent with Hogarth & Einhorn (1992), Smith & Vogt (1995), and Asch (1946),
+      all of which demonstrate order effects in belief and impression formation. These
+      studies were not designed to test non-ergodicity; consistency is not confirmation.
+
+  - claim_id: "P2"
+    status: not_tested
+    notes: >
+      Consistent with Slovic's (1993) trust asymmetry principle and with accumulated
+      brand crisis evidence (VW, Boeing). No study has directly measured absorption
+      rates or tested irreversibility of negative conviction.
+
+  - claim_id: "P3"
+    status: not_tested
+    notes: >
+      Indirect evidence from panel attrition patterns in brand tracking (negatively
+      disposed respondents drop out) and NPS bimodality. Direct longitudinal test
+      with individual-level time averages not yet conducted.
+
+  - claim_id: "P4"
+    status: not_tested
+    notes: >
+      Consistent with Kardes & Kalyanaram (1992) order-of-entry effects and Tversky
+      & Kahneman (1974) anchoring heuristic. No study has tracked first-signal influence
+      across all 8 SBT dimensions.
+
+  - claim_id: "P5"
+    status: not_tested
+    notes: >
+      Consistent with Grier & Brumbaugh (1999) target/non-target market perception
+      divergence and Puntoni et al. (2011) bilingual processing differences. No study
+      has tracked cohort trajectories over time using SBT-defined observer spectral profiles.
+
+  - claim_id: "C1"
+    status: not_tested
+    notes: >
+      Empirically testable via log-linear vs. linear model comparison on panel data.
+      No such test conducted. Additive updating is the implicit assumption of classical
+      brand tracking (Keller 1993, Aaker 1991); C1 proposes the multiplicative alternative.
+
+limitations:
+  - description: >
+      No primary data collected. All five propositions are theoretically derived and
+      supported by existing evidence generated for other purposes. No study has directly
+      tested non-ergodicity in brand perception or measured the absorbing-state property.
+    severity: major
+    addressable: true
+
+  - description: >
+      The propositions are derived from the SBT framework and its specific
+      8-dimensional structure. Empirical validation of SBT's dimensionality (Zharnikov
+      2026a) is ongoing; the non-ergodic framework inherits this limitation.
+    severity: major
+    addressable: true
+
+  - description: >
+      The framework is scoped to B2C brand perception. B2B contexts involve committee
+      purchasing decisions, formal evaluation processes, and contractual reset points
+      that may introduce ergodicity-restoring mechanisms. Extension to B2B requires
+      additional analysis.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The multiplicative sufficiency conditions C1-C3 are independently sufficient but
+      the paper does not specify which conditions hold in practice or how to test which
+      regime applies in a given market context. The boundary between multiplicative and
+      additive regimes is described theoretically but not operationally specified.
+    severity: moderate
+    addressable: true
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19138860"
+    url: "https://doi.org/10.5281/zenodo.19138860"
+    version: "v1"
+    date: "2026-03-20"
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/sbt-papers"
+
+submission_history:
+  - venue: "Journal of Consumer Psychology"
+    id: "1051973"
+    date_submitted: "2026-03-20"
+    status: "under_review"

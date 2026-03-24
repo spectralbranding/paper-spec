@@ -1,0 +1,473 @@
+# paper.yaml — Paper Spec v0.1.0
+# Zharnikov (2026i): Organizational Schema Theory (OST)
+spec_version: "0.1.0"
+
+meta:
+  title: "Organization as Specification: A Test-Driven Approach to Organizational Design"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.18946044"
+  date: "2026-01-01"
+  version: "1.0"
+  venue: "Working Paper (Zenodo)"
+  license: "CC-BY-4.0"
+  keywords:
+    - organizational design
+    - specification cascade
+    - design science research
+    - organizational architecture
+    - test-driven development
+    - vertical traceability
+    - conformance checking
+    - reverse design
+    - CI/CD
+    - service-dominant logic
+
+claims:
+  - id: "D1"
+    type: definition
+    statement: >
+      The Organizational Schema Theory (OST) is a reverse-design methodology that treats the
+      organization as a testable specification. It structures organizational design through a
+      six-level specification cascade (L0-L5) where customer experience goals function as
+      acceptance tests, signal requirements as integration tests, and process contracts as
+      unit tests, with a continuous CI/CD validation pipeline replacing periodic audits.
+    formal: >
+      Cascade levels: L0 (Customer Experience Contracts / Acceptance Tests),
+      L1 (Signal Requirements / Integration Tests), L2 (Process Contracts / Unit Tests),
+      L3 (Procedures / Implementation), L4 (Input Specifications / Dependencies),
+      L5 (Sourcing Requirements / Infrastructure).
+      Design direction: top-down (L0 to L5). Operation direction: bottom-up (L5 to L0).
+      Validation: CI/CD pipeline on every specification change.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: []
+
+  - id: "D2"
+    type: definition
+    statement: >
+      Specification waste: any process, input specification, or sourcing requirement at
+      any cascade level that has no upward traceability link to a Level 0 contract
+      (experience, constraint, or commitment contract). Specification waste is detectable
+      through automated traversal of the cascade — analogous to dead code detection in software.
+    formal: >
+      waste(node) := NOT EXISTS path from node to any L0 contract in cascade graph.
+      Detection: depth-first traversal of cascade DAG from L5 upward; nodes with no
+      path to L0 are flagged as waste.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+  - id: "D3"
+    type: definition
+    statement: >
+      Contract-procedure separation: Levels 0-2 define what must be achieved (executor-invariant
+      specifications); Levels 3-5 define how to achieve it (executor-dependent implementation).
+      When an executor type changes (human to automated, or vice versa), the contracts (tests)
+      remain stable while only the procedures (implementation) change.
+    formal: >
+      contracts = {L0, L1, L2}: executor-invariant. procedures = {L3, L4, L5}: executor-dependent.
+      Transition: for executor change E1 -> E2: contracts unchanged, procedures revised.
+      Compliance verification: test-suite sharing (contracts public) vs. implementation
+      monitoring (procedures private to executor).
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+  - id: "P1"
+    type: proposition
+    statement: >
+      Specification waste detection: In any operational system where processes are specified
+      with explicit upward traceability to customer experience goals, processes without such
+      traceability constitute specification waste that can be systematically identified and
+      eliminated. The specification cascade makes this waste detectable through automated
+      traversal — analogous to dead code detection in software.
+    formal: >
+      For any cascade specification C, automated traversal identifies waste(node) for all
+      nodes with no path to any L0 contract. The Spectra Coffee demonstration identified 2
+      out of ~25 processes as candidates for waste reclassification (equipment descaling,
+      lighting adjustment — may be justified by constraint contracts rather than experience
+      contracts, requiring explicit constraint linkage rather than deletion).
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["D1", "D2"]
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      Traceability reduces diagnostic cost: Operations specified with backward traceability
+      from every parameter to customer experience goals will identify the root cause of
+      customer experience failures faster than operations without such traceability. When
+      a customer experience goal fails, the cascade can be traced downward through signal
+      requirements to process contracts to identify the responsible operational parameter.
+    formal: >
+      Let T_diag(OST) = time to root-cause identification with cascade traceability.
+      Let T_diag(ISO) = time to root-cause identification without cascade traceability.
+      Proposition: T_diag(OST) < T_diag(ISO) in expectation for equivalent operations.
+      Testability: measure time-to-root-cause with and without specification traceability
+      in controlled comparison.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      Contract-procedure separation enables knowledge transfer: Separating executor-invariant
+      quality contracts from executor-dependent procedures enables operational knowledge
+      transfer without prescribing implementation, reducing the information asymmetry in
+      franchise and multi-site operations. The franchisor specifies outcomes and validates
+      compliance through test results; the franchisee retains implementation autonomy.
+    formal: >
+      Information asymmetry reduction: franchisor shares contracts (L0-L2), not procedures
+      (L3-L5). Compliance = test suite pass rate, not implementation monitoring.
+      Prediction: compliance rates with test-suite-based franchising >= compliance rates
+      with manual-based franchising, holding resource levels constant.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D3"]
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      Continuous validation reduces conformance drift: Organizations using automated,
+      per-change specification validation will exhibit less conformance drift between audits
+      than organizations relying on periodic manual audits. OST's CI/CD pipeline validates
+      the specification on every change, not periodically, eliminating the class of structural
+      non-conformances (broken references, orphaned processes, missing traceability) that
+      accumulate between periodic reviews.
+    formal: >
+      Let drift(OST) = non-conformances discovered per period with CI/CD validation.
+      Let drift(ISO) = non-conformances discovered per period with periodic audit.
+      Proposition: drift(OST) < drift(ISO) for equivalent operations.
+      Structural mechanisms: (a) broken cross-reference detection on every commit;
+      (b) orphaned process detection on every commit; (c) missing traceability flagged
+      on every commit. ISO audit detects these only at planned intervals.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["D1"]
+
+  - id: "P5"
+    type: proposition
+    statement: >
+      Reverse-designed operations produce higher perceived quality: Operations designed
+      backward from customer-experience acceptance tests will achieve higher customer-perceived
+      quality than operations designed forward from available resources, holding resource
+      levels constant. Making customer experience the structural starting point of operational
+      design should produce higher perceived quality — analogous to TDD demonstrating
+      different software architecture even with the same programmers and tools.
+    formal: >
+      Let Q_CX(reverse) = customer-perceived quality of reverse-designed operations.
+      Let Q_CX(forward) = customer-perceived quality of forward-designed operations.
+      Proposition: Q_CX(reverse) > Q_CX(forward) holding resources constant.
+      Requires: controlled comparison of reverse-designed vs. forward-designed operations
+      in same domain. Most complex empirical agenda among the five propositions.
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+methodology:
+  type: theoretical
+  design: >
+    Design Science Research (DSR) following Hevner et al. (2004), situated within Gregor
+    and Hevner's (2013) knowledge contribution framework as an exaptation — extending
+    Test-Driven Development from software engineering to organizational specification.
+    Structured as echeloned DSR (Mullarkey & Hevner, 2019): problem analysis, requirements
+    specification, design, demonstration, formative evaluation. Primary contribution is
+    design knowledge (technological rule). The demonstration artifact is Spectra Coffee:
+    25 YAML files across L0-L5, CI/CD validation pipeline in GitHub Actions. Formative
+    evaluation using FEDS framework (Venable et al., 2016) with 5 independent reviewers
+    across distinct stakeholder perspectives (QA inspector, process consultant, academic
+    researcher, professor with graduate student, coffee shop manager). Supplemented by
+    structured analytical comparison of the same espresso preparation process documented
+    in both ISO 9001 clause-compliant format and OST cascade format.
+  analysis:
+    method: >
+      (1) Theoretical framework construction synthesizing TDD (Beck, 2003), service-dominant
+      logic (Vargo & Lusch, 2004), lean reverse design (Ohno, 1988), and organizational
+      information-processing theory (Galbraith, 1974; Thompson, 1967; Mintzberg, 1979).
+      (2) Demonstration artifact: Spectra Coffee OST specification (25 YAML files, CI/CD
+      pipeline). (3) Structured ISO 9001 comparative analysis: same process in both formats,
+      systematic comparison of three structural gaps. (4) Formative expert evaluation:
+      5 reviewers, 14 defects identified, all critical and major resolved.
+    software: "GitHub Actions (CI/CD validation); YAML specification files"
+
+acceptance:
+  - claim_id: "P1"
+    criterion: >
+      In a set of OST-specified operations, automated cascade traversal identifies at least
+      one process per 10 documented processes as specification waste candidates (no upward
+      traceability to any L0 contract). The rate of waste identification should exceed that
+      in conventionally documented (ISO 9001 style) operations, where waste is not detectable
+      without manual analysis.
+    falsification: >
+      Automated traversal of OST-specified operations identifies zero waste candidates, or
+      the identification rate in OST is no higher than in conventional documentation (ISO 9001).
+      This would suggest that waste is either absent (organizations have good implicit traceability)
+      or that OST's traversal algorithm produces false positives rather than genuine waste detection.
+
+  - claim_id: "P2"
+    criterion: >
+      Controlled study: operators use OST cascade traceability to diagnose a simulated customer
+      experience failure and achieve root-cause identification faster (by at least 30%) than
+      operators using conventional ISO 9001 documentation for the same failure. Root cause
+      is defined as the L2 process contract whose quality gate violation explains the L0
+      acceptance test failure.
+    falsification: >
+      Time-to-root-cause does not differ significantly between OST and ISO 9001 conditions
+      (p > .10), suggesting that experienced operators can reconstruct causal chains from
+      conventional documentation as efficiently as from explicit traceability links.
+
+  - claim_id: "P4"
+    criterion: >
+      Longitudinal comparison: organizations with CI/CD-validated specifications show fewer
+      total non-conformances discovered at periodic internal audit than control organizations
+      with equivalent operations managed via periodic audit only. The specific non-conformance
+      categories addressed by CI/CD (broken cross-references, orphaned processes, missing
+      traceability) should show reduction > 80%; other non-conformance categories need not differ.
+    falsification: >
+      CI/CD-validated organizations show no reduction in non-conformances at periodic audit.
+      This would suggest that structural non-conformances (broken references, orphaned processes)
+      are not a meaningful share of total quality system drift, or that periodic auditors already
+      detect them efficiently.
+
+  - claim_id: "P5"
+    criterion: >
+      Controlled comparison: comparable operations (same industry, similar resources) designed
+      with OST reverse methodology vs. conventional forward design achieve statistically higher
+      scores on customer-perceived quality measures (SERVQUAL, NPS, or equivalent) after 12
+      months of operation.
+    falsification: >
+      Customer-perceived quality does not differ between reverse-designed and forward-designed
+      operations when controlling for resources and industry. This would undermine the core
+      claim that design sequence affects outcomes, suggesting that quality is determined by
+      resources and execution rather than specification methodology.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    No field data collected. The demonstration artifact (Spectra Coffee) is a fictional
+    specialty coffee operation. Formative evaluation provides qualitative expert assessments
+    only. The ISO 9001 comparative analysis is analytical, not empirical. Empirical validation
+    requires deployment in operating businesses and longitudinal measurement.
+
+code:
+  available: true
+  url: "https://github.com/spectralbranding/config-org-demo"
+  notes: >
+    The public config-org-demo repository contains the Spectra Coffee specification artifact:
+    25 YAML files across L0-L5 and the GitHub Actions CI/CD validation pipeline. This is the
+    demonstration artifact from Section 5.1. The full private implementation is in the
+    config-org repository (viberesearch/config-org).
+
+replication:
+  feasible: true
+  estimated_cost: "< $5,000 USD (expert panel time + specification authoring)"
+  estimated_time: "3-6 months"
+  requirements:
+    - "YAML specification authoring tooling (text editor + JSON Schema validator)"
+    - "GitHub Actions or equivalent CI/CD platform for pipeline validation"
+    - "Domain experts for formative evaluation (QA, operations, process management)"
+    - "A well-documented operational domain (specialty coffee, retail, light manufacturing)"
+    - "ISO 9001 documentation of the same domain for comparative analysis"
+
+dependencies:
+  - reference: "Beck, K. (2003). Test-driven development: By example. Addison-Wesley."
+    claim: "Test-Driven Development methodology — foundational for OST's reverse-design approach; writing tests (acceptance criteria) before implementation"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Vargo, S. L., & Lusch, R. F. (2004). Evolving to a new dominant logic for marketing. Journal of Marketing, 68(1), 1-17."
+    claim: "Service-dominant logic: value is co-created in use and determined by the customer — provides the epistemological basis for Level 0 customer experience contracts"
+    relationship: "applies"
+    critical: true
+
+  - reference: "van der Aalst, W. M. P. (2016). Process mining: Data science in action (2nd ed.). Springer."
+    claim: "Conformance checking — OST extends conformance checking from process-level to full organizational specification with customer-experience traceability"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Hevner, A. R., March, S. T., Park, J., & Ram, S. (2004). Design science in information systems research. MIS Quarterly, 28(1), 75-105."
+    claim: "Design Science Research methodology — OST follows DSR as its research methodology"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Galbraith, J. R. (1974). Organization design: An information processing view. Interfaces, 4(3), 28-36."
+    claim: "Organizational design as information-processing problem — OST provides a digital-era upgrade of Galbraith's rules-and-programs strategy"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Thompson, J. D. (1967). Organizations in action. McGraw-Hill."
+    claim: "Thompson's three interdependence types (pooled, sequential, reciprocal) map onto the cascade architecture"
+    relationship: "applies"
+    critical: false
+
+  - reference: "Mintzberg, H. (1979). The structuring of organizations. Prentice-Hall."
+    claim: "Mintzberg's coordinating mechanisms — OST demonstrates that three mechanisms (standardization of work processes, outputs, skills) can be applied simultaneously as nested cascade layers"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Ohno, T. (1988). Toyota production system: Beyond large-scale production. Productivity Press."
+    claim: "Lean pull system and reverse design — customer signal propagates backward through production; foundational for OST's reverse-design principle"
+    relationship: "applies"
+    critical: false
+
+  - reference: "Beer, S. (1972). Brain of the firm. Herder and Herder."
+    claim: "Viable System Model — OST's six-level cascade maps to Beer's VSM systems S1-S5; CI/CD implements S3* (audit) as continuous structural invariant"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Simon, H. A. (1947). Administrative behavior. Macmillan."
+    claim: "Bounded rationality and hierarchical decomposition — OST reduces cognitive bottleneck by making justification chains machine-traversable rather than memory-resident"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Polanyi, M. (1966). The tacit dimension. Doubleday."
+    claim: "Tacit knowledge — OST's specification cascade is a mechanism for externalizing tacit operational knowledge into testable form"
+    relationship: "applies"
+    critical: false
+
+  - reference: "Deming, W. E. (1986). Out of the crisis. MIT Press."
+    claim: "Quality is defined by the customer — provides epistemological basis for centering Level 0 on customer experience"
+    relationship: "applies"
+    critical: false
+
+results:
+  - claim_id: "P1"
+    status: partially_supported
+    notes: >
+      The Spectra Coffee ISO 9001 comparative analysis (Section 5.2) identified two processes
+      (equipment descaling frequency, opening-time lighting adjustment) with no traceable
+      connection to any customer experience goal. These are flagged as specification waste
+      candidates. However, they may be justified by constraint contracts (equipment longevity,
+      regulatory compliance) — the conventional documentation provides no mechanism to
+      distinguish justified maintenance from organizational inertia. Formative evidence only;
+      not a controlled empirical comparison.
+
+  - claim_id: "P2"
+    status: not_tested
+    notes: >
+      The diagnostic cost reduction claim is supported by theoretical argument (TDD analogy,
+      root cause analysis literature) and illustrated through the espresso extraction example
+      (Section 5.2: extraction time traces through satisfies_signal to craft_preparation_visible
+      and satisfies_experience to taste_balanced_sweet_clean). No empirical measurement of
+      time-to-root-cause conducted.
+
+  - claim_id: "P3"
+    status: not_tested
+    notes: >
+      The contract-procedure separation is demonstrated in the Spectra Coffee artifact
+      (17 of 25 files = 68% define executor-invariant content at L0-L2; 8 files contain
+      executor-dependent content at L3-L5). The franchise knowledge transfer claim is
+      argued via Toyota production system precedent (Liker, 2004) but not tested empirically.
+
+  - claim_id: "P4"
+    status: partially_supported
+    notes: >
+      Three structural gaps identified in the ISO 9001 comparative analysis: Gap 1 (missing
+      upward traceability), Gap 2 (silent cross-reference breakage detectable only at next
+      audit), Gap 3 (no continuous validation mechanism). CI/CD pipeline validates four of
+      six levels with zero errors in the demonstration artifact. Formative evidence only;
+      longitudinal conformance drift comparison not conducted.
+
+  - claim_id: "P5"
+    status: not_tested
+    notes: >
+      The reverse-design quality advantage is the most ambitious proposition. It is motivated
+      by TDD analogy and service-dominant logic but requires controlled empirical comparison
+      of reverse-designed vs. forward-designed operations with equivalent resources. Not
+      tested in this paper.
+
+limitations:
+  - description: >
+      The demonstration artifact (Spectra Coffee) is fictional and covers a single business
+      type (specialty coffee) — an unusually specification-friendly domain with measurable
+      process parameters and documented quality standards. Validation across industries with
+      higher regulatory complexity (healthcare), intangible outputs (consulting), or
+      manufacturing would be required for generalizability claims.
+    severity: major
+    addressable: true
+
+  - description: >
+      All five propositions are stated but not empirically tested. The formative evaluation
+      provides design-stage evidence only. Summative evidence from field deployment in
+      operating businesses is absent.
+    severity: major
+    addressable: true
+
+  - description: >
+      Level 0 acceptance tests for customer experience are inherently qualitative. Goals
+      such as "warm, competent, unhurried" require proxy metrics that capture partial aspects
+      of desired experience. Whether proxies adequately represent customer perception connects
+      to ongoing debates in service quality measurement (Parasuraman et al., 1985).
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The CI/CD pipeline validates structural properties (schema integrity, cross-reference
+      completeness, traceability coverage) but cannot validate experiential properties
+      (does the espresso actually taste balanced?). Closing this gap requires integration
+      with operational telemetry — sensor data, point-of-sale analytics, customer feedback.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The customer-first framing of Level 0 reflects the service operations demonstration
+      context, not a theoretical claim. Multi-stakeholder Level 0 specifications (patient
+      safety + staff wellbeing + regulatory compliance for hospitals) are not investigated.
+      Freeman's (1984) stakeholder theory identifies this as a gap.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The bootstrap problem: how does an organization specify Level 0 customer experience
+      goals before operating? In novel service contexts, Level 0 acceptance tests would
+      need to be hypothesized and iteratively refined through operational experience.
+    severity: minor
+    addressable: true
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.18946044"
+    url: "https://doi.org/10.5281/zenodo.18946044"
+    version: "v2"
+    date: "2026-03-24"
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/config-org-demo"
+
+submission_history:
+  - venue: "California Management Review"
+    date_submitted: "2026-02-15"
+    decision: desk_reject
+    notes: "too abstract"
+  - venue: "Schmalenbach Journal of Business Research"
+    date_submitted: "2026-02-20"
+    decision: desk_reject
+    notes: "not engaging with IS literature"
+  - venue: "TQM Journal"
+    date_submitted: "2026-03-10"
+    decision: reject
+    notes: "TQM-03-2026-0147. Quite a report rather than a research paper."
+  - venue: "BPMJ"
+    date_submitted: "2026-03-18"
+    decision: reject
+    notes: "BPMJ-03-2026-0400"
+  - venue: "IJQSS"
+    date_submitted: "2026-03-23"
+    decision: reject
+    notes: "IJQSS-03-2026-0080. Limited contribution."
+  - venue: "M@n@gement"
+    date_submitted: "2026-03-23"
+    decision: under_review
+    notes: "Submission ID: 14239. Original Research Articles."
