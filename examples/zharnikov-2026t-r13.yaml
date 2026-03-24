@@ -322,6 +322,14 @@ limitations:
     severity: minor
     addressable: true
 
-repositories: []
+repositories:
+  - name: "paper-spec"
+    url: "https://github.com/spectralbranding/paper-spec"
+    doi: "10.5281/zenodo.19210037"
 
-submission_history: []
+submission_history:
+  - venue: "Zenodo"
+    date: "2026-03-24"
+    status: "preprint"
+    doi: "10.5281/zenodo.19210037"
+    url: "https://zenodo.org/records/19210037"
