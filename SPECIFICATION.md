@@ -16,6 +16,7 @@ A `paper.yaml` file answers six questions that every reader eventually asks:
 4. **Can I reproduce this?** (data, code, replication)
 5. **What does this depend on?** (dependencies)
 6. **What are its known limits?** (limitations, contradictions)
+7. **Where can I find it, and how did it get there?** (repositories, submission_history)
 
 ## Design Principles
 
@@ -49,9 +50,13 @@ dependencies:   []            # Papers and claims this work builds on.
 contradictions: []            # Known contradictions with other work.
 results:        []            # Outcomes mapped to claims.
 limitations:    []            # Acknowledged limitations.
+repositories:   []            # Where the paper can be found (Zenodo, arXiv, GitHub, etc.).
+submission_history: []        # Publication journey: submissions, decisions, revisions.
 ```
 
 All sections except `meta` are optional. Order does not matter, but the order above is conventional.
+
+**A note on provenance.** The `repositories` and `submission_history` sections make the paper's publication journey transparent. `repositories` is strongly recommended -- it solves the "where is the latest version?" problem. `submission_history` is optional but encouraged: it serves open science norms by documenting how the paper reached its current state. An empty `submission_history` is a valid choice; its absence, however, signals that publication history is not being disclosed.
 
 ---
 
@@ -443,6 +448,88 @@ limitations:
     severity: minor
     addressable: true
 ```
+
+---
+
+### repositories
+
+Where the paper can be found. Tracks all deposits across platforms and maps versions.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `platform` | string | yes | Repository name (e.g., "Zenodo", "arXiv", "GitHub", "SSRN", "institutional") |
+| `url` | string | yes | Direct URL to the deposit |
+| `doi` | string | no | DOI if the platform assigns one |
+| `version` | string | no | Version identifier on this platform (e.g., "v3", "2026-03-24") |
+| `date` | string | no | Date of this deposit (YYYY-MM-DD) |
+| `notes` | string | no | Version-specific notes (e.g., "includes Section 7.5 update") |
+
+**Example:**
+
+```yaml
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.18945912"
+    url: "https://doi.org/10.5281/zenodo.18945912"
+    version: "v3"
+    date: "2026-03-24"
+    notes: "v3: literature review fixes, 6 new references"
+
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/sbt-papers/spectral-brand-theory"
+    version: "latest"
+    notes: "Living document; may be ahead of Zenodo version"
+```
+
+---
+
+### submission_history
+
+The paper's publication journey. Optional but encouraged for open science transparency.
+
+Each entry documents a submission to a venue. An empty array is valid (paper has never been submitted). Omitting the section entirely is also valid, but signals that the author has chosen not to disclose submission history.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `venue` | string | yes | Journal, conference, or platform name |
+| `date_submitted` | string | yes | Submission date (YYYY-MM-DD) |
+| `manuscript_id` | string | no | Venue-assigned manuscript ID |
+| `date_decision` | string | no | Decision date (YYYY-MM-DD) |
+| `decision` | enum | no | `under_review`, `desk_reject`, `reject`, `revise_resubmit`, `accepted`, `published`, `withdrawn` |
+| `notes` | string | no | Reviewer feedback summary, reason for rejection, or revision scope |
+| `version_submitted` | string | no | Which version/DOI was submitted (links to `repositories`) |
+
+**Example:**
+
+```yaml
+submission_history:
+  - venue: "Organization Science"
+    date_submitted: "2026-03-10"
+    manuscript_id: "ORSC-MS-2026-22291"
+    date_decision: "2026-03-15"
+    decision: desk_reject
+    notes: "Editor: extension of existing theory, not novel theory"
+    version_submitted: "v1"
+
+  - venue: "Journal of Organization Design"
+    date_submitted: "2026-03-21"
+    manuscript_id: "JORG-D-26-00036"
+    decision: under_review
+    version_submitted: "v2"
+    notes: "Restructured from AMR rejection; SBT framing removed"
+```
+
+**Decision values:**
+
+| Value | Meaning |
+|-------|---------|
+| `under_review` | Submitted, awaiting decision |
+| `desk_reject` | Rejected by editor without peer review |
+| `reject` | Rejected after peer review |
+| `revise_resubmit` | Invited to revise and resubmit |
+| `accepted` | Accepted for publication |
+| `published` | Published in final form |
+| `withdrawn` | Withdrawn by the author |
 
 ---
 

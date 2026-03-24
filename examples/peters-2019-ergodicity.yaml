@@ -322,3 +322,18 @@ limitations:
       C4 are not fully characterized.
     severity: moderate
     addressable: true
+
+repositories:
+  - platform: "Nature Physics"
+    doi: "10.1038/s41567-019-0732-0"
+    url: "https://doi.org/10.1038/s41567-019-0732-0"
+    version: "v1"
+    date: "2019-12-01"
+    notes: "Published in Nature Physics 15(12), 1216-1221. Paywalled; author preprint at lml.org.uk."
+
+submission_history:
+  - venue: "Nature Physics"
+    date_submitted: "2019-01-01"
+    date_decision: "2019-12-01"
+    decision: "published"
+    notes: "Published December 2019. Submission date approximate."

@@ -262,3 +262,12 @@ limitations:
       P3. This case is analyzed in Zharnikov (2026f) R3.
     severity: minor
     addressable: false
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19207599"
+    url: "https://doi.org/10.5281/zenodo.19207599"
+    version: "v1"
+    date: "2026-03-24"
+
+submission_history: []

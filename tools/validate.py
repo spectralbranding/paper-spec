@@ -43,6 +43,15 @@ METHODOLOGY_TYPES = {
 }
 DEPENDENCY_RELATIONSHIPS = {"extends", "applies", "tests", "contradicts", "refines"}
 LIMITATION_SEVERITIES = {"minor", "moderate", "major"}
+SUBMISSION_DECISIONS = {
+    "under_review",
+    "desk_reject",
+    "reject",
+    "revise_resubmit",
+    "accepted",
+    "published",
+    "withdrawn",
+}
 
 
 class ValidationError:
@@ -323,6 +332,45 @@ class Validator:
             return
         self._opt_bool(rep, "feasible", path)
 
+    def validate_repositories(self) -> None:
+        repos = self.data.get("repositories")
+        if repos is None:
+            return
+        if not isinstance(repos, list):
+            self.err("repositories", "'repositories' must be a list")
+            return
+        for i, repo in enumerate(repos):
+            path = f"repositories[{i}]"
+            if not isinstance(repo, dict):
+                self.err(path, "each repository entry must be a mapping")
+                continue
+            self._require_str(repo, "platform", path)
+            self._require_str(repo, "url", path)
+            doi = repo.get("doi")
+            if doi is not None:
+                if not isinstance(doi, str):
+                    self.err(path, "'doi' must be a string")
+                elif not self._valid_doi(doi):
+                    self.err(
+                        path, f"'doi' does not match DOI format (10.NNNN/...): '{doi}'"
+                    )
+
+    def validate_submission_history(self) -> None:
+        history = self.data.get("submission_history")
+        if history is None:
+            return
+        if not isinstance(history, list):
+            self.err("submission_history", "'submission_history' must be a list")
+            return
+        for i, entry in enumerate(history):
+            path = f"submission_history[{i}]"
+            if not isinstance(entry, dict):
+                self.err(path, "each submission_history entry must be a mapping")
+                continue
+            self._require_str(entry, "venue", path)
+            self._require_str(entry, "date_submitted", path)
+            self._opt_enum(entry, "decision", SUBMISSION_DECISIONS, path)
+
     # ------------------------------------------------------------------
     # Main entry point
     # ------------------------------------------------------------------
@@ -339,6 +387,8 @@ class Validator:
         self.validate_data_section()
         self.validate_code_section()
         self.validate_replication()
+        self.validate_repositories()
+        self.validate_submission_history()
         return len(self.errors) == 0
 
 

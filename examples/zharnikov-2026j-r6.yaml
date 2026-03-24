@@ -346,3 +346,14 @@ limitations:
       boundaries, not multiplicative wealth dynamics) and is not invalidated by their argument.
     severity: minor
     addressable: false
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.18945659"
+    url: "https://doi.org/10.5281/zenodo.18945659"
+    version: "v3"
+    date: "2026-03-24"
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/sbt-papers/r6-diffusion-dynamics"
+
+submission_history: []

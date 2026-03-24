@@ -409,6 +409,46 @@
           }
         }
       }
+    },
+
+    "repositories": {
+      "description": "Where the paper can be found across platforms.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["platform", "url"],
+        "additionalProperties": false,
+        "properties": {
+          "platform": {"type": "string"},
+          "url": {"type": "string"},
+          "doi": {"type": "string", "pattern": "^10\\.\\d{4,}/.+$"},
+          "version": {"type": "string"},
+          "date": {"type": "string"},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+
+    "submission_history": {
+      "description": "Publication journey: submissions, decisions, revisions.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["venue", "date_submitted"],
+        "additionalProperties": false,
+        "properties": {
+          "venue": {"type": "string"},
+          "date_submitted": {"type": "string"},
+          "manuscript_id": {"type": "string"},
+          "date_decision": {"type": "string"},
+          "decision": {
+            "type": "string",
+            "enum": ["under_review", "desk_reject", "reject", "revise_resubmit", "accepted", "published", "withdrawn"]
+          },
+          "notes": {"type": "string"},
+          "version_submitted": {"type": "string"}
+        }
+      }
     }
 
   }

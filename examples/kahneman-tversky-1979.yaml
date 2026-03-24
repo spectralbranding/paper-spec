@@ -304,3 +304,18 @@ limitations:
       quantitative model comparison difficult.
     severity: moderate
     addressable: true
+
+repositories:
+  - platform: "Econometrica"
+    doi: "10.2307/1914185"
+    url: "https://doi.org/10.2307/1914185"
+    version: "v1"
+    date: "1979-03-01"
+    notes: "Published in Econometrica 47(2), 263-291. Paywalled; widely available via institutional access."
+
+submission_history:
+  - venue: "Econometrica"
+    date_submitted: "1978-01-01"
+    date_decision: "1979-03-01"
+    decision: "published"
+    notes: "Published March 1979. Submission date approximate."
