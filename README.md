@@ -21,62 +21,117 @@ A `paper.yaml` does not replace the paper. It indexes it.
 
 ## Quick Example
 
-A minimal `paper.yaml`:
+A minimal `paper.yaml` (just metadata):
 
 ```yaml
 spec_version: "0.1.0"
 
 meta:
-  title: "The Effect of Sleep Deprivation on Decision Quality"
+  title: "Why Most Published Research Findings Are False"
   authors:
-    - name: "Chen, Wei"
-      orcid: "0000-0002-1234-5678"
-  date: "2026-03-15"
-  venue: "Journal of Experimental Psychology"
+    - name: "Ioannidis, John P. A."
+      orcid: "0000-0003-3118-6859"
+      affiliation: "University of Ioannina School of Medicine"
+  doi: "10.1371/journal.pmed.0020124"
+  date: "2005-08-30"
+  venue: "PLoS Medicine"
 ```
 
-A more complete one:
+A more complete one -- Kahneman & Tversky's prospect theory:
 
 ```yaml
 spec_version: "0.1.0"
 
 meta:
-  title: "The Effect of Sleep Deprivation on Decision Quality"
+  title: "Prospect Theory: An Analysis of Decision under Risk"
   authors:
-    - name: "Chen, Wei"
-      orcid: "0000-0002-1234-5678"
-      affiliation: "University of Amsterdam"
-  doi: "10.1234/example.2026.001"
-  date: "2026-03-15"
-  venue: "Journal of Experimental Psychology"
+    - name: "Kahneman, Daniel"
+      affiliation: "Hebrew University of Jerusalem"
+    - name: "Tversky, Amos"
+      affiliation: "Stanford University"
+  doi: "10.2307/1914185"
+  date: "1979-03-01"
+  venue: "Econometrica"
+  license: "proprietary"
+  keywords:
+    - decision making
+    - risk
+    - utility theory
+    - prospect theory
+    - loss aversion
 
 claims:
   - id: "H1"
     type: hypothesis
-    statement: "Sleep deprivation (24+ hours) reduces multi-attribute decision accuracy by at least 10%."
+    statement: >
+      People underweight outcomes that are merely probable compared to outcomes
+      that are obtained with certainty (the certainty effect), leading to risk
+      aversion in choices involving sure gains and risk seeking in choices
+      involving sure losses.
     testable: true
     tested_in_paper: true
     status: supported
 
+  - id: "H2"
+    type: hypothesis
+    statement: >
+      The value function is defined on deviations from a reference point, is
+      generally concave for gains and convex for losses, and is steeper for
+      losses than for gains (loss aversion).
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["H1"]
+
 acceptance:
   - claim_id: "H1"
-    criterion: "Mean accuracy drops by >= 10 percentage points in sleep-deprived condition."
-    falsification: "Accuracy difference < 5 percentage points or favors sleep-deprived condition."
-    threshold: "Cohen's d >= 0.5, p < .005"
+    criterion: >
+      In forced-choice experiments, a statistically significant majority of
+      subjects prefer a certain gain over a probabilistically equivalent or
+      superior gamble, and prefer a gamble over a certain loss of equivalent
+      expected value.
+    falsification: >
+      Subjects show no systematic preference for certainty in gains or
+      gambling in losses -- choices are consistent with expected utility theory.
 
 results:
   - claim_id: "H1"
     status: supported
-    effect_size: "Cohen's d = 0.72"
-    p_value: "p < .001"
+    notes: >
+      Problem 1: 80% chose certain 2,500 over (3,000, p=0.80). Problem 7:
+      92% chose (6,000, p=0.45) over certain 3,000 loss. N=72 university
+      students per problem.
 
-data:
-  available: true
-  url: "https://doi.org/10.5281/zenodo.1234567"
-  format: "CSV"
+  - claim_id: "H2"
+    status: supported
+    notes: >
+      The reflection effect (Problems 3-4, 7-8) demonstrates convexity for
+      losses mirroring concavity for gains. Loss aversion ratio estimated
+      at approximately 2:1 from median responses.
+
+dependencies:
+  - reference: "von Neumann, J., & Morgenstern, O. (1947). Theory of Games and Economic Behavior."
+    claim: "Expected utility theory -- the baseline model that prospect theory replaces"
+    relationship: "contradicts"
+    critical: true
+
+  - reference: "Allais, M. (1953). Le comportement de l'homme rationnel devant le risque."
+    claim: "The Allais paradox -- first documented violation of expected utility axioms"
+    relationship: "extends"
+    critical: true
+
+limitations:
+  - description: >
+      All experiments used hypothetical choices with university students.
+      No real monetary stakes were involved. Generalizability to real economic
+      decisions and non-student populations is assumed but not tested.
+    severity: major
+    addressable: true
 ```
 
 Every section except `meta` is optional. Add what you have. Each section adds value independently.
+
+The [examples/](examples/) directory contains 20 real `paper.yaml` files from two active research programs, including papers with full submission histories across multiple journals.
 
 ## Specification
 
