@@ -25,5 +25,9 @@ dev = [
 [tool.black]
 line-length = 88
 
+[tool.flake8]
+max-line-length = 88
+exclude = [".venv", "__pycache__"]
+
 [tool.mypy]
 python_version = "3.12"
