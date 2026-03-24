@@ -1,0 +1,415 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/spectralbranding/paper-spec/schema/paper-spec.schema.json",
+  "title": "paper-spec",
+  "description": "Schema for paper.yaml — a machine-readable specification of a research paper's claims, methodology, and replication requirements.",
+  "type": "object",
+  "required": ["meta"],
+  "additionalProperties": false,
+
+  "properties": {
+
+    "meta": {
+      "description": "Bibliographic metadata for the paper.",
+      "type": "object",
+      "required": ["title", "authors", "date"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Full title of the paper."
+        },
+        "authors": {
+          "type": "array",
+          "description": "List of author names in citation order.",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "doi": {
+          "type": "string",
+          "description": "DOI of the published or preprint version (format: 10.NNNN/...).",
+          "pattern": "^10\\.\\d{4,}/.+$"
+        },
+        "date": {
+          "type": "string",
+          "description": "Publication or submission date (ISO 8601: YYYY-MM-DD or YYYY)."
+        },
+        "version": {
+          "type": "string",
+          "description": "Manuscript version (e.g. '1.0', 'v2-revision')."
+        },
+        "venue": {
+          "type": "string",
+          "description": "Target or published venue (journal, conference, preprint server)."
+        },
+        "license": {
+          "type": "string",
+          "description": "License for the paper (e.g. 'CC BY 4.0')."
+        },
+        "keywords": {
+          "type": "array",
+          "description": "Keywords as submitted.",
+          "items": { "type": "string" }
+        },
+        "abstract": {
+          "type": "string",
+          "description": "Full abstract text."
+        }
+      }
+    },
+
+    "claims": {
+      "description": "Falsifiable claims made in the paper.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "statement"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Short unique identifier for this claim (e.g. 'H1', 'P3', 'T2')."
+          },
+          "type": {
+            "type": "string",
+            "description": "Epistemic type of the claim.",
+            "enum": ["hypothesis", "proposition", "theorem", "conjecture", "definition"]
+          },
+          "statement": {
+            "type": "string",
+            "description": "Full plain-language statement of the claim."
+          },
+          "formal": {
+            "type": "string",
+            "description": "Optional formal or mathematical statement."
+          },
+          "testable": {
+            "type": "boolean",
+            "description": "Whether the claim is empirically testable."
+          },
+          "tested_in_paper": {
+            "type": "boolean",
+            "description": "Whether the claim is tested within this paper."
+          },
+          "status": {
+            "type": "string",
+            "description": "Current evidentiary status of the claim.",
+            "enum": ["supported", "refuted", "inconclusive", "not_tested"]
+          },
+          "depends_on": {
+            "type": "array",
+            "description": "IDs of other claims this claim logically depends on.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "methodology": {
+      "description": "Description of the research methodology.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Primary methodology type.",
+          "enum": ["empirical", "theoretical", "computational", "mixed", "meta_analysis", "review"]
+        },
+        "design": {
+          "type": "string",
+          "description": "Research design (e.g. 'between-subjects experiment', 'longitudinal survey', 'proof by construction')."
+        },
+        "sample": {
+          "type": "object",
+          "description": "Sample or dataset characteristics (for empirical work).",
+          "additionalProperties": false,
+          "properties": {
+            "n": {
+              "type": "integer",
+              "description": "Sample size."
+            },
+            "population": {
+              "type": "string",
+              "description": "Population from which the sample is drawn."
+            },
+            "recruitment": {
+              "type": "string",
+              "description": "Recruitment method."
+            },
+            "exclusion_criteria": {
+              "type": "string",
+              "description": "Criteria for excluding observations."
+            }
+          }
+        },
+        "measures": {
+          "type": "array",
+          "description": "Key variables or constructs measured.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "construct": { "type": "string" },
+              "instrument": { "type": "string" },
+              "scale": { "type": "string" }
+            }
+          }
+        },
+        "analysis": {
+          "type": "object",
+          "description": "Statistical or analytical approach.",
+          "additionalProperties": false,
+          "properties": {
+            "method": { "type": "string" },
+            "software": { "type": "string" },
+            "pre_registered": { "type": "boolean" },
+            "pre_registration_url": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "acceptance": {
+      "description": "Explicit acceptance criteria — what would count as confirmation or refutation of each claim.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "criterion"],
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "description": "ID of the claim this criterion applies to."
+          },
+          "criterion": {
+            "type": "string",
+            "description": "Plain-language statement of what counts as passing."
+          },
+          "falsification": {
+            "type": "string",
+            "description": "What outcome would falsify the claim."
+          },
+          "threshold": {
+            "type": "string",
+            "description": "Quantitative threshold if applicable (e.g. 'p < 0.05', 'Cohen d > 0.3')."
+          }
+        }
+      }
+    },
+
+    "data": {
+      "description": "Information about underlying data.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean",
+          "description": "Whether the data are publicly available."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to access the data."
+        },
+        "format": {
+          "type": "string",
+          "description": "File format(s) (e.g. 'CSV', 'HDF5', 'SPSS .sav')."
+        },
+        "size": {
+          "type": "string",
+          "description": "Approximate data size (e.g. '12 MB', '45,000 rows')."
+        },
+        "license": {
+          "type": "string",
+          "description": "Data license (e.g. 'CC0', 'CC BY 4.0')."
+        }
+      }
+    },
+
+    "code": {
+      "description": "Information about analysis code or software.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean",
+          "description": "Whether the code is publicly available."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to access the code (GitHub, Zenodo, etc.)."
+        },
+        "language": {
+          "type": "string",
+          "description": "Primary programming language(s)."
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "Key libraries or packages required.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "replication": {
+      "description": "Guidance for independent replication.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "feasible": {
+          "type": "boolean",
+          "description": "Whether replication is feasible with public resources."
+        },
+        "estimated_cost": {
+          "type": "string",
+          "description": "Approximate cost to replicate (e.g. 'under $500', 'institutional lab required')."
+        },
+        "estimated_time": {
+          "type": "string",
+          "description": "Estimated calendar time for replication (e.g. '3 months', '1 week')."
+        },
+        "requirements": {
+          "type": "array",
+          "description": "Special equipment, access, or expertise required.",
+          "items": { "type": "string" }
+        },
+        "contact": {
+          "type": "string",
+          "description": "Contact email or URL for replication inquiries."
+        }
+      }
+    },
+
+    "dependencies": {
+      "description": "Papers this work builds on, applies, or extends.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "anyOf": [
+          {"required": ["doi"]},
+          {"required": ["reference"]}
+        ],
+        "properties": {
+          "doi": {
+            "type": "string",
+            "description": "DOI of the dependency paper.",
+            "pattern": "^10\\.\\d{4,}/.+$"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Full citation string for works without DOIs (pre-DOI era, books)."
+          },
+          "claim": {
+            "type": "string",
+            "description": "Specific claim or result from the dependency that is used."
+          },
+          "relationship": {
+            "type": "string",
+            "description": "How this paper relates to the dependency.",
+            "enum": ["extends", "applies", "tests", "contradicts", "refines"]
+          },
+          "critical": {
+            "type": "boolean",
+            "description": "Whether this dependency is load-bearing for the main argument."
+          }
+        }
+      }
+    },
+
+    "contradictions": {
+      "description": "Published work that contradicts or conflicts with findings here.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "anyOf": [
+          {"required": ["doi"]},
+          {"required": ["reference"]}
+        ],
+        "properties": {
+          "doi": {
+            "type": "string",
+            "description": "DOI of the contradicting paper.",
+            "pattern": "^10\\.\\d{4,}/.+$"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Full citation string for works without DOIs."
+          },
+          "claim": {
+            "type": "string",
+            "description": "The specific claim in the cited work that conflicts."
+          },
+          "our_position": {
+            "type": "string",
+            "description": "How this paper addresses or explains the contradiction."
+          }
+        }
+      }
+    },
+
+    "results": {
+      "description": "Empirical or formal results, one entry per claim tested.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id"],
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "description": "ID of the claim this result pertains to."
+          },
+          "status": {
+            "type": "string",
+            "description": "Outcome of the test.",
+            "enum": ["supported", "refuted", "partially_supported", "inconclusive", "not_tested"]
+          },
+          "effect_size": {
+            "type": "string",
+            "description": "Effect size with metric (e.g. 'd = 0.42', 'r = 0.31')."
+          },
+          "confidence_interval": {
+            "type": "string",
+            "description": "95% (or stated) confidence interval (e.g. '[0.18, 0.66]')."
+          },
+          "p_value": {
+            "type": "string",
+            "description": "p-value or Bayes factor (e.g. 'p = 0.003', 'BF = 12.4')."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional context for interpreting the result."
+          }
+        }
+      }
+    },
+
+    "limitations": {
+      "description": "Acknowledged limitations of the study.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description"],
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Plain-language description of the limitation."
+          },
+          "severity": {
+            "type": "string",
+            "description": "Severity relative to the main claims.",
+            "enum": ["minor", "moderate", "major"]
+          },
+          "addressable": {
+            "type": "boolean",
+            "description": "Whether future work could address this limitation."
+          }
+        }
+      }
+    }
+
+  }
+}

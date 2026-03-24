@@ -1,0 +1,324 @@
+# paper.yaml — Paper Spec v0.1.0
+# Peters (2019): The ergodicity problem in economics
+spec_version: "0.1.0"
+
+meta:
+  title: "The ergodicity problem in economics"
+  authors:
+    - name: "Peters, Ole"
+      orcid: "0000-0002-0934-0525"
+      affiliation: "London Mathematical Laboratory; Santa Fe Institute"
+  doi: "10.1038/s41567-019-0732-0"
+  date: "2019-12-01"
+  version: "1.0"
+  venue: "Nature Physics, 15(12), 1216-1221"
+  license: "All rights reserved (Nature Publishing Group, 2019)"
+  keywords:
+    - ergodicity
+    - non-ergodic processes
+    - expected utility theory
+    - time-average optimization
+    - Kelly criterion
+    - multiplicative dynamics
+    - ensemble average
+    - wealth dynamics
+    - decision theory
+
+claims:
+  - id: "C1"
+    type: conjecture
+    statement: >
+      Expected utility theory (EUT) implicitly assumes ergodicity: it treats the
+      ensemble average (average over many parallel realizations of a stochastic
+      process at one point in time) as equivalent to the time average (average of
+      one realization over long time). This assumption is not stated but embedded
+      in the use of the expectation operator. For non-ergodic economic processes,
+      this equivalence fails and EUT systematically misrepresents individual
+      decision-making.
+    formal: >
+      For a stochastic process X(t), ergodicity requires:
+        lim_{N->inf} (1/N) sum_{i=1}^N X_i(t) = lim_{T->inf} (1/T) int_0^T X_i(s) ds  a.s.
+      EUT maximizes E[u(W)] = (1/N) sum_i u(W_i(t)) (ensemble average).
+      For multiplicative wealth dynamics W(t) = W(0) * prod_{s=1}^t r_s (where r_s are
+      returns), the process is non-ergodic: the time-average growth rate g_t = E[log r_s]
+      does not equal the ensemble-average growth rate g_e = log E[r_s].
+      By Jensen's inequality (for non-linear functions): g_t <= g_e with equality
+      iff log r is linear in r (i.e., no volatility).
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: []
+
+  - id: "C2"
+    type: conjecture
+    statement: >
+      Most economically relevant stochastic processes — including wealth under
+      multiplicative returns, consumption under proportional risks, and health under
+      compounding interventions — are non-ergodic. For these processes, the ensemble
+      average diverges from the time average as t -> infinity, with the divergence
+      growing without bound. Individual experience (time-average) and collective
+      statistics (ensemble-average) tell fundamentally different stories.
+    formal: >
+      For multiplicative wealth W(t) = W(0) * exp(sum_{s=1}^t log r_s):
+        Ensemble average: E[W(t)] = W(0) * (E[r])^t  (grows at rate E[r])
+        Time average: W^{1/t} -> exp(E[log r]) = exp(g_t)  a.s. (grows at rate g_t)
+      Since g_t = E[log r] < log E[r] = log(1 + E[r-1])  (by Jensen's inequality)
+      the two growth rates diverge: E[W(t)] / W_typical(t) -> infinity as t -> infinity.
+      A large ensemble average is driven by rare but extreme outcomes; typical
+      individual outcomes follow the time-average rate g_t.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["C1"]
+
+  - id: "C3"
+    type: conjecture
+    statement: >
+      The Kelly criterion — bet a fraction f = (expected log return) / (variance
+      of log return) of current wealth to maximize long-run wealth — emerges naturally
+      from time-average optimization without invoking utility functions. It is not
+      a special case of EUT with log utility; it is the solution to the correct
+      optimization problem (maximize time-average growth rate) under multiplicative
+      dynamics.
+    formal: >
+      Time-average optimization: max_f g_t(f) = max_f E[log(1 + f * r)]
+      where r is the risky return and f is the fraction invested.
+      First-order condition: E[r / (1 + f*r)] = 0.
+      For Gaussian log-returns with mean mu and variance sigma^2:
+        f* = mu / sigma^2  (Kelly fraction)
+      This is identical to the Kelly criterion derived from information-theoretic
+      considerations (Kelly 1956), but here derived from the ergodicity requirement
+      alone.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["C1", "C2"]
+
+  - id: "C4"
+    type: conjecture
+    statement: >
+      Many behavioral economics findings — such as loss aversion, risk aversion
+      for small bets, and preference reversals — that are typically interpreted as
+      cognitive biases or violations of EUT can be reinterpreted as rational behavior
+      under time-average optimization. An agent maximizing time-average growth rate
+      will exhibit patterns that EUT classifies as loss-averse without invoking
+      irrational psychology.
+    formal: >
+      For an agent maximizing g_t(f) = E[log(1 + f*r)] and facing a symmetric bet
+      (+L, -L with equal probability):
+      The agent rejects the bet unless L is very small relative to current wealth.
+      This matches the "loss aversion" pattern (rejecting symmetric bets) without
+      requiring lambda > 1 in a prospect theory value function.
+      Specifically, for W >> L: g_t change = -L^2 / (2*W^2) < 0, so rational
+      agents reject any symmetric bet regardless of L.
+    testable: true
+    tested_in_paper: true
+    status: inconclusive
+    depends_on: ["C1", "C2", "C3"]
+
+methodology:
+  type: theoretical
+  design: >
+    Mathematical argument combined with numerical simulation. The paper presents the
+    ergodicity distinction mathematically for multiplicative wealth dynamics, derives
+    the Kelly criterion as a special case of time-average optimization, and uses
+    simulation to illustrate the divergence between ensemble and time averages over
+    time. The paper does not report new empirical data collection; it reinterprets
+    existing decision theory results through the ergodicity lens. The central
+    illustration uses a simple multiplicative gamble (50% chance of +50%, 50% chance
+    of -40%) to show divergence between ensemble average (grows at 5% per period)
+    and time average (decays at approximately 5% per period).
+  analysis:
+    method: >
+      Analytical derivation using Jensen's inequality and Ito calculus.
+      Monte Carlo simulation for illustration of ensemble vs time-average divergence.
+      No statistical hypothesis testing on new data.
+    software: "Not explicitly reported. Simulations consistent with Python/MATLAB Monte Carlo."
+
+acceptance:
+  - claim_id: "C1"
+    criterion: >
+      A formal proof is provided that EUT's expectation operator implicitly assumes
+      ergodicity for the class of multiplicative wealth dynamics, and that relaxing
+      the ergodicity assumption leads to a different optimal strategy than EUT prescribes.
+      The proof is accepted by peer review in a mathematics or physics journal.
+    falsification: >
+      A formal proof shows that EUT does NOT require ergodicity — i.e., that EUT's
+      prescriptions are valid for non-ergodic processes if utility functions are
+      chosen appropriately, with no additional assumptions beyond those already in
+      the EUT axioms. (Doctor et al. 2020 attempt this argument.)
+
+  - claim_id: "C2"
+    criterion: >
+      Longitudinal wealth panel data (minimum 20 years, N > 10,000 individuals)
+      shows that individual (time-average) wealth growth rates are systematically
+      below the ensemble average growth rate, and that the gap grows over time
+      consistent with the Jensen-inequality bound. The divergence is larger in
+      high-volatility asset classes.
+    falsification: >
+      Individual time-average wealth growth rates are not significantly different from
+      ensemble average growth rates after controlling for selection bias (attrition of
+      the poor from panel data), suggesting that the process is approximately ergodic
+      at the wealth level of typical economic agents.
+
+  - claim_id: "C3"
+    criterion: >
+      In controlled experiments with real stakes and a sufficiently long time horizon
+      (minimum 50 rounds), participants who bet according to the Kelly fraction
+      outperform both EUT-optimal and naive strategies. The Kelly fraction is adopted
+      by participants given sufficient experience, even without explicit instruction.
+    falsification: >
+      Participants do not converge to Kelly-fraction betting with experience, or
+      Kelly-fraction betting does not outperform EUT-optimal strategies over realistic
+      time horizons (e.g., 50-100 rounds), suggesting that the time horizon required
+      for the ergodicity advantage to manifest exceeds practical relevance.
+
+  - claim_id: "C4"
+    criterion: >
+      Participants in a time-average optimization framing (sequential, compounding
+      payoffs with real stakes) show risk attitudes consistent with Kelly-fraction
+      betting and do NOT show the patterns typically attributed to loss aversion.
+      The behavioral economics results replicate only when ensemble framing is used.
+    falsification: >
+      Loss aversion and risk aversion for small bets persist even in time-average
+      optimization framings with real stakes and sufficient time horizon, demonstrating
+      that these phenomena require a psychological explanation beyond the ergodicity
+      reinterpretation.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    The paper does not collect new empirical data. The simulation data (Monte Carlo
+    illustration) can be exactly reproduced from the description in the paper.
+    The simple multiplicative gamble (+50%, -40%) parameters are fully specified.
+
+code:
+  available: false
+  url: ""
+  notes: >
+    Simulation code is not provided in the paper. Reference implementations of the
+    ergodicity argument and Kelly criterion simulation are available in the
+    Ergodicity Economics project at lml.org.uk/research/ergodicity-economics/.
+
+replication:
+  feasible: true
+  estimated_cost: "$50 USD for simulation; $30,000-$100,000 USD for empirical test of C3"
+  estimated_time: "1 day for simulation replication; 12-24 months for empirical C3 test"
+  requirements:
+    - "For simulation replication: any programming language with random number generation"
+    - "For C3 empirical test: controlled lab experiment, minimum 200 participants, 50+ rounds each, real monetary stakes"
+    - "Pre-registered design distinguishing time-average vs ensemble framing conditions"
+    - "For C2 longitudinal test: access to long-run wealth panel (PSID, BHPS, or similar)"
+
+dependencies:
+  - doi: "10.1017/CBO9780511840371"
+    claim: "von Neumann & Morgenstern (1947) expected utility theory — the framework Peters identifies as implicitly assuming ergodicity"
+    relationship: "contradicts"
+    critical: true
+
+  - reference: "Kelly, J. L. (1956). A new interpretation of information rate. Bell System Technical Journal, 35(4), 917-926."
+    claim: "Kelly (1956) 'A new interpretation of information rate' — the Kelly criterion that Peters derives from time-average optimization"
+    relationship: "extends"
+    critical: true
+
+  - doi: "10.2307/1914185"
+    claim: "Kahneman & Tversky (1979) prospect theory — C4 claims to reinterpret loss aversion without invoking irrationality"
+    relationship: "contradicts"
+    critical: false
+
+  - reference: "Bernoulli, D. (1738). Specimen theoriae novae de mensura sortis. Commentarii Academiae Scientiarum Imperialis Petropolitanae, 5, 175-192."
+    claim: "Bernoulli (1738) — expected value vs expected utility; Peters locates the ergodicity assumption in Bernoulli's original framing"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Itô, K. (1944). Stochastic integral. Proceedings of the Imperial Academy, 20(8), 519-524."
+    claim: "Ito (1944) stochastic calculus — technical machinery for continuous-time multiplicative dynamics"
+    relationship: "applies"
+    critical: false
+
+results:
+  - claim_id: "C1"
+    status: supported
+    notes: >
+      Mathematically demonstrated for multiplicative wealth dynamics. The argument
+      is clearest in the discrete-time case with the simple gamble illustration.
+      The generalization to continuous time uses Ito's lemma. Note: Doctor et al.
+      (2020) contest the claim that EUT requires ergodicity, arguing that EUT can
+      be formulated for non-ergodic processes via appropriate utility function
+      specification. This debate is ongoing.
+
+  - claim_id: "C2"
+    status: supported
+    notes: >
+      Demonstrated analytically and via simulation for the illustrative gamble.
+      The ensemble average grows at +5% per period while the time-average decays
+      at approximately -5% per period. The divergence is dramatic: after 100 periods,
+      E[W] = W(0) * 1.05^100 but median(W) = W(0) * 0.95^100. No empirical test
+      of the claim in longitudinal wealth data is performed in the paper.
+
+  - claim_id: "C3"
+    status: supported
+    notes: >
+      Derived analytically. The Kelly fraction follows from the first-order condition
+      of time-average optimization. No empirical test of whether human subjects
+      converge to Kelly betting in the paper itself; such tests exist in the
+      experimental economics literature with mixed results.
+
+  - claim_id: "C4"
+    status: inconclusive
+    notes: >
+      The theoretical argument that loss aversion can be reinterpreted as rational
+      under multiplicative dynamics is sound for certain parameter regimes. However,
+      this is a re-interpretation of existing results, not a prediction of new ones.
+      Critics (including behavioral economists) note that prospect theory's predictions
+      extend beyond the cases Peters analyzes. The reinterpretation is partial, not
+      complete. Empirical test comparing the two accounts has not been performed
+      in a pre-registered study.
+
+limitations:
+  - description: >
+      The core ergodicity argument is demonstrated for a specific class of
+      multiplicative wealth dynamics (iid returns). Many economic processes are
+      more complex (mean-reverting, fat-tailed, correlated). The ergodicity
+      framework generalizes to these cases in principle but the paper does not
+      develop those extensions.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The claim that behavioral economics findings (C4) can be fully explained by
+      ergodicity is contested. Doctor et al. (2020) in Nature Physics argue that
+      the ergodicity framework and expected utility theory are equivalent when
+      utility functions are appropriately chosen, and that Peters' results are
+      not as novel as claimed.
+    severity: major
+    addressable: true
+
+  - description: >
+      No empirical validation is provided in the paper. All claims rest on
+      mathematical argument and numerical illustration with a single stylized
+      gamble. The question of whether real economic agents' behavior is better
+      predicted by time-average optimization than EUT has not been tested in
+      the paper.
+    severity: major
+    addressable: true
+
+  - description: >
+      The paper assumes that the relevant time horizon for individual agents is
+      long enough for the time-average to dominate. For short time horizons (a
+      single decision, a month, a year), the distinction between time-average and
+      ensemble-average optimization may be practically negligible. The paper does
+      not characterize at what time horizon the two approaches give meaningfully
+      different prescriptions.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The reinterpretation of loss aversion (C4) applies to symmetric gambles around
+      the current wealth level. Many behavioral economics experiments use gambles that
+      are small relative to total wealth, where the ergodicity reinterpretation
+      predicts different behavior than is actually observed. The scope conditions for
+      C4 are not fully characterized.
+    severity: moderate
+    addressable: true

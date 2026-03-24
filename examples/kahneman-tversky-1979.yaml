@@ -1,0 +1,306 @@
+# paper.yaml — Paper Spec v0.1.0
+# Kahneman & Tversky (1979): Prospect Theory
+spec_version: "0.1.0"
+
+meta:
+  title: "Prospect theory: An analysis of decision under risk"
+  authors:
+    - name: "Kahneman, Daniel"
+      orcid: ""
+      affiliation: "Hebrew University of Jerusalem"
+    - name: "Tversky, Amos"
+      orcid: ""
+      affiliation: "Hebrew University of Jerusalem"
+  doi: "10.2307/1914185"
+  date: "1979-03-01"
+  version: "1.0"
+  venue: "Econometrica, 47(2), 263-291"
+  license: "All rights reserved (1979)"
+  keywords:
+    - prospect theory
+    - decision under risk
+    - loss aversion
+    - probability weighting
+    - reference dependence
+    - value function
+    - expected utility theory
+    - behavioral economics
+
+claims:
+  - id: "H1"
+    type: hypothesis
+    statement: >
+      People evaluate outcomes as gains or losses relative to a reference point
+      (typically the status quo), not as absolute wealth levels. This reference
+      dependence is a fundamental feature of human judgment, not a bias to be
+      corrected: the reference point is the natural origin of value.
+    formal: >
+      The value function v: R -> R is defined over gains and losses x relative
+      to a reference point r, such that V(prospect) = sum_i pi(p_i) * v(x_i - r),
+      where x_i are outcomes and r is the reference point. Expected utility theory
+      assumes v(x_i) (absolute), not v(x_i - r) (relative).
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: []
+
+  - id: "H2"
+    type: hypothesis
+    statement: >
+      The value function is concave for gains and convex for losses (diminishing
+      sensitivity in both directions from the reference point), and is steeper for
+      losses than for gains. The ratio of the loss coefficient to the gain coefficient
+      (loss aversion lambda) is approximately 2:1 — losses loom roughly twice as
+      large as equivalent gains.
+    formal: >
+      v(x) = x^alpha for x >= 0 (alpha < 1, concave in gains),
+      v(x) = -lambda * (-x)^beta for x < 0 (beta < 1, convex in losses),
+      where lambda ~ 2.0-2.5 (loss aversion coefficient).
+      Diminishing sensitivity: v''(x) < 0 for x > 0; v''(x) > 0 for x < 0.
+      Loss aversion: |v'(x)| > |v'(-x)| for all x > 0 near 0.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["H1"]
+
+  - id: "H3"
+    type: hypothesis
+    statement: >
+      People systematically overweight small probabilities and underweight large
+      probabilities in their evaluation of prospects. The probability weighting
+      function pi(p) is an inverse S-shaped transformation of objective probability p:
+      pi(p) > p for small p, and pi(p) < p for large p. The overweighting of small
+      probabilities explains gambling and insurance purchasing behavior simultaneously.
+    formal: >
+      pi: [0,1] -> [0,1] is a probability weighting function such that:
+        pi(0) = 0, pi(1) = 1,
+        pi(p) > p for small p (overweighting),
+        pi(p) < p for large p (underweighting),
+        pi is subadditive: pi(p) + pi(1-p) < 1 for most p.
+      The fourfold pattern of risk attitudes follows:
+        pi(p) * v(x) structure → risk-seeking for small-p gains (lotteries),
+        risk-averse for large-p gains, risk-seeking for large-p losses,
+        risk-averse for small-p losses (insurance).
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["H1"]
+
+  - id: "H4"
+    type: hypothesis
+    statement: >
+      Prospect theory's two-part value-and-weighting model better predicts observed
+      choice behavior in binary risky prospects than expected utility theory. In
+      particular, prospect theory explains the Allais paradox, the certainty effect,
+      and the reflection effect — all of which are systematic violations of EU theory.
+    formal: >
+      V(x_1, p_1; x_2, p_2) = pi(p_1) * v(x_1) + pi(p_2) * v(x_2),
+      where outcomes are defined relative to the reference point.
+      This model is not globally consistent with the axioms of expected utility
+      (von Neumann & Morgenstern 1947, Savage 1954), and makes different predictions
+      from EU for the Allais, certainty-effect, and reflection-effect paradigms.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["H1", "H2", "H3"]
+
+methodology:
+  type: empirical
+  design: >
+    Experimental choice paradigm. Participants (primarily students at Hebrew University
+    and University of Stockholm, N approximately 70-95 per study) were presented with
+    pairs of hypothetical monetary prospects and asked to choose. Studies used a mix
+    of between-subjects (different participant groups receive different problems) and
+    within-subjects (same participants receive multiple choice problems) designs.
+    Hypothetical payoffs were used throughout — no real monetary incentives.
+    Key paradigms: certainty effect (comparing a certain outcome to a risky prospect),
+    reflection effect (mirroring gain problems into the loss domain), probabilistic
+    insurance, and reference point manipulation. Problems are presented as explicit
+    numerical probabilities and monetary outcomes. The paper reports modal choices
+    and percentage distributions, not individual-level regressions.
+  analysis:
+    method: >
+      Descriptive statistics of choice proportions. Sign tests and chi-square tests
+      for deviation from 50/50 split. No regression modeling. The value and weighting
+      functions are fitted qualitatively to the aggregate choice patterns rather than
+      estimated from individual-level maximum likelihood.
+    software: "Not reported (pre-computer era statistical analysis)"
+
+acceptance:
+  - claim_id: "H1"
+    criterion: >
+      When the same objective final wealth states are framed as gains relative to one
+      reference point and losses relative to another, risk preferences reverse. This
+      reversal is robust across at least 3 independent replication studies with N > 100
+      each, using both hypothetical and incentive-compatible procedures.
+    falsification: >
+      Risk preferences are invariant to reference point framing when absolute wealth
+      levels are held constant, consistent with expected utility theory's description
+      invariance axiom.
+
+  - claim_id: "H2"
+    criterion: >
+      In incentive-compatible experiments with real stakes, the elicited loss aversion
+      coefficient lambda falls in the range [1.5, 3.0] across diverse participant
+      samples (students, general population, professionals). The value function
+      shows concavity for gains and convexity for losses in at least 80% of
+      individually estimated functions.
+    falsification: >
+      lambda is not significantly greater than 1.0 in incentive-compatible experiments,
+      or the value function shows no systematic asymmetry between gains and losses,
+      suggesting loss aversion is an artifact of hypothetical stakes.
+
+  - claim_id: "H3"
+    criterion: >
+      The probability weighting function elicited from incentive-compatible choices
+      shows the inverse-S shape (overweighting of small p, underweighting of large p)
+      in at least 70% of individual participants across at least 3 independent labs.
+    falsification: >
+      Probability weighting functions are linear (pi(p) = p) in incentive-compatible
+      designs with sufficient power to detect the predicted curvature, or the shape
+      is systematically different from the inverse-S (e.g., uniformly sublinear).
+
+  - claim_id: "H4"
+    criterion: >
+      Prospect theory's quantitative predictions (with calibrated alpha, beta, lambda)
+      outperform expected utility theory predictions on out-of-sample choice problems
+      in pre-registered studies. The advantage holds for both individual-level and
+      aggregate-level predictions.
+    falsification: >
+      Expected utility theory with optimized utility parameters fits choice data as
+      well as prospect theory when both are estimated on the same training set and
+      evaluated on a held-out test set.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    Original choice matrices and individual-level data are not publicly available.
+    The paper predates open-data norms. The key choice problems are fully described
+    in the paper text and have been replicated in hundreds of subsequent studies.
+    The original datasets are presumed lost or unavailable from the authors' archives.
+
+code:
+  available: false
+  url: ""
+  notes: >
+    The 1979 paper predates computational simulation. Reference implementations
+    of prospect theory value and weighting functions are available in numerous
+    modern packages (e.g., Python: `prospect-theory`, R: `pt`).
+
+replication:
+  feasible: true
+  estimated_cost: "$2,000 - $10,000 USD (online survey with Prolific or MTurk)"
+  estimated_time: "2-6 months"
+  requirements:
+    - "Exact stimulus wording from original paper (all problems reproduced in text)"
+    - "Minimum N=200 per study for adequate power"
+    - "Both hypothetical and incentive-compatible variants for artifact testing"
+    - "Pre-registration of analysis plan on AsPredicted or OSF"
+    - "Note: Numerous replications already exist — see Camerer (1995), Tversky & Kahneman (1992)"
+
+dependencies:
+  - doi: "10.1017/CBO9780511840371"
+    claim: "von Neumann & Morgenstern (1947) — expected utility theory; the framework prospect theory challenges"
+    relationship: "contradicts"
+    critical: true
+
+  - reference: "Allais, M. (1953). Le comportement de l'homme rationnel devant le risque. Econometrica, 21(4), 503-546."
+    claim: "Allais (1953) — the Allais paradox; first empirical demonstration of EU violation that prospect theory explains"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Savage, L. J. (1954). The foundations of statistics. John Wiley & Sons."
+    claim: "Savage (1954) — subjective expected utility; prospect theory rejects Savage's sure-thing principle"
+    relationship: "contradicts"
+    critical: true
+
+  - reference: "Edwards, W. (1955). The theory of decision making. Psychological Bulletin, 51(4), 380-417."
+    claim: "Edwards (1955) — subjective probability weighting; precursor to the H3 weighting function idea"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Markowitz, H. (1952). Portfolio selection. Journal of Finance, 7(1), 77-91."
+    claim: "Markowitz (1952) — first proposed that carriers of utility are gains/losses, not wealth levels"
+    relationship: "extends"
+    critical: false
+
+results:
+  - claim_id: "H1"
+    status: supported
+    notes: >
+      Demonstrated across multiple choice problems. The reflection effect (Problem 3/3'
+      and Problem 4/4') shows that preferences reverse when all outcomes change sign,
+      confirming reference-point dependence. The certainty effect (Problems 1-2) further
+      demonstrates that certain outcomes receive disproportionate weight relative to
+      EU predictions.
+
+  - claim_id: "H2"
+    status: supported
+    notes: >
+      Qualitatively supported by choice patterns. Quantitative estimation of lambda
+      not performed in the 1979 paper — this was developed in Tversky & Kahneman
+      (1992) with lambda ~ 2.25. The original paper provides the conceptual framework
+      and qualitative shape predictions rather than point estimates.
+
+  - claim_id: "H3"
+    status: supported
+    notes: >
+      Supported by the fourfold pattern of risk attitudes across the choice problems.
+      Quantitative estimation of the weighting function was first performed in
+      Tversky & Kahneman (1992). The inverse-S shape is robustly replicated in
+      subsequent literature.
+
+  - claim_id: "H4"
+    status: supported
+    notes: >
+      Prospect theory accounts for the Allais paradox, the certainty effect, and the
+      reflection effect — all violations of EU theory. The paper does not perform
+      formal model comparison; this was established in subsequent work
+      (Camerer 1995; Abdellaoui 2000).
+
+limitations:
+  - description: >
+      All experiments use hypothetical payoffs. The incentive compatibility problem
+      is not addressed — it is possible that real-stakes behavior conforms more
+      closely to expected utility theory, as argued by some critics.
+    severity: major
+    addressable: true
+
+  - description: >
+      Sample sizes are small by modern standards (N ~ 70-95 per study). The paper
+      reports only modal choices and percentages; individual-level variation in
+      value and weighting function parameters is not characterized.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      Participant samples are primarily university students (Hebrew University,
+      Stockholm). Cross-cultural generalizability is not tested in the original paper.
+      Subsequent cross-cultural studies find broadly similar patterns but with
+      differences in loss aversion magnitude.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The original formulation does not handle multi-outcome (more than two non-zero
+      outcomes) prospects; the 1992 cumulative prospect theory extension addresses
+      this by applying probability weighting to cumulative distributions rather than
+      individual probabilities.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      Prospect theory is descriptive, not normative. It predicts how people behave
+      but does not prescribe how they should behave. This limits its application in
+      welfare analysis and policy design, where normative frameworks are required.
+    severity: minor
+    addressable: false
+
+  - description: >
+      The model has a free-parameter problem: with four parameters (alpha, beta, lambda,
+      and the weighting function shape), it can fit a wide range of choice patterns.
+      The paper does not report out-of-sample prediction performance, making
+      quantitative model comparison difficult.
+    severity: moderate
+    addressable: true

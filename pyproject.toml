@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "paper-spec"
+version = "0.1.0"
+description = "Machine-readable specification format for scientific papers"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+    {name = "Dmitry Zharnikov", email = "dmitry@spectralbranding.com"},
+]
+dependencies = [
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "mypy",
+]
+
+[tool.black]
+line-length = 88
+
+[tool.mypy]
+python_version = "3.12"
