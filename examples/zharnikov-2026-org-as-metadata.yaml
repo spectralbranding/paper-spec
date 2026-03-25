@@ -1,0 +1,475 @@
+# paper.yaml — Paper Spec v0.1.0
+# Zharnikov (2026): Organizations as Coordination Overhead Made Structural
+spec_version: "0.1.0"
+
+meta:
+  title: "Organizations as Coordination Overhead Made Structural: A Temporal Hierarchy Theory"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.19024230"
+  date: "2026-03-01"
+  version: "1.0"
+  venue: "Working Paper (Zenodo); submitted to Organization Theory (OT-26-0095)"
+  license: "CC-BY-4.0"
+  keywords:
+    - temporal hierarchy
+    - organizational form
+    - coordination costs
+    - organizational metamerism
+    - process ontology
+    - AI and organizations
+    - meta-organization
+    - firm boundaries
+    - tacit knowledge
+
+claims:
+  - id: "D1"
+    type: definition
+    statement: >
+      The value layer consists of the goals and outcomes that a value-creating activity
+      is intended to produce. Value is defined from the perspective of the intended recipient.
+      It is stable in the sense that the rate of change in value specification is slower —
+      by orders of magnitude — than the rate of change in the processes that deliver it or
+      the organizational forms that execute those processes. The hierarchy is a claim about
+      relative rates of change, not about ontological immutability.
+    formal: "stability(Value) >> stability(Process) >> stability(Organization)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: []
+
+  - id: "D2"
+    type: definition
+    statement: >
+      The process layer consists of the sequences of activities that transform inputs into
+      the value outputs specified at the value layer. Processes are operationally specifiable:
+      they can be written down, transmitted, and taught.
+    formal: "Process: Inputs -> Outputs; specifiable as a sequence of transformations"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+  - id: "D3"
+    type: definition
+    statement: >
+      The organizational layer consists of the configuration of agents, roles, reporting
+      structures, resource allocation rules, and toolsets assembled to execute a given set
+      of processes. Organizations are metadata for their processes: a configuration layer
+      that specifies how processes are instantiated, coordinated, and resourced, without
+      containing the process itself.
+    formal: "Org = Metadata(Process); Org specifies how Process is executed, not what it produces"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D2"]
+
+  - id: "D4"
+    type: definition
+    statement: >
+      Two organizational configurations are metamers with respect to a given process and
+      a given value output if they produce functionally equivalent value outputs when executing
+      the same underlying process. The equivalence is process-relative and value-output-relative:
+      configurations that are metamers for one process may not be metamers for another.
+      This is a state equivalence, distinct from equifinality (path equivalence).
+    formal: "Org_A ~_P Org_B iff Value_output(Org_A, P) = Value_output(Org_B, P)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D2", "D3"]
+
+  - id: "P1"
+    type: proposition
+    statement: >
+      Value goals change less frequently than the processes that produce them, and processes
+      change less frequently than the organizational configurations that execute them.
+      This holds across industries, technological eras, and national contexts.
+    formal: "E[T_value] >> E[T_process] >> E[T_org_form] across historical sample"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D2", "D3"]
+
+  - id: "C1"
+    type: corollary
+    statement: >
+      Reorganizations that preserve process integrity while changing organizational form
+      should produce no loss of value output. Reorganizations that disrupt processes will
+      produce value loss regardless of how well the organizational form is designed.
+    formal: "If Process(t+1) = Process(t) and Org(t+1) ≠ Org(t), then Value_output(t+1) = Value_output(t)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["P1", "D3"]
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      For any given value-producing process, multiple distinct organizational configurations
+      exist that produce functionally equivalent value outputs. The size of the metamerism
+      set increases as coordination costs decrease.
+    formal: "|Metamerism_set(P)| is increasing in (1 / coordination_cost)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D2", "D3", "D4"]
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      As AI reduces the marginal cost of coordination, the rate of change of organizational
+      form (as measured by frequency of restructuring events) increases, while the rate of
+      change of process (as measured by frequency of material changes to production workflow)
+      remains stable or increases more slowly.
+    formal: "d(restructuring_frequency)/d(AI_adoption) > d(process_change_frequency)/d(AI_adoption)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D3", "P1"]
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      As coordination costs approach zero, the minimum viable organizational overhead for
+      a given process approaches the specification of that process's interfaces: the information
+      about what inputs the process requires, what outputs it produces, and what quality
+      standards it must meet. The organizational layer is compressed toward the protocol layer.
+    formal: "lim_{c -> 0} Overhead(P, c) = Interface_spec(P)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D3", "P1", "P3"]
+
+  - id: "P4a"
+    type: proposition
+    statement: >
+      The degree of organizational metadata compression achievable for a given process is
+      inversely proportional to the ratio of tacit to explicit knowledge required by that
+      process. In high-tacit-knowledge domains (creative work, complex negotiation, innovation
+      under ambiguity), organizational form will remain structurally thick and resistant to
+      AI-driven volatility.
+    formal: "Compression(P) ~ 1 / (tacit_ratio(P)); Headless_firm is a limiting case for codifiable work only"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D3", "P4"]
+
+  - id: "P5"
+    type: proposition
+    statement: >
+      Organizational form shapes stakeholder evaluations independently of process output.
+      The metamerism set is wider for technical or algorithmic observers (who evaluate
+      primarily on output) and narrower for social or institutional observers (who evaluate
+      on form, provenance, and legitimacy). The choice of organizational form is therefore
+      simultaneously a governance decision and an act of strategic impression management
+      that constrains the firm's future competitive positioning.
+    formal: "|Metamerism_set(P, algorithmic_observer)| > |Metamerism_set(P, institutional_observer)|"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D3", "D4"]
+
+methodology:
+  type: theoretical
+  design: >
+    Formal theory construction synthesizing process ontology (Tsoukas & Chia, 2002), transaction
+    cost economics (Coase, 1937; Williamson, 1985), pace layering (Brand, 1999; Beane &
+    Leonardi, 2025), dynamic capabilities (Teece et al., 1997), and signaling theory
+    (Spence, 1973). Six testable propositions derived (P1, P2, P3, P4, P4a, P5). No primary
+    empirical data collected. Historical cases used for illustrative support: shelter/communication
+    value stability across millennia, Toyota TPS as coordination absorption mechanism,
+    API-first architecture as digital metadata, platform ecosystems as pure metadata.
+  analysis:
+    method: >
+      Conceptual synthesis; formal proposition derivation; comparative theoretical positioning
+      against equifinality (Gresov & Drazin, 1997); historical case illustration; Table 1
+      comparative ontologies; Table 2 metadata decision matrix
+    software: "None"
+
+acceptance:
+  - claim_id: "P1"
+    criterion: >
+      Historical analysis showing that, across a sample of industries and time periods, the
+      mean time between material changes in value proposition exceeds the mean time between
+      material changes in production processes, which exceeds the mean time between material
+      changes in organizational form. Effect holds at the industry level.
+    falsification: >
+      A systematic finding that organizational form is more stable than production process across
+      industries and time periods. Or evidence that the stability ordering reverses in a
+      specific theoretically identified class of organizations.
+
+  - claim_id: "P2"
+    criterion: >
+      Controlled comparison of firms executing comparable processes under materially different
+      organizational forms (in-house vs. outsourced, hierarchical vs. flat) showing no
+      significant difference in value output quality on objective metrics. Variance in
+      organizational form is higher in industries with lower coordination costs.
+    falsification: >
+      Systematic evidence that value output quality is higher for a specific class of
+      organizational forms across a wide range of processes, independent of industry or
+      technological context.
+
+  - claim_id: "P3"
+    criterion: >
+      Time-series evidence showing that the frequency of restructuring events has increased
+      in AI-early-adopter industries since widespread AI coordination tool adoption, while
+      frequency of production process changes has not increased proportionally.
+    falsification: >
+      AI adoption is associated with equal increases in both organizational restructuring
+      frequency and process change frequency, or restructuring frequency has not increased
+      in AI-adopting firms.
+
+  - claim_id: "P4"
+    criterion: >
+      Declining ratio of coordination staff (middle management, administrative personnel) to
+      execution staff in AI-adopting firms, without associated declines in product quality
+      or customer satisfaction scores.
+    falsification: >
+      AI adoption increases organizational overhead by creating new coordination work categories
+      (AI oversight, model governance) that grow faster than the coordination work they replace.
+
+  - claim_id: "P5"
+    criterion: >
+      Experimental vignette evidence showing stakeholder cohorts evaluate organizations
+      differently under identical output descriptions paired with different organizational form
+      descriptions. Effect significant for social/institutional evaluators; attenuated for
+      technical evaluators.
+    falsification: >
+      Organizational form has no significant effect on stakeholder evaluations when output
+      is held constant, or the effect is uniform across observer types.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    No primary data collected. Historical cases (shelter, communication value stability)
+    are illustrative, not formally coded. Toyota TPS and platform ecosystem examples are
+    drawn from published literature. All propositions require future empirical testing.
+
+code:
+  available: false
+  url: ""
+  notes: >
+    The paper is entirely theoretical. No computational tools are used or developed.
+    Table 2 (Metadata Decision Matrix) is a managerial heuristic, not a computational model.
+
+replication:
+  feasible: true
+  estimated_cost: "< $30,000 USD (archival data + survey + experimental vignette)"
+  estimated_time: "12-24 months"
+  requirements:
+    - "Historical dataset of organizational restructuring events with timestamps across industries"
+    - "Value proposition stability measures for matched firm-process pairs"
+    - "AI adoption intensity measures by firm and business unit"
+    - "Experimental vignette design for P5 (stakeholder evaluation under organizational form variation)"
+    - "Coordination staff ratio data from SEC filings or equivalent"
+
+dependencies:
+  - doi: "10.5281/zenodo.18946043"
+    claim: "Zharnikov (2026i) OST — organizational metadata theory builds on and formalizes OST; ORG-AS-METADATA is the theoretical extension of OST to organizational form volatility"
+    relationship: "extends"
+    critical: true
+
+  - doi: "10.5281/zenodo.19145205"
+    claim: "Zharnikov (2026m) Projection Paper — positions are projections of process space; the metadata theory provides the temporal stability framing that explains why the projection mechanism matters in the AI era"
+    relationship: "companion"
+    critical: true
+
+  - doi: "10.5281/zenodo.18945591"
+    claim: "Zharnikov (2026h) Specification Impossibility — provides geometric bound on full specification explicitness; referenced in AI governance section"
+    relationship: "cites"
+    critical: false
+
+  - doi: "10.5281/zenodo.18945352"
+    claim: "Zharnikov (2026e) Spectral Metamerism — organizational metamerism is an extension of spectral metamerism from brand perception to organizational form"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Coase, R. H. (1937). The nature of the firm. Economica, 4(16), 386-405."
+    claim: "Firm exists because internal coordination is cheaper than market coordination for recurring complex transactions — temporal hierarchy extends Coasean logic to the dynamic case"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Williamson, O. E. (1985). The economic institutions of capitalism. Free Press."
+    claim: "Asset specificity as source of organizational inertia — metamerism set shrinks with higher asset specificity"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Tsoukas, H., & Chia, R. (2002). On organizational becoming: Rethinking organizational change. Organization Science, 13(5), 567-582."
+    claim: "Flux precedes fixity; organization is a secondary accomplishment — temporal hierarchy adds formal stability ordering that the strong process view lacks"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Brand, S. (1999). The clock of the long now. Basic Books."
+    claim: "Pace layering — nested hierarchy of systems evolving at different timescales; temporal hierarchy applies this to value/process/organization"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Beane, M., & Leonardi, P. (2025). Pace layering in organizations. Journal of Management Studies."
+    claim: "Pace layering within the firm — most direct empirical precursor; temporal hierarchy extends by formally identifying organizational form as the fastest layer"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Teece, D. J., Pisano, G., & Shuen, A. (1997). Dynamic capabilities and strategic management. Strategic Management Journal, 18(7), 509-533."
+    claim: "Dynamic capabilities require reconfiguration — temporal hierarchy provides the prior theory of why reconfiguration is possible and why it will become a standardized utility"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Hannan, M. T., & Freeman, J. (1984). Structural inertia and organizational change. American Sociological Review, 49(2), 149-164."
+    claim: "Structural inertia was rational under high coordination costs — AI changes the parameter regime in which Hannan & Freeman's model operates"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Gresov, C., & Drazin, R. (1997). Equifinality: Functional equivalence in organization design. Academy of Management Review, 22(2), 403-428."
+    claim: "Equifinality establishes multiple paths to same outcome — organizational metamerism is a stronger state equivalence claim distinct from path equivalence"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Spence, M. (1973). Job market signaling. Quarterly Journal of Economics, 87(3), 355-374."
+    claim: "Signaling theory — organizational form as costly-to-fake signal that shapes stakeholder evaluations independently of product quality"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Meyer, J. W., & Rowan, B. (1977). Institutionalized organizations: Formal structure as myth and ceremony. American Journal of Sociology, 83(2), 340-363."
+    claim: "Organizations adopt forms for legitimacy — explains why thick hierarchies persist in institutionally mandated contexts beyond coordination cost rationale"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Polanyi, M. (1966). The tacit dimension. Doubleday."
+    claim: "Tacit knowledge creates a floor for organizational thickness — processes dependent on non-codifiable knowledge have smaller metamerism sets"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Ohno, T. (1988). Toyota production system. Productivity Press."
+    claim: "Pull systems embed coordination in process flows — TPS as historical instance of metadata compression via coordination absorption"
+    relationship: "illustrates"
+    critical: false
+
+  - reference: "Nelson, R. R., & Winter, S. G. (1982). An evolutionary theory of economic change. Harvard University Press."
+    claim: "Organizational routines as genes of the firm — temporal hierarchy situates routines within a three-level stability ordering"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Simon, H. A. (1962). The architecture of complexity. Proceedings of the American Philosophical Society, 106(6), 467-482."
+    claim: "Near-decomposability — stable subsystems are foundations for higher-level systems; provides theoretical justification for treating value/process/organization as nested hierarchy"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Puranam, P. (2018). The microstructure of organizations. Oxford University Press."
+    claim: "Four universal organizational design problems — metadata theory maps onto Puranam: AI primarily automates task allocation and information provision (coordination metadata)"
+    relationship: "contextualizes"
+    critical: false
+
+results:
+  - claim_id: "P1"
+    status: not_tested
+    notes: >
+      Supported by historical illustration across three domains (shelter, communication,
+      dispute resolution) showing value stability across millennia, process stability across
+      decades-centuries, and organizational form volatility across years-decades. Not formally
+      coded or statistically tested.
+
+  - claim_id: "P2"
+    status: not_tested
+    notes: >
+      The organizational metamerism concept is novel. Related to but distinct from equifinality
+      (Gresov & Drazin, 1997). No controlled comparison of organizational forms executing
+      the same process with output measurement has been conducted to test this claim.
+
+  - claim_id: "P3"
+    status: not_tested
+    notes: >
+      Consistent with the empirical phenomenon of accelerating organizational restructuring
+      since AI adoption. Formal time-series test with AI adoption measures and restructuring
+      frequency data has not been conducted.
+
+  - claim_id: "P4"
+    status: not_tested
+    notes: >
+      Directional evidence from platform firm case studies and headless enterprise examples.
+      Formal declining-ratio test with AI adoption controls has not been executed.
+
+  - claim_id: "P4a"
+    status: not_tested
+    notes: >
+      Tacit knowledge boundary is an established theoretical constraint (Polanyi, 1966;
+      Grant, 1996). The cross-industry comparison design for testing the moderation by
+      tacit-to-explicit knowledge ratio has not been implemented.
+
+  - claim_id: "P5"
+    status: not_tested
+    notes: >
+      Grounded in signaling theory (Spence, 1973) and institutional theory (Meyer & Rowan,
+      1977). Experimental vignette design specified but not executed. The coffee company
+      example (artisan roaster vs. corporate subsidiary as production metamers but perception
+      non-equivalents) is illustrative, not empirical.
+
+limitations:
+  - description: >
+      The temporal stability hierarchy is presented with historical illustration but without
+      formal operationalization of what counts as a material change in value, process, or
+      organizational form. Without agreed operational definitions, the claim is difficult
+      to test systematically.
+    severity: major
+    addressable: true
+
+  - description: >
+      The metadata metaphor risks slipping into entity-based thinking by characterizing
+      organizational form as a static file. The theory addresses this by clarifying that
+      organizational metadata is the ostensive aspect of coordination routines (Pentland &
+      Feldman, 2005) — alive but more volatile than what it coordinates. The tension with
+      the strong process view requires ongoing theoretical work.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The metamerism set requires a measurable value output to be defined. For value outputs
+      that are contested, multi-dimensional, or observer-relative, organizational configurations
+      that appear equivalent on measurable dimensions may be perceived as qualitatively
+      different — which is the organizational form as signal problem (P5). The overlap
+      between P2 and P5 needs further theoretical clarification.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The theory assumes that process integrity can be preserved across organizational
+      reconfigurations. This assumption weakens for tacit processes. Organizations whose
+      core processes are highly tacit will have smaller metamerism sets and higher effective
+      coordination costs, limiting AI coordination substitution. The location of the tacit
+      boundary is not predicted by the theory.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      No primary data collected. All propositions are theoretically derived and illustrated
+      with existing empirical literature. Formal empirical validation requires future research
+      program across multiple propositions.
+    severity: major
+    addressable: true
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19024230"
+    url: "https://doi.org/10.5281/zenodo.19024230"
+    version: "v1"
+    date: "2026-03-12"
+
+submission_history:
+  - venue: "Organization Science"
+    manuscript_id: "ORSC-MS-2026-22291"
+    submitted: "2026-03-01"
+    decision: "desk_rejected"
+    decision_date: "2026-03-10"
+    reason: "Desk rejection; editor did not send for review"
+  - venue: "Academy of Management Review"
+    manuscript_id: "AMR-2026-0406-Original"
+    submitted: "2026-03-18"
+    decision: "desk_rejected"
+    decision_date: "2026-03-20"
+    reason: "Extension of existing theory per Prof. Kris Byron; fails to join scholarly conversation in management"
+  - venue: "Organization Theory (SAGE/EGOS)"
+    manuscript_id: "OT-26-0095"
+    submitted: "2026-03-18"
+    decision: "pending"

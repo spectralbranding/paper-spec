@@ -1,0 +1,425 @@
+# paper.yaml — Paper Spec v0.1.0
+# Zharnikov (2026m): Position as Projection
+spec_version: "0.1.0"
+
+meta:
+  title: "Position as Projection: A Formal Theory of How Process Requirements Generate Organizational Structure"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.19145205"
+  date: "2026-03-01"
+  version: "1.0"
+  venue: "Working Paper (Zenodo); submitted to Journal of Organization Design (JORG-D-26-00036)"
+  license: "CC-BY-4.0"
+  keywords:
+    - organizational design
+    - projection operators
+    - process space
+    - specification transmission
+    - functional structure
+    - position
+    - AI and organization
+    - structural contingency theory
+
+claims:
+  - id: "D1"
+    type: definition
+    statement: >
+      An organizational position is the image of a projection operator that maps a subset
+      of the process space onto a specific agent. The position is defined by (a) the subset
+      of processes it encompasses, (b) the function bundle required to execute those processes,
+      and (c) the agent to whom it is assigned. Positions are derived quantities, not design
+      primitives.
+    formal: "x_i = pi_i(P) ⊆ P, where P is the process space and pi_i is the projection operator for agent a_i"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: []
+
+  - id: "D2"
+    type: definition
+    statement: >
+      Every projection operator divides the process space into an image (activities assigned
+      to the position) and a kernel (activities not assigned). The organizational chart is
+      the union of images across all projection operators. The white space on the org chart
+      (Rummler & Brache, 1995) is what falls into the intersection of kernels — activities
+      that no projection operator captures.
+    formal: "Image(pi_i) = x_i; Kernel(pi_i) = P \\ x_i; White space = ⋂_i Kernel(pi_i)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+  - id: "D3"
+    type: definition
+    statement: >
+      A specification is an explicit, testable description of what an activity must accomplish.
+      Specifications range from fully tacit (embedded in practitioner skill, impossible to
+      articulate completely) to fully explicit (codified in a document, database, or executable
+      schema transmissible without loss). The derivation chain is:
+      Specification → Skill → Function → Position.
+    formal: "s in [0,1] where s=0 is fully tacit and s=1 is fully explicit"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+  - id: "D4"
+    type: definition
+    statement: >
+      The sub-agent decomposition partitions the human agent into three analytically separable
+      components: (1) the specification component — instructions and knowledge that determine
+      what the agent does; (2) the rendering capacity — the agent's ability to transform
+      specifications into output; and (3) the positional context — the process coordinates
+      at which the agent is located. Function is a parameter of positional context, not a
+      property of the agent.
+    formal: "Agent_i = (spec_i, render_i, context_i); Function = f(context_i)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D3"]
+
+  - id: "P1"
+    type: proposition
+    statement: >
+      Reorganizations that change positions (projection operators) without changing processes
+      (the process space) will produce smaller sustained improvements in organizational
+      performance outcomes than reorganizations accompanied by process redesign, controlling
+      for Hawthorne effects and coincidental process changes.
+    formal: "E[perf | Δpi, P fixed] < E[perf | Δpi, ΔP] over time horizon T > 6 months"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1"]
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      As specification explicitness increases, functional departments lose control authority
+      (the authority to determine how work is performed) while retaining competence-development
+      authority (the authority to develop, certify, and maintain skills).
+    formal: "dAuthority_control/ds < 0; dAuthority_competence/ds >= 0 where s is specification explicitness"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D3"]
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      The magnitude of the gap between a position's formal function bundle and its actual
+      process requirements predicts role strain, job dissatisfaction, and voluntary turnover.
+    formal: "RoleStrain ~ beta * Gap(F_i, P_i) + controls"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D3"]
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      In organizations that adopt AI for specification-intensive tasks, positions converge
+      toward process nodes as the specification-transmission functions previously provided
+      by functional departments are automated. The rate of convergence is proportional to
+      the share of the position's function bundle that consists of specification-transmissible
+      (rather than judgment-intensive) activities.
+    formal: "d(process_alignment)/dt = lambda * (spec_transmissible_share) * AI_adoption"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D3", "D4"]
+
+  - id: "P5"
+    type: proposition
+    statement: >
+      As AI-mediated coordination reduces the cost of managing process interfaces, the
+      minimum viable organizational overhead for a given process approaches the specification
+      of that process's interfaces — what inputs the process requires, what outputs it
+      produces, and what quality standards it must meet.
+    formal: "lim_{coordination_cost -> 0} Overhead(P) = Interface_spec(P)"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D3", "D4"]
+
+  - id: "P6"
+    type: proposition
+    statement: >
+      The Lean limit (organizational functions converge toward production through process
+      standardization) and the AI limit (organizational functions converge toward specification
+      through AI-mediated codification) produce the same structural outcome: the compression
+      of functional departments as independent organizational units. Both are instances of
+      the same mechanism — making tacit specifications explicit.
+    formal: "lim_{lean -> max} Structure = lim_{AI -> max} Structure = process_nodes"
+    testable: true
+    tested_in_paper: false
+    status: not_tested
+    depends_on: ["D1", "D3", "D4", "P4"]
+
+methodology:
+  type: theoretical
+  design: >
+    Formal theory construction using linear algebra as the mathematical apparatus. The
+    projection operator framework draws on properties of idempotency, image/kernel decomposition,
+    and orthogonality to derive organizational predictions. Six propositions are developed
+    and positioned against structural contingency theory (Lawrence & Lorsch, 1967; Donaldson,
+    2001), the function-process debate (Hammer, 1993; Davenport, 1993), and role theory
+    (Katz & Kahn, 1978). No primary empirical data collected.
+  analysis:
+    method: >
+      Conceptual formalization; mathematical proposition derivation; comparative theoretical
+      positioning; illustrative cases (Toyota lean production, AI-augmented accounting)
+    software: "None"
+
+acceptance:
+  - claim_id: "P1"
+    criterion: >
+      Pre/post longitudinal analysis of reorganizations showing that those accompanied by
+      documented process redesign produce significantly larger sustained performance improvements
+      (revenue per employee, cycle time, customer satisfaction) than those involving structural
+      change only, with a difference significant at p < 0.05 and persisting at 12 months.
+    falsification: >
+      Reorganizations that change only projection operators (positions, reporting lines) without
+      accompanying process redesign show systematic sustained performance improvement at 12 months
+      that is not attributable to Hawthorne effects or confounded process changes.
+
+  - claim_id: "P2"
+    criterion: >
+      Organizations with higher specification codification ratios (proportion of work governed
+      by documented procedures) show functional departments with significantly reduced control
+      authority scores (as measured by authority surveys) but not significantly reduced
+      competence-development authority scores.
+    falsification: >
+      Specification explicitness is uncorrelated with functional control authority migration,
+      or functional departments lose both control and competence-development authority at the
+      same rate as specifications become explicit.
+
+  - claim_id: "P4"
+    criterion: >
+      Longitudinal tracking of organizational charts in AI-adopting firms shows that the ratio
+      of function-defined to process-defined positions declines significantly over 3 years,
+      with faster decline in business units with higher AI adoption intensity.
+    falsification: >
+      AI adoption does not predict convergence of positions toward process nodes; the ratio
+      of function-defined to process-defined positions is stable or increases in AI-adopting firms.
+
+  - claim_id: "P6"
+    criterion: >
+      Cross-sectional comparison of functional department size across a 2x2 design (high/low
+      Lean maturity x high/low AI adoption) shows that the high-high quadrant exhibits the
+      greatest functional compression, with a statistically significant interaction term.
+    falsification: >
+      Lean maturity and AI adoption have independent additive effects on functional compression
+      with no interaction, suggesting they operate through different mechanisms rather than
+      both making specifications explicit.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    No primary data collected. All propositions are theoretically derived and supported
+    by reference to existing empirical literature (Hammer, 1996; Beer & Nohria, 2000;
+    McCormack & Johnson, 2001; Rizzo, House, & Lirtzman, 1970). Empirical validation
+    is a direction for future research.
+
+code:
+  available: false
+  url: ""
+  notes: >
+    The paper is entirely theoretical. No computational tools are used or developed.
+    The projection operator formalization uses linear algebra notation but does not
+    require software implementation for the paper's claims.
+
+replication:
+  feasible: true
+  estimated_cost: "< $50,000 USD (organizational survey + archival data access)"
+  estimated_time: "12-36 months"
+  requirements:
+    - "Longitudinal dataset of reorganization events with pre/post performance metrics"
+    - "Specification codification ratio measures derived from document analysis or NLP"
+    - "Role strain scales (Rizzo, House, & Lirtzman, 1970) administered to position holders"
+    - "AI adoption intensity measures for business units or firms"
+    - "Organizational chart change tracking over 3+ years for AI-adopting firms"
+
+dependencies:
+  - doi: "10.5281/zenodo.18946043"
+    claim: "Zharnikov (2026i) OST — specification-transmission mechanism builds on the OST derivation chain"
+    relationship: "extends"
+    critical: true
+
+  - doi: "10.5281/zenodo.19064426"
+    claim: "Zharnikov (2026l) Rendering Problem — positions are rendering nodes; the rendering gap generalizes to organizational structure"
+    relationship: "extends"
+    critical: false
+
+  - doi: "10.5281/zenodo.18945591"
+    claim: "Zharnikov (2026h) Specification Impossibility — provides the geometric impossibility result that bounds full specification explicitness"
+    relationship: "cites"
+    critical: false
+
+  - reference: "Thompson, J. D. (1967). Organizations in action. McGraw-Hill."
+    claim: "Task interdependence determines structural arrangements — foundational SCT claim that the projection framework formalizes"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Galbraith, J. R. (1977). Organization design. Addison-Wesley."
+    claim: "Star Model and information-processing view of organization — reinterpreted as a description of the projection mechanism"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Puranam, P. (2018). The microstructure of organizations. Oxford University Press."
+    claim: "Task decomposition and task-agent allocation — structurally equivalent to the projection operation; projection framework extends by providing mathematical properties"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Hammer, M. (1996). Beyond reengineering. HarperBusiness."
+    claim: "Process-centered organization — describes the normative endpoint of fully explicit specifications; reconciled with Davenport via the specification-tacitness continuum"
+    relationship: "contextualizes"
+    critical: true
+
+  - reference: "Davenport, T. H. (1993). Process innovation. Harvard Business School Press."
+    claim: "Functional departments persist because functional skills remain important — explained by specification-transmission mechanism"
+    relationship: "contextualizes"
+    critical: true
+
+  - reference: "Lawrence, P. R., & Lorsch, J. W. (1967). Organization and environment. Harvard University Press."
+    claim: "Differentiation-integration framework — reinterpreted through projection: differentiation = non-overlapping images; integration = cost of managing the kernel"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Polanyi, M. (1966). The tacit dimension. Doubleday."
+    claim: "Tacit knowledge — we can know more than we can tell; creates the permanent floor for functional structure via the strong interpretation"
+    relationship: "applies"
+    critical: true
+
+  - reference: "Nonaka, I., & Takeuchi, H. (1995). The knowledge-creating company. Oxford University Press."
+    claim: "SECI model — externalization predicts functional compression; internalization creates a qualification that net trajectory toward explicitness governs predictions"
+    relationship: "extends"
+    critical: true
+
+  - reference: "Katz, D., & Kahn, R. L. (1978). The social psychology of organizations (2nd ed.). Wiley."
+    claim: "Roles as sets of expectations derived from the division of labor — antecedent to the projection framework; projection formalizes the role-task relationship"
+    relationship: "extends"
+    critical: false
+
+  - reference: "Ohno, T. (1988). Toyota production system. Productivity Press."
+    claim: "One operator, many processes — illustrative case for explicit specification enabling position-process convergence; kanban as embedded coordination"
+    relationship: "illustrates"
+    critical: false
+
+  - reference: "Burton, R. M., Obel, B., & Hakonsson, D. D. (2020). Organizational design. Cambridge University Press."
+    claim: "Computational optimization of organizational configuration — addresses which configuration fits; projection framework addresses the prior question of why configurations exist"
+    relationship: "complements"
+    critical: false
+
+  - reference: "Joseph, J., & Sengul, M. (2025). Organizational design: A review and integration. Journal of Management."
+    claim: "Four-approach taxonomy (configuration, control, channelization, coordination) — projection framework cuts across all four as the generative mechanism"
+    relationship: "contextualizes"
+    critical: false
+
+results:
+  - claim_id: "P1"
+    status: not_tested
+    notes: >
+      Consistent with existing evidence on reorganization failure rates (Beer & Nohria, 2000;
+      Hammer, 1996) but not formally tested. The projection framework provides the theoretical
+      explanation; empirical test requires longitudinal study distinguishing process-accompanied
+      from process-absent reorganizations.
+
+  - claim_id: "P2"
+    status: not_tested
+    notes: >
+      Directional evidence from McCormack & Johnson (2001) BPO maturity model and Larsen &
+      Bjorn-Andersen (2001) longitudinal study. Formal test requires specification codification
+      ratio measurement linked to authority survey data.
+
+  - claim_id: "P3"
+    status: not_tested
+    notes: >
+      Role theory literature (Katz & Kahn, 1978; Biddle, 1986; Rizzo, House, & Lirtzman, 1970)
+      establishes that role ambiguity and conflict predict dissatisfaction and turnover. The
+      projection framework extends this by specifying the structural source (position-process gap).
+      Direct test of the gap measure is absent.
+
+  - claim_id: "P4"
+    status: not_tested
+    notes: >
+      Practitioner descriptions of AI-driven decoupling of function from position (Sukharevsky
+      et al., 2025; McKinsey agentic organization) are directionally consistent. Formal
+      longitudinal test with organizational chart tracking data has not been conducted.
+
+  - claim_id: "P5"
+    status: not_tested
+    notes: >
+      Simon's (1962) near-decomposability principle provides theoretical support. AI coordination
+      cost reduction is documented (Klein & Wieczorek, 2026) but position compression as the
+      organizational consequence has not been formally measured.
+
+  - claim_id: "P6"
+    status: not_tested
+    notes: >
+      The Lean-AI equivalence claim is novel. Toyota and other Lean manufacturers provide
+      illustrative support for the Lean limit. The 2x2 design for testing the interaction
+      has not been executed.
+
+limitations:
+  - description: >
+      The framework assumes activities can be represented as a well-defined, enumerable set
+      forming a structured space. In practice, organizational activities are often ambiguous,
+      overlapping, and politically contested. The framework's predictions are strongest where
+      process boundaries are relatively clear (manufacturing, logistics, standardized services)
+      and weakest where they are contested (creative industries, political organizations).
+    severity: major
+    addressable: true
+
+  - description: >
+      The choice of linear algebra as the formalism presupposes that projection operators
+      adequately capture the process-to-position relationship. Nonlinear, network-based,
+      or categorical mappings may be more appropriate for some organizational contexts.
+      The framework is a first-order approximation.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      The framework does not apply where institutional mandates require functional structure
+      independently of specification tacitness — public sector organizations, regulated
+      industries, and constitutionally structured entities. Institutional isomorphism
+      (DiMaggio & Powell, 1983) is a genuine competing explanation outside this scope.
+    severity: moderate
+    addressable: false
+
+  - description: >
+      All empirical support is indirect — drawn from existing studies that are consistent
+      with the framework's predictions but were not designed to test the projection formalization
+      specifically. No primary data were collected.
+    severity: major
+    addressable: true
+
+  - description: >
+      The Polanyi strong interpretation — that some knowledge is in principle inarticulable
+      — creates a permanent floor for functional structure that the framework cannot predict
+      the height of. Where the tacit boundary sits for any specific domain is an empirical
+      question the theory does not answer.
+    severity: minor
+    addressable: true
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19145205"
+    url: "https://doi.org/10.5281/zenodo.19145205"
+    version: "v1"
+    date: "2026-03-01"
+
+submission_history:
+  - venue: "Academy of Management Review"
+    manuscript_id: "AMR-2026-0406-Original"
+    submitted: "2026-03-18"
+    decision: "desk_rejected"
+    decision_date: "2026-03-20"
+    reason: "Extension of existing theory, not novel theory; fails to join scholarly conversation in management"
+  - venue: "Journal of Organization Design"
+    manuscript_id: "JORG-D-26-00036"
+    submitted: "2026-03-01"
+    decision: "pending"
