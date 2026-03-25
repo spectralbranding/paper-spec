@@ -8,7 +8,8 @@ meta:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
-  date: "2026-01-01"
+  doi: "10.5281/zenodo.19210037"
+  date: "2026-03-24"
   version: "0.1"
   venue: "Working Paper (Zenodo)"
   license: "CC-BY-4.0"
@@ -226,12 +227,12 @@ dependencies:
     relationship: "applies"
     critical: false
 
-  - doi: "10.5281/zenodo.18946044"
+  - doi: "10.5281/zenodo.18946043"
     claim: "Zharnikov (2026i) OST — one of nineteen papers in the demonstration corpus; OST paper provides the organizational isomorphism for paper specification"
     relationship: "applies"
     critical: false
 
-  - doi: "10.5281/zenodo.19064427"
+  - doi: "10.5281/zenodo.19064426"
     claim: "Zharnikov (2026l) Rendering Problem — Section 7.1 frames the specification gap in science as an instance of the rendering problem"
     relationship: "applies"
     critical: false

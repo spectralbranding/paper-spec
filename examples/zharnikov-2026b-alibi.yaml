@@ -8,7 +8,7 @@ meta:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
-  doi: "10.5281/zenodo.18944839"
+  doi: "10.5281/zenodo.18944770"
   date: "2026-01-01"
   version: "1.0"
   venue: "Working Paper (Zenodo)"
@@ -408,8 +408,8 @@ limitations:
 
 repositories:
   - platform: "Zenodo"
-    doi: "10.5281/zenodo.18944839"
-    url: "https://doi.org/10.5281/zenodo.18944839"
+    doi: "10.5281/zenodo.18944770"
+    url: "https://doi.org/10.5281/zenodo.18944770"
     version: "v2"
     date: "2026-03-24"
   - platform: "GitHub"

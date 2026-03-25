@@ -322,12 +322,12 @@ dependencies:
     relationship: "extends"
     critical: true
 
-  - doi: "10.5281/zenodo.18945388"
+  - doi: "10.5281/zenodo.18945295"
     claim: "Zharnikov (2026d) R1 — establishes Fisher-Rao metric on Delta^7 and Aitchison metric on R^8_+; T2 uses Fisher-Rao distance as the geometric lower bound on the alignment gap"
     relationship: "applies"
     critical: true
 
-  - doi: "10.5281/zenodo.18945454"
+  - doi: "10.5281/zenodo.18945352"
     claim: "Zharnikov (2026e) R2 — spectral metamerism result: distinct signal portfolios can produce identical perceived value; T4 gives the economic interpretation of metamerism"
     relationship: "applies"
     critical: true
@@ -337,12 +337,12 @@ dependencies:
     relationship: "applies"
     critical: false
 
-  - doi: "10.5281/zenodo.18945575"
+  - doi: "10.5281/zenodo.18945522"
     claim: "Zharnikov (2026g) R4 — sphere packing capacity bounds; referenced as constraint in multi-cohort allocation (positioning capacity bound)"
     relationship: "applies"
     critical: false
 
-  - doi: "10.5281/zenodo.18945617"
+  - doi: "10.5281/zenodo.18945591"
     claim: "Zharnikov (2026h) R5 — specification impossibility; referenced as constraint in multi-cohort optimization (only K dimensions can be fully specified)"
     relationship: "applies"
     critical: false

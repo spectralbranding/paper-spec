@@ -8,7 +8,7 @@ meta:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
-  doi: "10.5281/zenodo.18945617"
+  doi: "10.5281/zenodo.18945591"
   date: "2026-01-01"
   version: "1.0"
   venue: "Working Paper (Zenodo)"
@@ -208,12 +208,12 @@ dependencies:
     relationship: "extends"
     critical: true
 
-  - doi: "10.5281/zenodo.18945388"
+  - doi: "10.5281/zenodo.18945295"
     claim: "Zharnikov (2026d) R1 — metric framework for the 8-dimensional brand space; this paper extends the geometric analysis to the full 48-dimensional specification space"
     relationship: "extends"
     critical: true
 
-  - doi: "10.5281/zenodo.18945575"
+  - doi: "10.5281/zenodo.18945522"
     claim: "Zharnikov (2026g) R4 — sphere packing capacity bounds in 8 dimensions; this paper applies the same volume-ratio logic to the 48-dimensional organizational specification space"
     relationship: "extends"
     critical: false
@@ -323,8 +323,8 @@ limitations:
 
 repositories:
   - platform: "Zenodo"
-    doi: "10.5281/zenodo.18945617"
-    url: "https://doi.org/10.5281/zenodo.18945617"
+    doi: "10.5281/zenodo.18945591"
+    url: "https://doi.org/10.5281/zenodo.18945591"
     version: "v1"
     date: "2026-03-24"
   - platform: "GitHub"

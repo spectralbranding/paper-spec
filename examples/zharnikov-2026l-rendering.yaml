@@ -8,7 +8,7 @@ meta:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
-  doi: "10.5281/zenodo.19064427"
+  doi: "10.5281/zenodo.19064426"
   date: "2026-01-01"
   version: "1.0"
   venue: "Working Paper (Zenodo)"
@@ -299,7 +299,7 @@ dependencies:
     relationship: "applies"
     critical: true
 
-  - doi: "10.5281/zenodo.18946044"
+  - doi: "10.5281/zenodo.18946043"
     claim: "Zharnikov (2026i) OST — provides the organizational instance of the rendering problem: org-schema L0-L5 (specification) -> operations (implementation) -> customer experience (emergence)"
     relationship: "applies"
     critical: true
@@ -433,8 +433,8 @@ limitations:
 
 repositories:
   - platform: "Zenodo"
-    doi: "10.5281/zenodo.19064427"
-    url: "https://doi.org/10.5281/zenodo.19064427"
+    doi: "10.5281/zenodo.19064426"
+    url: "https://doi.org/10.5281/zenodo.19064426"
     version: "v1"
     date: "2026-03-17"
 

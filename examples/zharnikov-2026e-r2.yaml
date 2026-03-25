@@ -301,7 +301,7 @@ dependencies:
     relationship: "applies"
     critical: true
 
-  - doi: "10.5281/zenodo.18945258"
+  - doi: "10.5281/zenodo.18945295"
     claim: "Zharnikov (2026d) R1 — provides the three metric spaces used throughout: Aitchison distance on R^8_+, Fisher-Rao distance on Delta^7, warped product distance; Section 2.3 recalls all metrics from R1"
     relationship: "applies"
     critical: true

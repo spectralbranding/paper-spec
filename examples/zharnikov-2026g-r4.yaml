@@ -8,7 +8,7 @@ meta:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
-  doi: "10.5281/zenodo.18945575"
+  doi: "10.5281/zenodo.18945522"
   date: "2026-01-01"
   version: "1.0"
   venue: "Working Paper (Zenodo)"
@@ -194,7 +194,7 @@ dependencies:
     relationship: "extends"
     critical: true
 
-  - doi: "10.5281/zenodo.18945388"
+  - doi: "10.5281/zenodo.18945295"
     claim: "Zharnikov (2026d) R1 — establishes the Aitchison metric on R^8_+ and the clr transform that maps the positioning problem to Euclidean sphere packing"
     relationship: "extends"
     critical: true
@@ -307,8 +307,8 @@ limitations:
 
 repositories:
   - platform: "Zenodo"
-    doi: "10.5281/zenodo.18945575"
-    url: "https://doi.org/10.5281/zenodo.18945575"
+    doi: "10.5281/zenodo.18945522"
+    url: "https://doi.org/10.5281/zenodo.18945522"
     version: "v1"
     date: "2026-03-24"
   - platform: "GitHub"
