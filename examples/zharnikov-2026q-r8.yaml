@@ -458,6 +458,10 @@ submission_history:
       not yet peer-reviewed in methods journal, (2) unclear managerial problem,
       (3) incremental contribution concern. Advice: publish methodology first.
   - venue: "International Journal of Research in Marketing"
-    id: ""
-    date_submitted: ""
-    status: "preparing"
+    id: "IJRM-D-26-00310"
+    date_submitted: "2026-03-26"
+    status: "under_review"
+    notes: >
+      Research Paper. Double-blind. 10,876 words, 42 references.
+      Suggested AEs: Volkner, Batra, Chernev.
+      Suggested reviewers: Van Osselaer, Morgan, Puntoni.
