@@ -1,9 +1,9 @@
 # paper.yaml — Paper Spec v0.1.0
-# Zharnikov (2026u): R14 — Paper as Repository
+# Zharnikov (2026u): R14 — Research as Repository
 spec_version: "0.1.0"
 
 meta:
-  title: "Paper as Repository: A Git-Native Protocol for Scientific Publishing"
+  title: "Research as Repository: A Git-Native Protocol for Scientific Knowledge Production"
   authors:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
