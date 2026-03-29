@@ -20,11 +20,11 @@ meta:
     - research infrastructure
     - open science
     - provenance
-    - Git
+    - knowledge production
+    - research evaluation
     - AI transparency
-    - scholarly communication
+    - prestige loop
     - fork-based submission
-    - research reproducibility
 
 claims:
   - id: "C1"
