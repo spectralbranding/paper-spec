@@ -11,7 +11,7 @@ meta:
   doi: "10.5281/zenodo.19294864"
   date: "2026-03-28"
   version: "1.0"
-  venue: "Working Paper (Zenodo)"
+  venue: "JASIST (submitted JASIST-2026-03-0533)"
   license: "CC-BY-NC-ND-4.0"
   keywords:
     - scientific publishing
@@ -290,8 +290,17 @@ repositories:
 submission_history:
   - venue: "Zenodo"
     date: "2026-03-28"
-    status: "pending_upload"
-    doi: ""  # PENDING
+    status: "published"
+    doi: "10.5281/zenodo.19294864"
     notes: >
-      v1.0 initial preprint. ~12,400 words, 36 references, 7 claims.
-      Self-referential implementation. Target journal: JASIST.
+      v1.0 initial preprint. ~13,850 words, 35 references, 7 claims.
+      Self-referential implementation. CC BY-NC-ND 4.0.
+  - venue: "JASIST (Journal of the Association for Information Science and Technology)"
+    date: "2026-03-29"
+    status: "under_review"
+    manuscript_id: "JASIST-2026-03-0533"
+    doi: ""
+    notes: >
+      Research Article. ~6,312 words body (trimmed from preprint), 40 refs.
+      Single-blind. 5 citations added per literature review (Borgman, Renear
+      & Palmer, Shotton, Blischak, Perez-Riverol). ScholarOne submission.
