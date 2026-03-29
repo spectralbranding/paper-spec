@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+title: "Paper Spec: A machine-readable standard for scientific claims"
+message: "If you use this standard, please cite it using these metadata."
+type: software
+version: "0.1.0"
+date-released: "2026-03-25"
+authors:
+  - family-names: "Zharnikov"
+    given-names: "Dmitry"
+    orcid: "https://orcid.org/0009-0000-6893-9231"
+repository-code: "https://github.com/spectralbranding/paper-spec"
+license: MIT
+keywords:
+  - paper specification
+  - machine-readable science
+  - research metadata
+  - YAML
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Zharnikov"
+      given-names: "Dmitry"
+      orcid: "https://orcid.org/0009-0000-6893-9231"
+  title: "Paper as specification: A machine-readable standard for scientific claims"
+  doi: "10.5281/zenodo.19210037"
+  year: 2026
+  journal: "Zenodo"
+  url: "https://doi.org/10.5281/zenodo.19210037"
