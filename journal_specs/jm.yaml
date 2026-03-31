@@ -1,0 +1,190 @@
+# Journal of Marketing — Empirical Execution Standards
+# Source: Steenkamp, J.-B. E. M., Bijmolt, T. H. A., & Donthu, N. (2026).
+#   "Cementing JM's Impact: Empirical Execution"
+#   Journal of Marketing. DOI: 10.1177/00222429261426047
+#
+# These requirements reflect the editorial standards articulated in the above
+# editorial. They represent the editors' stated expectations for empirical papers,
+# not necessarily the journal's written submission guidelines.
+
+journal:
+  name: "Journal of Marketing"
+  abbreviation: "JM"
+  publisher: "SAGE / American Marketing Association"
+  issn: "0022-2429"
+  impact_factor_approx: 12  # approximate; verify at submission time
+  source: "Steenkamp et al. (2026) DOI: 10.1177/00222429261426047"
+  scope: "Empirical and conceptual papers in marketing theory and practice"
+  note: >
+    JM is the flagship journal of the American Marketing Association. It
+    publishes research that advances marketing knowledge and practice.
+    Empirical papers are subject to the execution standards below.
+
+requirements:
+
+  results:
+
+    p_value:
+      required: true
+      format: "exact_three_digits"
+      note: >
+        Report exact p-values to three decimal places (e.g., p = .032, p = .007).
+        Do not use threshold language such as p < .05 or p < .01. This includes
+        tables, text, and footnotes.
+
+    effect_size:
+      required: true
+      accepted_types:
+        - "cohen_d"
+        - "correlation_r"
+        - "eta_squared"
+        - "partial_eta_squared"
+        - "odds_ratio"
+        - "elasticity"
+        - "standardized_coefficient"
+      note: >
+        Every statistical test must be accompanied by an effect size. The
+        choice of effect size measure should match the analysis type.
+        Effect sizes must be contextualized against benchmarks established
+        in the domain (see methodology.effect_size_benchmarks).
+
+    confidence_interval:
+      required: true
+      note: >
+        Parameter estimates must include standard errors or confidence
+        intervals. This applies to regression coefficients, means,
+        proportions, and indirect effects in mediation analyses.
+
+    significance_stars:
+      prohibited: true
+      note: >
+        Do not use asterisk significance markers (* p < .05, ** p < .01,
+        *** p < .001) in tables or text. Report exact p-values instead.
+
+    substantive_significance:
+      required: true
+      note: >
+        Statistical significance is necessary but not sufficient. Authors
+        must demonstrate substantive significance: would a manager, policy
+        maker, or consumer think or behave differently given this effect?
+        Effect size contextualization against real-world benchmarks is the
+        primary mechanism for demonstrating substantive significance.
+
+  methodology:
+
+    identification_threats:
+      required: true
+      note: >
+        Discuss sources of threats to identification before choosing
+        econometric or analytical methods. This should precede the
+        methods section, not follow it. Common threats include
+        endogeneity, omitted variable bias, selection effects,
+        simultaneity, and measurement error.
+
+    effect_size_benchmarks:
+      required: true
+      note: >
+        Contextualize reported effect sizes against established benchmarks
+        in the substantive domain. Where domain-specific benchmarks exist,
+        cite them. Where they do not, compare to meta-analytic norms in
+        adjacent areas.
+
+    robustness_checks:
+      recommended: true
+      note: >
+        Sensitivity analyses and robustness checks are strongly encouraged.
+        These may include alternative specifications, subgroup analyses,
+        different operationalizations of key constructs, or alternative
+        estimators.
+
+    pre_registration:
+      recommended: true
+      note: >
+        Pre-registration is encouraged but not mandated. When pre-registered,
+        include the registry URL and distinguish confirmatory from exploratory
+        analyses.
+
+    common_method_bias:
+      recommended: true
+      note: >
+        For survey-based research, address common method bias. Procedural
+        remedies (temporal separation, different response formats) are
+        preferred over post-hoc statistical remedies.
+
+  data:
+
+    availability:
+      required: true
+      policy: "AMA Common Data Availability Policy"
+      note: >
+        Authors must comply with the AMA common data availability policy.
+        Data must be made available for replication. Exceptions require
+        justification (e.g., proprietary data under NDA, IRB restrictions
+        on patient data). If data cannot be shared, authors must describe
+        access conditions.
+
+    documentation:
+      required: true
+      note: >
+        Data files must be accompanied by a codebook or data dictionary
+        that defines all variables, scales, and coding conventions.
+
+  code:
+
+    availability:
+      required: true
+      note: >
+        Analysis code or syntax must be available to support replication.
+        This includes data cleaning, variable construction, and all
+        estimation steps. Acceptable formats include R, Stata, Python,
+        SAS, and SPSS syntax.
+
+  replication:
+
+    transparency:
+      required: true
+      note: >
+        Papers must contain sufficient methodological detail to support
+        independent replication. This includes sample recruitment, exclusion
+        criteria, measurement instruments with item wording, and analysis
+        specifications. Refer readers to supplementary materials or data
+        repositories for detail that cannot fit in the main text.
+
+  claims:
+
+    falsifiability:
+      recommended: true
+      note: >
+        Authors should state what pattern of results would falsify each
+        hypothesis. This is the Paper Spec `acceptance.falsification` field.
+        JM does not mandate pre-registration, but the logic of falsifiability
+        should be visible in the paper.
+
+    boundary_conditions:
+      recommended: true
+      note: >
+        Authors should acknowledge boundary conditions and the limits of
+        generalizability. This includes population, cultural, temporal,
+        and contextual constraints on the findings.
+
+    theory_grounding:
+      required: true
+      note: >
+        Empirical claims must be grounded in theory. Atheoretical
+        data-dredging is not acceptable. The theoretical mechanism
+        through which the independent variable affects the dependent
+        variable must be articulated.
+
+# Mapping to paper.yaml fields
+# This section documents which paper.yaml fields are relevant to each requirement.
+
+paper_yaml_mapping:
+  results.p_value: "results[].p_value — must be exact (e.g., 'p = .032'), not threshold"
+  results.effect_size: "results[].effect_size — required for every results entry"
+  results.confidence_interval: "results[].confidence_interval — required for every results entry"
+  methodology.design: "methodology.design — identification threats should be addressed here"
+  acceptance.falsification: "acceptance[].falsification — captures falsifiability"
+  acceptance.threshold: "acceptance[].threshold — captures quantitative acceptance criteria"
+  data.available: "data.available — must be true or justified exception"
+  code.available: "code.available — must be true or justified exception"
+  limitations: "limitations[] — boundary conditions documented here"

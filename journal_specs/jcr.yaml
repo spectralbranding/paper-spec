@@ -1,0 +1,124 @@
+# Journal of Consumer Research — Submission Requirements
+# Source: JCR Author Guidelines (https://academic.oup.com/jcr/pages/Author_Guidelines)
+#         JCR Editorial Policies (as of 2025)
+#
+# Note: JCR requirements are encoded from public author guidelines.
+# This is a baseline profile; verify current requirements at submission.
+
+journal:
+  name: "Journal of Consumer Research"
+  abbreviation: "JCR"
+  publisher: "Oxford University Press / Journal of Consumer Research Inc."
+  issn: "0093-5301"
+  source: "JCR Author Guidelines (https://academic.oup.com/jcr/pages/Author_Guidelines)"
+  scope: >
+    Empirical and theoretical papers on consumer behavior. Welcomes
+    experimental, survey-based, field, computational, and qualitative
+    research. Strong emphasis on psychological mechanisms.
+
+requirements:
+
+  results:
+
+    effect_size:
+      required: true
+      note: >
+        Effect sizes must be reported for all statistical tests. Cohen's d
+        for mean comparisons, eta-squared or partial eta-squared for ANOVA,
+        correlation r for associations.
+
+    confidence_interval:
+      recommended: true
+      note: >
+        Confidence intervals are strongly encouraged, particularly for
+        mediation (bootstrapped CIs) and main effects.
+
+    p_value:
+      required: true
+      note: >
+        p-values must be reported. JCR follows APA style; exact values
+        preferred over threshold indicators.
+
+  methodology:
+
+    manipulation_check:
+      required: true
+      note: >
+        Experimental papers must include manipulation checks for all
+        independent variables. Results of manipulation checks must be
+        reported.
+
+    attention_check:
+      recommended: true
+      note: >
+        Online studies should include attention checks. Describe exclusion
+        criteria and report how many participants were excluded and why.
+
+    power_analysis:
+      recommended: true
+      note: >
+        Sample size justification (a priori power analysis or reference
+        to prior effect sizes) is encouraged, particularly for
+        confirmatory studies.
+
+    pre_registration:
+      recommended: true
+      note: >
+        Pre-registration is encouraged. Distinguish confirmatory hypotheses
+        (pre-registered) from exploratory analyses.
+
+    mediation:
+      required: true  # when mediation is claimed
+      note: >
+        When mediation is claimed, it must be tested using bootstrapping
+        (PROCESS macro or equivalent). Causal language for mediation
+        requires experimental manipulation of the mediator or longitudinal
+        design.
+
+  data:
+
+    availability:
+      required: true
+      policy: "JCR Open Data Policy"
+      note: >
+        Data must be deposited in an accessible repository (e.g., OSF,
+        Zenodo) for all quantitative studies. Raw data files and analysis
+        scripts required. IRB-restricted data requires justification.
+
+  code:
+
+    availability:
+      required: true
+      note: >
+        Analysis scripts must be deposited alongside the data. This
+        includes all preprocessing, variable construction, and
+        statistical modeling code.
+
+  replication:
+
+    transparency:
+      required: true
+      note: >
+        Full stimulus materials, measures with item wording, and analysis
+        code must be available. For lab experiments, procedure should
+        be described in sufficient detail for replication.
+
+  claims:
+
+    boundary_conditions:
+      required: true
+      note: >
+        Discussion section must address boundary conditions: when would
+        this effect not hold? What populations, contexts, or moderators
+        limit generalizability?
+
+# Mapping to paper.yaml fields
+paper_yaml_mapping:
+  results.effect_size: "results[].effect_size"
+  results.confidence_interval: "results[].confidence_interval"
+  results.p_value: "results[].p_value"
+  data.available: "data.available — must be true"
+  data.url: "data.url — repository deposit URL"
+  code.available: "code.available — must be true"
+  code.url: "code.url — repository deposit URL"
+  limitations: "limitations[] — boundary conditions"

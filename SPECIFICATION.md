@@ -593,6 +593,8 @@ Paper Spec does not replace existing standards. It complements them.
 
 **DataCite / Dublin Core.** The `meta` section overlaps with DataCite and Dublin Core metadata. Paper Spec adds no new metadata vocabulary -- it uses the same fields researchers already know. The value is in combining metadata with claims, methods, and acceptance criteria in a single file.
 
+**Journal Requirement Profiles.** The `journal_specs/` directory in this repository extends Paper Spec with machine-readable profiles encoding what individual journals require at submission: exact p-value format, mandatory effect sizes, data availability policies. A journal profile maps these requirements back to `paper.yaml` fields, enabling pre-submission compliance checking. See `journal_specs/README.md` for the format and `journal_specs/jm.yaml` for a worked example based on an explicit editorial statement of standards.
+
 ---
 
 ## Scope and Non-Goals

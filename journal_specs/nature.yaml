@@ -1,0 +1,152 @@
+# Nature — Reporting Standards
+# Source: Nature Author Guidelines (https://www.nature.com/nature/for-authors)
+#         Nature Reporting Summary requirements
+#         Nature Editorial Policies (https://www.nature.com/nature/editorial-policies)
+#
+# Note: Nature has detailed reporting checklists (the Reporting Summary) that
+# are discipline-specific. This profile encodes the universal requirements
+# that apply across all empirical research types.
+
+journal:
+  name: "Nature"
+  abbreviation: "Nature"
+  publisher: "Springer Nature"
+  issn: "0028-0836"
+  source: >
+    Nature Author Guidelines and Reporting Summary
+    (https://www.nature.com/nature/for-authors/reporting-checklist)
+  scope: >
+    High-impact original research across all scientific disciplines.
+    Criteria: exceptional advance, broad significance, compelling evidence.
+    Most submissions are desk-rejected; editorial assessment precedes peer review.
+
+requirements:
+
+  results:
+
+    statistical_reporting:
+      required: true
+      note: >
+        All statistical results must include the test statistic, degrees
+        of freedom (where applicable), and exact p-value. Effect sizes
+        are required. Sample sizes must be stated for every comparison.
+
+    error_bars:
+      required: true
+      note: >
+        All figures displaying data must define what error bars represent
+        (SD, SE, 95% CI). This must appear in the figure legend.
+
+    n_per_group:
+      required: true
+      note: >
+        For all comparisons, report the number of independent biological
+        or experimental replicates (n), not just total N.
+
+  methodology:
+
+    reporting_summary:
+      required: true
+      note: >
+        Authors must complete a Reporting Summary (discipline-specific
+        checklist). Life sciences papers use the Nature Portfolio Reporting
+        Summary. Statistical and computational papers use a different form.
+        The Reporting Summary is submitted alongside the manuscript.
+
+    sample_size_justification:
+      required: true
+      note: >
+        The basis for sample size must be stated. For hypothesis-driven
+        studies, power analysis is expected. For exploratory studies,
+        the justification may reference resource constraints and
+        acknowledge this as a limitation.
+
+    randomization:
+      required: true  # where applicable
+      note: >
+        When groups are compared, describe how subjects were allocated
+        to groups (randomization method). For non-randomized comparisons,
+        explain why and address confounds.
+
+    blinding:
+      required: true  # where applicable
+      note: >
+        State whether investigators were blinded to group allocation
+        during data collection and analysis. If not blinded, justify.
+
+    pre_registration:
+      recommended: true
+      note: >
+        Clinical trials must be registered. For other study types,
+        pre-registration is encouraged and noted positively by editors.
+
+  data:
+
+    availability:
+      required: true
+      policy: "Nature Research Data Availability Policy"
+      note: >
+        A Data Availability Statement is mandatory. All data necessary
+        to evaluate the conclusions of the paper must be available to
+        reviewers during review and to readers after publication.
+        Data should be deposited in a recognized repository (Zenodo,
+        figshare, Dryad, domain-specific repositories).
+
+    accession_numbers:
+      required: true  # for biological data
+      note: >
+        Biological sequence data, structural data, and other domain-
+        specific datasets must be deposited in the appropriate
+        community repository and accession numbers reported in the paper.
+
+  code:
+
+    availability:
+      required: true
+      policy: "Nature Research Code Availability Policy"
+      note: >
+        Custom code that is central to the conclusions must be made
+        available. A Code Availability Statement is required.
+        Acceptable: GitHub, Zenodo, Dryad, Figshare. Proprietary
+        code must be noted with access conditions described.
+
+  replication:
+
+    methods_detail:
+      required: true
+      note: >
+        Methods must be written in sufficient detail to allow
+        independent replication. For complex protocols, a separate
+        Methods section (unconstrained by word limit) is provided.
+        Key reagents, materials, and equipment must be specified
+        with supplier and catalog number where relevant.
+
+    statistics_section:
+      required: true
+      note: >
+        A dedicated statistics subsection within Methods must describe:
+        statistical tests used, whether data met test assumptions,
+        whether tests were one- or two-tailed, and the alpha threshold.
+
+  claims:
+
+    scope_of_conclusions:
+      required: true
+      note: >
+        Conclusions must not overreach the evidence. Causal language
+        requires experimental manipulation. Correlational designs must
+        use correlational language. Editors and reviewers check this
+        actively.
+
+# Mapping to paper.yaml fields
+paper_yaml_mapping:
+  results.effect_size: "results[].effect_size"
+  results.p_value: "results[].p_value — must be exact"
+  results.confidence_interval: "results[].confidence_interval"
+  data.available: "data.available — must be true; statement required"
+  data.url: "data.url — repository deposit required"
+  code.available: "code.available — required if code is central"
+  code.url: "code.url — repository or access conditions"
+  replication.requirements: "replication.requirements — materials, reagents, protocols"
+  methodology.design: "methodology.design — randomization and blinding"
+  limitations: "limitations[] — scope and generalizability"

@@ -153,6 +153,17 @@ print('Valid.')
 
 Validation levels range from Level 0 (just metadata) to Level 4 (all sections present). Any level is valid.
 
+## Journal Requirement Profiles
+
+The [journal_specs/](journal_specs/) directory contains machine-readable requirement profiles for specific journals. A journal spec encodes what a venue actually requires — exact p-values, mandatory effect sizes, data sharing policies — in a format that can be checked against a `paper.yaml` before submission.
+
+```bash
+# Future: validate a paper against a journal's requirements
+python -m paperspec validate paper.yaml --journal journal_specs/jm.yaml
+```
+
+Current profiles: `jm.yaml` (Journal of Marketing), `jcr.yaml` (Journal of Consumer Research), `nature.yaml` (Nature). Each profile lists its source document so requirements are traceable.
+
 ## Contributing
 
 Paper Spec is in early development (v0.1.0). Contributions are welcome:
