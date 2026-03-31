@@ -1,0 +1,343 @@
+# paper.yaml — Paper Spec v0.1.0
+# Zharnikov (2026w): Canon as Repository — Specification-Driven Architecture for Transmedia IP
+spec_version: "0.1.0"
+
+meta:
+  title: "Canon as Repository: A Specification-Driven Architecture for Transmedia Intellectual Property"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "PENDING"  # Zenodo upload required
+  date: "2026-03-30"
+  version: "1.0"
+  venue: "Convergence (SAGE) — target, not yet submitted"
+  license: "CC-BY-NC-ND-4.0"
+  keywords:
+    - transmedia storytelling
+    - intellectual property
+    - specification
+    - rendering
+    - version control
+    - canon
+    - narrative consistency
+    - computational narratology
+    - creative AI
+    - franchise management
+    - story bible
+    - rendering problem
+
+claims:
+  - id: "P1"
+    type: proposition
+    statement: >
+      Every change to a creative work's specification can be represented as a commit to a
+      version-controlled repository, preserving the change, its author, its timestamp, and
+      its rationale, enabling complete reconstruction of any prior canonical state.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: []
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      Every adaptation, translation, or derivative work from a creative specification can be
+      represented as a fork from a tagged version of the canon repository, inheriting the
+      specification's constraints while introducing medium-specific rendering decisions.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P1"]
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      Canon governance — the process by which proposed changes to a creative specification are
+      reviewed, approved, or rejected — can be formalized as a pull request workflow with
+      defined approval authorities, review criteria, and merge conditions.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P1"]
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      Consistency validation across renderings of a creative specification can be automated
+      through structured validation rules that check character properties, timeline chronology,
+      world rules, and cross-rendering compatibility against the canonical specification.
+    testable: true
+    tested_in_paper: true
+    status: supported
+    depends_on: ["P1", "P2"]
+
+  - id: "P5"
+    type: proposition
+    statement: >
+      Each medium constitutes a dimensional subspace of the full specification space,
+      preserving some specification dimensions with high fidelity while structurally losing
+      others, such that every rendering is an incomplete but valid projection of the canonical
+      specification.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P2"]
+
+  - id: "P6"
+    type: proposition
+    statement: >
+      When specification and rendering are formally separated, and rendering technology is
+      sufficiently capable, any observer can generate a personalized rendering from a published
+      canonical specification, transforming the author's role from renderer to specifier.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P5"]
+
+  - id: "P7"
+    type: proposition
+    statement: >
+      Observer-specific rendering — the generation of personalized renderings from a canonical
+      specification, parameterized by observer preferences, language, medium, and reception
+      context — preserves specification-level consistency while maximizing rendering-level
+      accessibility.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P5", "P6"]
+
+methodology:
+  type: conceptual
+  design: >
+    Conceptual architecture proposal with proof-of-concept demonstration. The paper applies the
+    rendering problem framework (Zharnikov, 2026l) to creative IP management, identifying the
+    structural gap in transmedia franchise consistency verification. Git version control
+    semantics are mapped to IP lifecycle operations with formal precision (Table 1). A cross-
+    domain comparison (Table 2) establishes that consistency verification is a universal
+    construct present in every other domain of complex designed systems. The specification-
+    rendering distinction is formalized through a medium-independence criterion. A proof-of-
+    concept implementation (github.com/spectralbranding/canon-repo) demonstrates the
+    architecture using Romeo and Juliet as a test case.
+  analysis:
+    method: >
+      Conceptual analysis connecting transmedia storytelling theory (Jenkins 2006, Ryan 2015,
+      Wolf 2012), computational narratology (Propp 1928, Gervas 2017, Pianzola et al. 2025),
+      version control research (Sterman et al. 2022), and the rendering problem framework
+      (Zharnikov, 2026l). Cross-domain comparison across engineering, medicine, financial
+      auditing, software, and scientific publishing. Formal specification-rendering boundary
+      criterion: medium independence.
+    software: >
+      Git (version control, canon-repo demonstration).
+      GitHub (spectralbranding/canon-repo: Romeo and Juliet specification demo).
+
+acceptance:
+  - claim_id: "P1"
+    criterion: >
+      Implement a canon repository for an existing transmedia franchise. Record three canonical
+      changes as commits with author, timestamp, and rationale. Verify that any prior canonical
+      state can be reconstructed from commit history by checking out the corresponding commit
+      and validating the reconstructed state against historical records.
+    falsification: >
+      Commit-based change records fail to capture a material class of canonical changes (e.g.,
+      implicit retcons communicated through author interviews), meaning commit history cannot
+      serve as a complete audit trail.
+
+  - claim_id: "P4"
+    criterion: >
+      Deploy character consistency, timeline consistency, and world rule validators against a
+      defined canon specification. Run validators against 20+ renderings from a real franchise.
+      Measure: (a) true positive rate for known contradictions; (b) false positive rate on
+      known-consistent renderings. Target: >80% true positive rate, <20% false positive rate.
+    falsification: >
+      Automated validators achieve true positive rate below 50% for known canon contradictions,
+      indicating that the structural contradiction types targeted by the validators are not the
+      dominant failure mode in practice.
+
+  - claim_id: "P6"
+    criterion: >
+      Publish a formal canon specification for an original creative work. Instruct an AI
+      rendering engine to produce three renderings parameterized by different observer profiles
+      (language, medium, audience age). Assess whether all three renderings satisfy all
+      specification constraints as judged by a panel of domain experts blind to which
+      specification was used.
+    falsification: >
+      Fewer than two of three AI-generated renderings are judged to satisfy the specification
+      constraints by the expert panel, indicating that current AI rendering capability is
+      insufficient to produce specification-consistent output across varied rendering parameters.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    No primary data collected. This is a conceptual architecture proposal. The proof-of-concept
+    demonstration at github.com/spectralbranding/canon-repo provides a worked example using
+    Romeo and Juliet (public domain), demonstrating the canon repository structure with
+    character specifications, world rules, timeline entries, and a sample validation check.
+
+code:
+  available: true
+  url: "https://github.com/spectralbranding/canon-repo"
+  notes: >
+    The canon-repo repository contains a Romeo and Juliet demonstration of the specification-
+    driven architecture: character specifications (Romeo, Juliet, Tybalt, Friar Lawrence),
+    world rules, timeline, themes, constraints, and a sample consistency validator. The demo
+    illustrates Propositions 1-4 operationally.
+
+replication:
+  feasible: true
+  estimated_cost: "< $5,000 USD (pilot with a single franchise or public-domain IP)"
+  estimated_time: "3-6 months"
+  requirements:
+    - "canon-repo repository (spectralbranding/canon-repo) for schemas and demonstration"
+    - "A franchise IP owner willing to formalize their story bible as a canon repository"
+    - "NLP tooling for automated consistency validation (character and timeline validators)"
+    - "Git hosting infrastructure (GitHub, GitLab, or self-hosted)"
+
+dependencies:
+  - citation: "Zharnikov (2026l)"
+    doi: "10.5281/zenodo.19064426"
+    claim: >
+      The rendering problem framework: specification of bounded complexity is rendered into
+      implementation of vastly greater complexity, producing emergent phenomena. Canon as
+      Repository is the fourth domain application.
+    relationship: "applies"
+    critical: true
+
+  - citation: "Zharnikov (2026a)"
+    doi: "10.5281/zenodo.18945912"
+    claim: >
+      Spectral Brand Theory observer model: observer cohorts with distinct spectral profiles
+      perceive different signals. Applied here as audience-specific rendering parameterization.
+    relationship: "applies"
+    critical: false
+
+  - citation: "Zharnikov (2026e)"
+    doi: "10.5281/zenodo.18945352"
+    claim: >
+      Spectral metamerism: same signal field produces different perception clouds. Applied to
+      actor-rendered characters (same specification, different performances, different
+      audience perceptions).
+    relationship: "applies"
+    critical: false
+
+  - citation: "Zharnikov (2026i)"
+    doi: "10.5281/zenodo.18946043"
+    claim: >
+      Organizational Schema Theory: specification-first design. OST's specification-first
+      principle applied to creative IP management.
+    relationship: "applies"
+    critical: false
+
+  - citation: "Jenkins (2006)"
+    claim: >
+      Transmedia storytelling: integral elements of a fiction dispersed across multiple
+      delivery channels. Foundational definition of the consistency problem addressed here.
+    relationship: "extends"
+    critical: true
+
+  - citation: "Ryan (2015)"
+    claim: >
+      Transmedial narratology: medium-independent vs. medium-specific narrative structures.
+      The specification-rendering distinction formalizes Ryan's empirical distinction.
+    relationship: "extends"
+    critical: true
+
+  - citation: "Sterman et al. (2022)"
+    claim: >
+      Creative professionals develop informal versioning systems recapitulating Git semantics.
+      Empirical precedent for the structural need formalized by the canon repository.
+    relationship: "extends"
+    critical: false
+
+  - citation: "Beck (2003)"
+    claim: >
+      Test-driven development: continuous integration and testing against specifications.
+      CI/CD construct applied to canon consistency validation.
+    relationship: "applies"
+    critical: false
+
+results:
+  - claim_id: "P4"
+    status: supported
+    notes: >
+      Partially supported by proof-of-concept: the canon-repo demonstration includes a sample
+      consistency check against the Romeo and Juliet specification. Character traits, timeline
+      events, and world rules are specified in structured YAML, enabling automated validation.
+      Full NLP-based cross-rendering validation is not implemented.
+
+  - claim_id: "P1"
+    status: proposed
+    notes: >
+      Demonstrated structurally: the Romeo and Juliet canon-repo records specification elements
+      as versioned files with Git history. Full commit-based audit trail for a live franchise
+      is not demonstrated.
+
+  - claim_id: "P2"
+    status: proposed
+    notes: >
+      Demonstrated structurally: the canon-repo architecture supports fork-based adaptation.
+      No live franchise fork has been implemented.
+
+limitations:
+  - description: >
+      Proof-of-concept only. The Romeo and Juliet demonstration (github.com/spectralbranding/
+      canon-repo) illustrates the architecture but uses a public-domain text with no live
+      franchise governance. Adoption by a commercial franchise owner would require substantial
+      organizational change and tooling investment.
+    severity: major
+    addressable: true
+
+  - description: >
+      NLP validation is nascent. The paper proposes automated consistency validation using
+      natural language processing, but the accuracy of entity extraction and relationship
+      checking across long-form narrative text is not yet at production quality for the
+      contradiction-detection task.
+    severity: major
+    addressable: true
+
+  - description: >
+      Specification boundary is a design decision. The medium-independence criterion for
+      classifying elements as specification vs. rendering is clear in principle but requires
+      judgment in practice. The paper acknowledges this at Section 3.3 but does not provide
+      a formal decision procedure.
+    severity: moderate
+    addressable: true
+
+  - description: >
+      AI rendering quality. Proposition 6-7 assume sufficiently capable AI rendering
+      technology. Current AI rendering is impressive but not yet equivalent to expert human
+      rendering in most narrative media. The propositions are directionally correct but
+      temporally uncertain.
+    severity: moderate
+    addressable: false
+
+  - description: >
+      Copyright and IP law interplay. The paper addresses AI authorship (Section 6.1) but does
+      not fully analyze how fork-based licensing interacts with existing copyright doctrine,
+      moral rights, or work-for-hire provisions across jurisdictions.
+    severity: moderate
+    addressable: true
+
+repositories:
+  - name: "canon-repo"
+    url: "https://github.com/spectralbranding/canon-repo"
+    description: "Romeo and Juliet demonstration of specification-driven architecture"
+    doi: ""
+
+submission_history:
+  - venue: "Zenodo"
+    date: "2026-03-30"
+    status: "pending_upload"
+    doi: "PENDING"
+    notes: >
+      v1.0 initial preprint. ~9,300 words, 7 propositions.
+      Proof-of-concept at github.com/spectralbranding/canon-repo. CC BY-NC-ND 4.0.
+  - venue: "Convergence (SAGE)"
+    date: ""
+    status: "pending"
+    manuscript_id: ""
+    doi: ""
+    notes: >
+      Target venue. Interdisciplinary journal on media convergence. Requires anonymization.
+      Trimmed version in export/canon-repository/convergence/paper.md.
