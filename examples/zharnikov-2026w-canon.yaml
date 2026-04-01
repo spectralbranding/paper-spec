@@ -8,8 +8,8 @@ meta:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
-  doi: "PENDING"  # Zenodo upload required
-  date: "2026-03-30"
+  doi: "10.5281/zenodo.19355800"
+  date: "2026-03-31"
   version: "1.0"
   venue: "Convergence (SAGE) — target, not yet submitted"
   license: "CC-BY-NC-ND-4.0"
@@ -320,19 +320,23 @@ limitations:
     addressable: true
 
 repositories:
-  - name: "canon-repo"
+  - platform: "Zenodo"
+    url: "https://doi.org/10.5281/zenodo.19355800"
+    doi: "10.5281/zenodo.19355800"
+    version: "v1.0"
+    date: "2026-03-31"
+    notes: "Preprint. 24 refs, 7 propositions."
+  - platform: "GitHub"
     url: "https://github.com/spectralbranding/canon-repo"
-    description: "Romeo and Juliet demonstration of specification-driven architecture"
-    doi: ""
+    notes: "Romeo and Juliet demonstration — specification + 3 rendering forks"
 
 submission_history:
   - venue: "Zenodo"
-    date: "2026-03-30"
-    status: "pending_upload"
-    doi: "PENDING"
+    date_submitted: "2026-03-31"
+    decision: "published"
     notes: >
-      v1.0 initial preprint. ~9,300 words, 7 propositions.
-      Proof-of-concept at github.com/spectralbranding/canon-repo. CC BY-NC-ND 4.0.
+      v1.0 preprint. 24 refs, 12.5% self-cite. /review-paper RESEARCH PAPER 4/5.
+      DOI: 10.5281/zenodo.19355800. CC BY-NC-ND 4.0.
   - venue: "Convergence (SAGE)"
     date: ""
     status: "pending"
