@@ -159,7 +159,7 @@ code:
   available: true
   url: "https://github.com/spectralbranding/sbt-framework"
   notes: >
-    The sbt-framework repository (7 modules, 86 tests) implements the SBT
+    The sbt-framework repository (7 modules, 102 tests) implements the SBT
     computational pipeline: dimension scoring, coherence classification,
     cohort clustering, and profile visualization. Not the code used in this
     paper (which is theoretical), but the canonical implementation of the framework.

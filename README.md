@@ -131,7 +131,7 @@ limitations:
 
 Every section except `meta` is optional. Add what you have. Each section adds value independently.
 
-The [examples/](examples/) directory contains 23 real `paper.yaml` files from two active research programs, including papers with full submission histories across multiple journals.
+The [examples/](examples/) directory contains 24 real `paper.yaml` files from two active research programs, including papers with full submission histories across multiple journals.
 
 ## Specification
 

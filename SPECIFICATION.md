@@ -457,7 +457,7 @@ Where the paper can be found. Tracks all deposits across platforms and maps vers
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `platform` | string | yes | Repository name (e.g., "Zenodo", "arXiv", "GitHub", "SSRN", "institutional") |
+| `platform` | string | yes | Repository name (e.g., "Zenodo", "arXiv", "GitHub", "OSF Preprints", "institutional") |
 | `url` | string | yes | Direct URL to the deposit |
 | `doi` | string | no | DOI if the platform assigns one |
 | `version` | string | no | Version identifier on this platform (e.g., "v3", "2026-03-24") |
