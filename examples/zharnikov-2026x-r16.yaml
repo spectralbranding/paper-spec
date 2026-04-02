@@ -8,7 +8,7 @@ meta:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
-  doi: null  # Reserved -- update after Zenodo upload
+  doi: "10.5281/zenodo.19391476"
   date: "2026-04-02"
   version: "1.0"
   venue: "Zenodo preprint (target: JIM)"
