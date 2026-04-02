@@ -10,7 +10,7 @@ meta:
       affiliation: "Independent Researcher"
   doi: "10.5281/zenodo.19391476"
   date: "2026-04-02"
-  version: "1.0"
+  version: "1.1"
   venue: "Zenodo preprint (target: JIM)"
   license: "CC-BY-NC-ND-4.0"
   keywords:
@@ -24,6 +24,8 @@ meta:
     - brand function
     - observer-driven evolution
     - dual identity infrastructure
+    - observational equivalence
+    - behavioral metamerism index
 
 claims:
   - id: "P1"
@@ -36,6 +38,9 @@ claims:
     tested_in_paper: false
     status: proposed
     depends_on: []
+    falsification: >
+      Falsified if the AI-observer transition produces only incremental extensions of
+      logo-based identity rather than a structurally different verification mechanism.
 
   - id: "P2"
     type: proposition
@@ -48,6 +53,9 @@ claims:
     tested_in_paper: false
     status: proposed
     depends_on: ["P1"]
+    falsification: >
+      Falsified if AI agents demonstrably use logos as informational inputs that
+      significantly affect recommendation quality.
 
   - id: "P3"
     type: proposition
@@ -60,6 +68,9 @@ claims:
     tested_in_paper: false
     status: proposed
     depends_on: []
+    falsification: >
+      Falsified if multimodal AI agents processing visual brand elements make measurably
+      better purchasing decisions than text-only agents with identical structured data.
 
   - id: "P4"
     type: proposition
@@ -72,6 +83,9 @@ claims:
     tested_in_paper: false
     status: proposed
     depends_on: ["P3"]
+    falsification: >
+      Falsified if existing protocols prove sufficient for AI agents to measure brand
+      coherence and predict behavioral responses without additional specification layers.
 
   - id: "P5"
     type: proposition
@@ -84,6 +98,9 @@ claims:
     tested_in_paper: false
     status: proposed
     depends_on: ["P2", "P4"]
+    falsification: >
+      Falsified if AI-mediated commerce scales to >20% of category transactions without
+      adopting cryptographic brand verification.
 
   - id: "P6"
     type: proposition
@@ -96,6 +113,10 @@ claims:
     tested_in_paper: false
     status: proposed
     depends_on: ["P4"]
+    falsification: >
+      Falsified if augmented-condition LLM discrimination accuracy does not exceed
+      statistical-only accuracy by a significant margin (p < 0.05) across >=3 categories.
+    pilot_script: "behavioral_metamerism_pilot.py"
 
 companion_papers:
   - key: "2026a"
