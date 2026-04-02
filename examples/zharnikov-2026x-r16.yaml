@@ -1,0 +1,116 @@
+# paper.yaml -- Paper Spec v0.1.0
+# Zharnikov (2026x): R16 -- AI-Native Brand Identity
+spec_version: "0.1.0"
+
+meta:
+  title: "AI-Native Brand Identity: From Visual Recognition to Cryptographic Verification"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: null  # Reserved -- update after Zenodo upload
+  date: "2026-04-02"
+  version: "1.0"
+  venue: "Zenodo preprint (target: JIM)"
+  license: "CC-BY-NC-ND-4.0"
+  keywords:
+    - brand identity
+    - AI agents
+    - cryptographic verification
+    - behavioral specification
+    - metamerism
+    - agentic commerce
+    - generative engine optimization
+    - brand function
+    - observer-driven evolution
+    - dual identity infrastructure
+
+claims:
+  - id: "P1"
+    type: proposition
+    statement: >
+      Identity verification technologies emerge discontinuously in response to changes
+      in the dominant observer type. Each transition produces a technology optimized for
+      the new observer's verification capabilities.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: []
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      The current transition from human to AI observers constitutes the sixth observer
+      transition in the historical pattern, predicting a shift from visual-emotional
+      identity technologies (logos) to machine-verifiable behavioral specifications
+      (cryptographic signatures on Brand Functions).
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P1"]
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      AI agents form brand representations through statistical co-occurrence rather
+      than perceptual processing, creating systematic biases (frequency bias, market
+      dominance bias, recency bias) that are structurally different from human
+      perceptual biases and cannot be addressed by human-oriented brand identity tools.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: []
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      A Brand Function -- f(query, context, observer_type, time) -> response --
+      provides a complete behavioral specification that enables coherence verification,
+      perception measurement, and cross-touchpoint consistency in ways that existing
+      machine-readable brand protocols (brand.json, Brando Schema) cannot.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P3"]
+
+  - id: "P5"
+    type: proposition
+    statement: >
+      In autonomous commerce where AI agents transact without human oversight,
+      cryptographic attestation of behavioral claims becomes the primary trust
+      mechanism, replacing reputation-based trust that requires accumulated human
+      experience.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P2", "P4"]
+
+  - id: "P6"
+    type: proposition
+    statement: >
+      Behavioral metamerism -- where brands with identical statistical profiles
+      exhibit structurally different behavioral signatures -- represents a form of
+      brand confusion that statistical optimization (including GEO) cannot detect
+      or resolve, requiring behavioral specification for disambiguation.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P4"]
+
+companion_papers:
+  - key: "2026a"
+    title: "Spectral Brand Theory"
+    doi: "10.5281/zenodo.18945912"
+    relationship: "theoretical_foundation"
+  - key: "2026e"
+    title: "Spectral Metamerism in Brand Perception"
+    doi: "10.5281/zenodo.18945352"
+    relationship: "metamerism_formalization"
+  - key: "2026l"
+    title: "The Rendering Problem"
+    doi: "10.5281/zenodo.19064427"
+    relationship: "specification_gap"
+  - key: "2026q"
+    title: "Spectral Portfolio Theory"
+    doi: null
+    relationship: "multi_brand_dynamics"
