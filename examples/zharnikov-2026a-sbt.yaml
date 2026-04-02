@@ -1,270 +1,168 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml -- Paper Spec v0.1.0
 # Zharnikov (2026a): Spectral Brand Theory
 spec_version: "0.1.0"
 
 meta:
-  title: "Spectral Brand Theory: A multi-dimensional framework for brand perception analysis"
+  title: "Spectral Brand Theory: A Computational Framework for Multi-Dimensional Brand Perception"
   authors:
     - name: "Zharnikov, Dmitry"
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
   doi: "10.5281/zenodo.18945912"
-  date: "2026-01-01"
-  version: "1.0"
-  venue: "Working Paper (Zenodo)"
-  license: "CC-BY-4.0"
+  date: "2026-04-02"
+  version: "2.0"
+  venue: "Zenodo preprint (not yet submitted to journal)"
+  license: "CC-BY-NC-ND-4.0"
   keywords:
+    - spectral brand theory
     - brand perception
-    - spectral analysis
-    - multi-dimensional measurement
-    - observer cohorts
+    - computational branding
+    - observer heterogeneity
     - brand coherence
-    - semiotic theory
+    - structural absence
+    - dimensional decomposition
+    - multi-attribute perception
+    - non-ergodic dynamics
+    - AI-native framework
 
 claims:
-  - id: "D1"
-    type: definition
-    statement: >
-      Brand perception is an 8-dimensional vector in R^8_+ representing scores on
-      Semiotic, Narrative, Ideological, Experiential, Social, Economic, Cultural,
-      and Temporal dimensions. This vector is called the observer spectral profile.
-    formal: "p = (s_1, s_2, s_3, s_4, s_5, s_6, s_7, s_8) in R^8_+, s_i in [0,10]"
-    testable: true
-    tested_in_paper: false
-    status: not_tested
-    depends_on: []
-
-  - id: "D2"
-    type: definition
-    statement: >
-      Three emission types characterize brand signals: positive (brand actively emits
-      on a dimension), null (brand emits nothing), and structural_absence (brand
-      cannot emit on the dimension by structural constraint). Null and structural_absence
-      are observationally distinct despite both appearing as zero in the profile.
-    formal: "e_i in {positive, null, structural_absence}"
-    testable: true
-    tested_in_paper: false
-    status: not_tested
-    depends_on: ["D1"]
-
-  - id: "D3"
-    type: definition
-    statement: >
-      Five coherence types partition the space of possible observer spectral profiles
-      by the pattern of active dimensions and their mutual alignment: ecosystem coherence
-      (all 8 dimensions active and aligned), signal coherence (subset active, aligned),
-      identity coherence (ideological dimension dominant), experiential_asymmetry
-      (designed and ambient signals misaligned), incoherent (no cross-dimension alignment).
-    formal: "C in {ecosystem, signal, identity, experiential_asymmetry, incoherent}"
-    testable: true
-    tested_in_paper: false
-    status: not_tested
-    depends_on: ["D1", "D2"]
-
-  - id: "D4"
-    type: definition
-    statement: >
-      An observer cohort is a cluster of observers whose spectral profiles are within
-      a perceptual threshold epsilon of each other in the SBT metric. Cohorts are
-      perceptual, not demographic — two observers in the same demographic may belong
-      to different cohorts if their spectral profiles differ.
-    formal: "Cohort_k = {o : d(p_o, mu_k) < epsilon}, where d is the SBT metric from Zharnikov (2026d)"
-    testable: true
-    tested_in_paper: false
-    status: not_tested
-    depends_on: ["D1"]
-
-  - id: "D5"
-    type: definition
-    statement: >
-      Brand conviction is the observer's stable belief-state about a brand's spectral
-      profile, as distinct from momentary evaluation or attitude. Brand conviction
-      persists across exposures and moderates signal interpretation.
-    formal: "bc_o(B) = lim_{t->inf} E[p_{o,t}(B)]"
-    testable: true
-    tested_in_paper: false
-    status: not_tested
-    depends_on: ["D1"]
-
   - id: "P1"
     type: proposition
     statement: >
-      Projecting an 8-dimensional spectral profile onto a scalar brand equity score
-      is informationally lossy: brands that are perceptually distinct in R^8_+ may
-      be indistinguishable under any scalar aggregation. The information loss is not
-      recoverable from the scalar alone.
-    formal: "There exist p, q in R^8_+ such that f(p) = f(q) for all scalar aggregations f: R^8 -> R, yet d(p,q) > 0"
+      Different observer cohorts, exposed to identical brand signal environments,
+      will form systematically different brand convictions as a function of their
+      spectral profile differences (weights, tolerances, priors, encounter mode).
     testable: true
     tested_in_paper: false
-    status: not_tested
-    depends_on: ["D1"]
+    status: proposed
+    depends_on: []
 
-methodology:
-  type: theoretical
-  design: >
-    Framework construction. The 8 dimensions are derived from a multi-disciplinary
-    review of meaning-transmission channels (semiotic, narrative, ideological,
-    experiential, social, economic, cultural, temporal theory). Brand profiles for
-    illustrative examples (Hermes, IKEA, Patagonia, Erewhon, Tesla) are assigned
-    by the author based on publicly available brand information and structured
-    reasoning. No primary data collection.
-  analysis:
-    method: "Conceptual synthesis; illustrative case application; dimensional counter-example construction"
-    software: "None"
+  - id: "P2"
+    type: proposition
+    statement: >
+      The temporal sequence in which brand signals are encountered affects the
+      resulting brand conviction, even when the set of signals is identical.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: []
 
-acceptance:
-  - claim_id: "D1"
-    criterion: >
-      Factor analysis of observer responses to brand perception items produces
-      8 stable factors with interpretable loading patterns matching the SBT taxonomy,
-      with eigenvalues substantially above the scree-plot break.
-    falsification: >
-      Factor analysis consistently extracts fewer than 8 factors (e.g., 2-4) across
-      multiple brand categories and samples, suggesting the 8-dimension model is
-      over-specified.
+  - id: "P3"
+    type: proposition
+    statement: >
+      Designed restriction of signal emission in specific dimensions generates
+      perceived value that cannot be replicated by signal addition in other dimensions.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: []
 
-  - claim_id: "D2"
-    criterion: >
-      Observers reliably distinguish null emissions from structural absences when
-      presented with brand scenarios; inter-rater agreement (kappa) > 0.60.
-    falsification: >
-      Observers cannot distinguish null from structural_absence at above-chance rates,
-      rendering the three-way emission taxonomy observationally equivalent to a two-way one.
+  - id: "P4"
+    type: proposition
+    statement: >
+      Brands with identical aggregate coherence scores exhibit different resilience
+      properties depending on their coherence type (ecosystem, signal, identity,
+      experiential asymmetry, incoherent).
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: []
 
-  - claim_id: "D3"
-    criterion: >
-      Brands classified into different coherence types by the SBT protocol show
-      statistically different crisis resilience outcomes in longitudinal crisis data.
-    falsification: >
-      Crisis outcomes do not differ significantly across coherence types after controlling
-      for brand size, category, and pre-crisis equity scores.
+  - id: "P5"
+    type: proposition
+    statement: >
+      Evidence-free negative brand convictions are more resistant to disconfirmation
+      than evidence-rich positive convictions.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: []
 
-  - claim_id: "P1"
-    criterion: >
-      Brand pairs with identical single-metric equity scores (NPS, brand tracking, etc.)
-      are rated as perceptually distinct by observers when evaluated across all 8 dimensions.
-    falsification: >
-      No empirical brand pairs can be found where scalar equity scores agree but
-      8-dimensional profiles significantly diverge.
+  - id: "H1"
+    type: hypothesis
+    statement: >
+      Brands with 55-65% designed signals will show higher brand equity and disruption
+      resilience than brands outside this range, controlling for category, age, and
+      market position.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P3", "P4"]
 
-data:
-  available: false
-  url: ""
-  notes: >
-    No primary data collected in this paper. Illustrative brand profiles are
-    author-assigned, not survey-derived. The sbt-framework repository provides
-    tooling for profile elicitation and computation.
+  - id: "H2"
+    type: hypothesis
+    statement: >
+      Evidence-free negative brand convictions will show higher resistance to
+      counter-evidence than evidence-rich positive convictions.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P5"]
 
-code:
-  available: true
-  url: "https://github.com/spectralbranding/sbt-framework"
-  notes: >
-    The sbt-framework repository (7 modules, 102 tests) implements the SBT
-    computational pipeline: dimension scoring, coherence classification,
-    cohort clustering, and profile visualization. Not the code used in this
-    paper (which is theoretical), but the canonical implementation of the framework.
+  - id: "H3"
+    type: hypothesis
+    statement: >
+      Ecosystem-coherent brands will exhibit selective disruption absorption;
+      incoherent brands will exhibit disruption amplification.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P4"]
 
-replication:
-  feasible: true
-  estimated_cost: "< $10,000 USD (survey platform + participant recruitment)"
-  estimated_time: "6-12 months"
-  requirements:
-    - "Survey design covering all 8 SBT dimensions with validated item batteries"
-    - "Minimum 200 observers per brand, minimum 10 brands across 3+ categories"
-    - "Factor analysis software (R or Python with lavaan/factor_analyzer)"
-    - "Pre-registered replication protocol on OSF or AsPredicted"
+  - id: "H4"
+    type: hypothesis
+    statement: >
+      For incoherent brands, cross-sectional brand surveys will systematically
+      overstate cohort-level resilience relative to longitudinal tracking.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P1", "P2"]
 
-dependencies:
-  - doi: "10.1016/0022-4359(96)90015-4"
-    claim: "Aaker's brand personality framework (5 dimensions) as prior taxonomy"
-    relationship: "extends"
-    critical: true
+  - id: "H5"
+    type: hypothesis
+    statement: >
+      Structural absence strategies generate positive scarcity signals only when
+      two conditions are met: existing demand and a legitimizing heritage context.
+    testable: true
+    tested_in_paper: false
+    status: proposed
+    depends_on: ["P3"]
 
-  - doi: "10.1177/002224299305700201"
-    claim: "Keller's customer-based brand equity model — SBT extends the dimension set"
-    relationship: "extends"
-    critical: true
-
-  - doi: "10.1038/s41567-019-0732-0"
-    claim: "Peters (2019) ergodicity — motivates the non-ergodic treatment of brand perception trajectories in companion papers"
-    relationship: "applies"
-    critical: false
-
-  - reference: "Kapferer, J.-N. (2008). The new strategic brand management: Creating and sustaining brand equity long term (4th ed.). Kogan Page."
-    claim: "Kapferer (2008, 4th ed.) Brand Identity Prism — 6-facet model SBT supersedes"
-    relationship: "extends"
-    critical: true
-
-results:
-  - claim_id: "D1"
-    status: not_tested
-    notes: >
-      The 8-dimension taxonomy is proposed and justified through multi-disciplinary
-      theory review, not empirically validated. Formal justification developed in
-      companion paper Zharnikov (2026r).
-
-  - claim_id: "D2"
-    status: not_tested
-    notes: >
-      The three-emission-type distinction is conceptually motivated by the difference
-      between capability and choice in signal emission. No behavioral test performed.
-
-  - claim_id: "D3"
-    status: not_tested
-    notes: >
-      Coherence types are illustrated through brand examples (Hermes = ecosystem,
-      Tesla = signal, Patagonia = identity). Classification protocol provided but
-      not validated against outcome data.
-
-  - claim_id: "P1"
-    status: not_tested
-    notes: >
-      Logical proof of information loss under scalar projection is presented;
-      empirical demonstration with real brand pairs is absent.
-
-limitations:
-  - description: >
-      No empirical validation. All brand profiles are author-assigned based on
-      public information and structured judgment, not consumer survey data. The
-      framework is pre-empirical.
-    severity: major
-    addressable: true
-
-  - description: >
-      The 8-dimension count is theoretically motivated but not empirically derived.
-      Factor analysis may reveal a different dimensionality. See companion paper
-      Zharnikov (2026r) for the completeness-and-necessity argument.
-    severity: major
-    addressable: true
-
-  - description: >
-      Illustrative brand profiles (Hermes, IKEA, Patagonia, Erewhon, Tesla) reflect
-      the author's interpretation of publicly available signals. Different raters
-      may produce systematically different profiles.
-    severity: moderate
-    addressable: true
-
-  - description: >
-      The framework is developed primarily from Western, English-language brand
-      examples. Cultural transferability of the dimensional taxonomy to non-Western
-      brand contexts is untested.
-    severity: moderate
-    addressable: true
-
-  - description: >
-      The D/A (designed-to-ambient) Goldilocks zone of 55-65% is asserted in this
-      paper without derivation. Formal derivation provided in companion paper
-      Zharnikov (2026j) Section 7.6.
-    severity: minor
-    addressable: true
-
-repositories:
-  - platform: "Zenodo"
-    doi: "10.5281/zenodo.18945912"
-    url: "https://doi.org/10.5281/zenodo.18945912"
-    version: "v3"
-    date: "2026-03-24"
-  - platform: "GitHub"
-    url: "https://github.com/spectralbranding/sbt-papers/spectral-brand-theory"
-
-submission_history: []
+companion_papers:
+  - key: "2026b"
+    title: "The Atom-Cloud-Fact Epistemological Pipeline"
+    doi: "10.5281/zenodo.18944770"
+    relationship: "epistemological_foundation"
+  - key: "2026c"
+    title: "Geometric Approaches to Brand Perception"
+    doi: "10.5281/zenodo.18945217"
+    relationship: "literature_survey"
+  - key: "2026d"
+    title: "Brand Space Geometry"
+    doi: "10.5281/zenodo.18945295"
+    relationship: "formal_metric"
+  - key: "2026e"
+    title: "Spectral Metamerism in Brand Perception"
+    doi: "10.5281/zenodo.18945352"
+    relationship: "projection_bounds"
+  - key: "2026f"
+    title: "Cohort Boundaries in High-Dimensional Perception Space"
+    doi: "10.5281/zenodo.18945477"
+    relationship: "cohort_formalization"
+  - key: "2026g"
+    title: "How Many Brands Can a Market Hold?"
+    doi: "10.5281/zenodo.18945522"
+    relationship: "capacity_bounds"
+  - key: "2026h"
+    title: "Specification Impossibility in Organizational Design"
+    doi: "10.5281/zenodo.18945591"
+    relationship: "OST_foundation"
+  - key: "2026j"
+    title: "Non-Ergodic Brand Perception"
+    doi: "10.5281/zenodo.18945659"
+    relationship: "dynamics_formalization"
+  - key: "2026k"
+    title: "Spectral Resource Allocation"
+    doi: "10.5281/zenodo.19009268"
+    relationship: "resource_optimization"
