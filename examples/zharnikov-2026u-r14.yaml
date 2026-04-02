@@ -9,9 +9,9 @@ meta:
       orcid: "0009-0000-6893-9231"
       affiliation: "Independent Researcher"
   doi: "10.5281/zenodo.19294864"
-  date: "2026-03-28"
-  version: "1.0"
-  venue: "JASIST (submitted JASIST-2026-03-0533)"
+  date: "2026-04-02"
+  version: "1.1"
+  venue: "Zenodo preprint (JASIST desk-rejected 2026-04-02; next: JEP)"
   license: "CC-BY-NC-ND-4.0"
   keywords:
     - scientific publishing
@@ -297,10 +297,20 @@ submission_history:
       Self-referential implementation. CC BY-NC-ND 4.0.
   - venue: "JASIST (Journal of the Association for Information Science and Technology)"
     date: "2026-03-29"
-    status: "under_review"
+    status: "desk_rejected"
     manuscript_id: "JASIST-2026-03-0533"
+    decision_date: "2026-04-02"
     doi: ""
     notes: >
-      Research Article. ~6,312 words body (trimmed from preprint), 40 refs.
-      Single-blind. 5 citations added per literature review (Borgman, Renear
-      & Palmer, Shotton, Blischak, Perez-Riverol). ScholarOne submission.
+      Desk rejection #1. Editor: Dr. Steve Sawyer. Reason: "not clear that the
+      work draws on information science literature." Paper read as software
+      engineering import. ~6,312 words body, 40 refs. Single-blind. ScholarOne.
+  - venue: "Journal of Electronic Publishing (JEP, U of Michigan)"
+    date: null
+    status: "pending_reformat"
+    manuscript_id: null
+    doi: ""
+    notes: >
+      Venue #2. Diamond OA (no APC). 30-year history of publishing innovation.
+      Reframing: lead with "publishing lacks version control" gap. ~6,000 word
+      compressed version at export/R14-paper-repository/jep/.
