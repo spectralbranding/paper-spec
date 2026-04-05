@@ -1,0 +1,11 @@
+# Research Wiki Schema — customize for your research program
+# See schema/wiki-schema.yaml for full specification
+
+spec_version: "0.1.0"
+
+tracking:
+  source_types: [pdf, url, dataset, correspondence, notes]
+  page_types: [concept, author, method, contradiction, claim]
+
+disclosure:
+  level: private  # Change to: metadata | transparent | full | audit

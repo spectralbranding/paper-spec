@@ -1,0 +1,13 @@
+# Research Wiki — selective disclosure
+# Uncomment lines to exclude from public repository
+
+# Exclude source PDFs (large, possibly copyrighted)
+# sources/*.pdf
+
+# Exclude all correspondence
+# correspondence/
+
+# Keep metadata always tracked (hashes prove provenance without distributing files)
+!ingest.jsonl
+!schema.yaml
+!contradictions.md

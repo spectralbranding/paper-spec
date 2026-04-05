@@ -1,0 +1,110 @@
+# Research Wiki Schema — Paper Spec v0.1.0
+# Reference implementation for .wiki/ directory in research repositories
+# Based on Karpathy (2026) three-layer knowledge pattern, adapted for research
+#
+# This schema governs what the research wiki tracks and how it is organized.
+# Customize per research program. The schema itself is version-controlled.
+
+spec_version: "0.1.0"
+
+# What the wiki tracks
+tracking:
+  # Source types to ingest
+  source_types:
+    - pdf           # Journal articles, preprints, book chapters
+    - url           # Web pages, blog posts, documentation
+    - dataset       # CSV, JSON, JSONL data files
+    - code          # Scripts, notebooks, algorithms
+    - correspondence # Emails, messages, review exchanges
+    - notes         # Researcher's own notes and annotations
+    - media         # Images, diagrams, screenshots
+
+  # Wiki page types to maintain
+  page_types:
+    - concept       # One page per theoretical construct (e.g., "dimensional collapse")
+    - author        # One page per frequently-cited author (e.g., "Aaker, D.")
+    - method        # One page per methodology (e.g., "Bayesian heterogeneity")
+    - dataset       # One page per dataset used or referenced
+    - contradiction # One page per identified contradiction between sources
+    - timeline      # Chronological page linking events to sources
+    - claim         # One page per paper.yaml claim, linking supporting/opposing sources
+
+# Ingest log format
+ingest:
+  file: ingest.jsonl
+  required_fields:
+    - timestamp     # ISO 8601 UTC
+    - action        # ingest | update | remove | correspondence
+    - source        # Filename or URL
+    - sha256        # Hash of the source file (for PDFs, datasets)
+  optional_fields:
+    - note          # Why this source was added
+    - claim_ids     # Which paper.yaml claims this source relates to
+    - type          # pdf | url | dataset | code | correspondence | notes
+    - from          # For correspondence: sender
+    - to            # For correspondence: recipient
+    - subject       # For correspondence: subject line
+    - redacted      # true if the stored version is redacted
+
+# Correspondence handling
+correspondence:
+  # Privacy levels for stored correspondence
+  privacy_levels:
+    full: "Complete text stored (researcher's discretion)"
+    redacted: "Sensitive content removed; SHA-256 of original preserved"
+    metadata_only: "Date, parties, subject, hash — no content stored"
+
+  # What constitutes attestation proof
+  attestation_fields:
+    - timestamp
+    - type          # email_sent | email_received | message_sent | message_received | review
+    - parties       # Who was involved
+    - sha256_of_original  # Hash of the unredacted version
+    - summary       # One-line description of intellectual content
+
+# LLM maintenance operations
+operations:
+  ingest:
+    description: "Process new source, update wiki pages, log to ingest.jsonl"
+    trigger: "New file added to sources/ or correspondence/"
+    updates:
+      - Relevant concept/author/method pages
+      - contradictions.md (if source conflicts with claims)
+      - ingest.jsonl
+
+  query:
+    description: "Search wiki, synthesize answer, optionally file findings"
+    trigger: "Researcher asks a question"
+    updates:
+      - May create new pages if query reveals a gap
+
+  lint:
+    description: "Health check for consistency and completeness"
+    trigger: "Before submission, periodically, or on demand"
+    checks:
+      - "Every paper.yaml reference has a source in .wiki/sources/"
+      - "No orphan pages (pages not linked from any other page)"
+      - "No contradictions between wiki pages and paper claims"
+      - "ingest.jsonl is chronologically ordered and hash-consistent"
+      - "All correspondence entries have SHA-256 hashes"
+
+# Selective disclosure
+disclosure:
+  levels:
+    private: "Default. .wiki/ in .gitignore of public repo."
+    metadata: "ingest.jsonl included in public fork. Sources excluded."
+    transparent: "Full .wiki/ public except correspondence (redacted)."
+    full: "Everything public including correspondence."
+    audit: "Disclosed to specific party on request."
+
+# Directory structure
+structure:
+  root: ".wiki/"
+  children:
+    schema.yaml: "This file — governs wiki organization"
+    sources/: "Raw materials (PDFs, URLs-as-markdown, datasets)"
+    pages/: "LLM-maintained wiki pages"
+    correspondence/: "Emails, messages, reviews (redactable)"
+    ingest.jsonl: "Chronological source ingestion log"
+    contradictions.md: "LLM-maintained: sources conflicting with claims"
+    .gitignore: "Controls what is excluded from public repo"
