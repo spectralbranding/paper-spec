@@ -164,6 +164,10 @@ python -m paperspec validate paper.yaml --journal journal_specs/jm.yaml
 
 Current profiles: `jm.yaml` (Journal of Marketing), `jcr.yaml` (Journal of Consumer Research), `nature.yaml` (Nature). Each profile lists its source document so requirements are traceable.
 
+## Research Wiki Scaffold
+
+The repository also includes a Research Wiki scaffold (`docs/wiki-scaffold/`) implementing Karpathy's (2026) three-layer knowledge pattern for research: raw sources, LLM-maintained wiki pages, and a schema governing what the wiki tracks. See `schema/wiki-schema.yaml` for the full specification.
+
 ## Contributing
 
 Paper Spec is in early development (v0.1.0). Contributions are welcome:
