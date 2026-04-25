@@ -1,5 +1,7 @@
 # paper.yaml — Paper Spec v0.1.0
 # Zharnikov (2026q): Spectral Portfolio Theory
+# SUPERSEDED by Zharnikov (2026ac): R21 "Spectral Immunity" — DOI 10.5281/zenodo.19765401
+# Retained as a Paper Spec schema example. Do not cite for original claims.
 spec_version: "0.1.0"
 
 meta:
@@ -13,6 +15,7 @@ meta:
   version: "1.0"
   venue: "Working Paper (Zenodo)"
   license: "CC-BY-4.0"
+  superseded_by: "10.5281/zenodo.19765401"
   keywords:
     - brand portfolio
     - spectral interference

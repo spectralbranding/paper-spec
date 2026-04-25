@@ -164,9 +164,7 @@ submission_history: []
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Generate a blank paper.yaml template"
-    )
+    parser = argparse.ArgumentParser(description="Generate a blank paper.yaml template")
     parser.add_argument(
         "--type",
         choices=list(TEMPLATES.keys()),
@@ -186,7 +184,9 @@ def main() -> int:
     if args.output:
         Path(args.output).write_text(content, encoding="utf-8")
         print(f"Template written to {args.output}")
-        print(f"Next: fill in the sections, then run: python tools/validate.py {args.output}")
+        print(
+            f"Next: fill in the sections, then run: python tools/validate.py {args.output}"
+        )
     else:
         print(content)
 
