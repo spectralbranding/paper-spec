@@ -1,0 +1,102 @@
+# paper.yaml -- Paper Spec v0.1.0
+# Zharnikov (2026ae): OST companion -- Verification as Operator
+spec_version: "0.1.0"
+
+meta:
+  title: "Verification as Operator: Why Acceptance Testing Succeeds Where Conventional Audit Fails"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.19778588"
+  date: "2026-04-26"
+  version: "1.0.0"
+  venue: "Zenodo preprint (target: Academy of Management Review)"
+  license: "CC-BY-4.0"
+  keywords:
+    - organizational specification
+    - acceptance testing
+    - spectral projection
+    - organizational cybernetics
+    - viable system model
+    - test-driven development
+    - verification
+    - audit society
+    - brand function
+    - organizational schema theory
+
+claims:
+  - id: "C1"
+    type: proposition
+    statement: >
+      Organizational acceptance testing is algebraically equivalent to spectral
+      projection onto the invariant Brand Function eigenspace.
+    testable: false
+    tested_in_paper: false
+    status: theoretical
+    depends_on: []
+
+  - id: "C2"
+    type: proposition
+    statement: >
+      Conventional audit (Power 1997) is a degenerate rank-1 projection;
+      OST's six-level cascade is full-rank.
+    testable: true
+    tested_in_paper: true
+    status: supported_by_simulation
+    depends_on: ["C1"]
+    falsification: >
+      C2 is falsified if conventional audit can be shown to preserve the full
+      dimensional structure of organizational performance (rank > 1) in practice.
+
+  - id: "C3"
+    type: proposition
+    statement: >
+      Three independent research lineages -- organizational cybernetics (Beer 1972;
+      Beer 1984), behavioral organization theory (March and Simon 1958; Argyris and
+      Schon 1978), and software engineering verification (Beck 2002) -- independently
+      converge on the spectral projection structure without stating the algebraic identity.
+    testable: false
+    tested_in_paper: true
+    status: theoretical
+    depends_on: []
+
+  - id: "C4"
+    type: proposition
+    statement: >
+      The verification rate bound (Zharnikov 2026h) is the resource cost of maintaining
+      a full-rank cascade; verification bandwidth bounds the maximum sustainable
+      cascade rank.
+    testable: false
+    tested_in_paper: false
+    status: theoretical
+    depends_on: ["C2"]
+
+methodology:
+  type: theoretical_synthesis
+  design: >
+    Operator-theoretic formalization of organizational verification. Synthesis of three
+    independent research lineages: cybernetics (Beer's variety attenuation), behavioral
+    organization theory (March-Simon satisficing; Argyris-Schon double-loop learning),
+    and software V&V (Beck TDD). Python simulation (Appendix B) confirms that rank-1
+    audit misses approximately 90% of total organizational deviation across all noise levels.
+  key_finding: >
+    Rank-1 audit misses ~90% of deviation. Full-rank cascade localizes deviations
+    and enables early correction at each cascade level.
+
+data:
+  available: true
+  url: "https://github.com/spectralbranding/orgschema-papers/tree/main/verification-as-operator"
+  notes: >
+    projection_simulation.py and simulation_results.json are public.
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19778588"
+    url: "https://doi.org/10.5281/zenodo.19778588"
+    version: "v1.0.0"
+    date: "2026-04-26"
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/orgschema-papers/tree/main/verification-as-operator"
+
+submission_history: []

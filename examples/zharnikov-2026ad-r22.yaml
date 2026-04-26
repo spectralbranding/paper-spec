@@ -1,0 +1,109 @@
+# paper.yaml -- Paper Spec v0.1.0
+# Zharnikov (2026ad): R22 -- Spectral Gap Restoration
+spec_version: "0.1.0"
+
+meta:
+  title: "Restoring Perceptual Separability After Coherence Shocks: A μ > λ Threshold Inequality in Brand Perception"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.19778549"
+  date: "2026-04-26"
+  version: "1.0.0"
+  venue: "Zenodo preprint (target: Marketing Science)"
+  license: "CC-BY-4.0"
+  keywords:
+    - spectral gap
+    - cohort separability
+    - threshold inequality
+    - corrective coherence emission
+    - spectral leakage
+    - Markov chain mixing
+    - operator perturbation
+    - Spectral Brand Theory
+
+claims:
+  - id: "P1"
+    type: proposition
+    statement: >
+      Cohort separability survives a coherence shock if the corrective coherence
+      emission rate mu exceeds the spectral leakage rate lambda at the detection
+      scale of the dominant observer cohort (sufficient condition).
+    testable: true
+    tested_in_paper: true
+    status: supported_by_simulation
+    depends_on: []
+    falsification: >
+      P1 is falsified if a brand maintains cohort separability over an extended
+      post-shock window with mu < lambda by independent measurement, or if a brand
+      with documented mu >> lambda loses separability following a coherence shock.
+
+  - id: "C1"
+    type: corollary
+    statement: >
+      If mu < lambda for an interval exceeding the mixing time tau_mix, cohort-level
+      perception distinctions almost surely collapse to the stationary distribution.
+    testable: true
+    tested_in_paper: true
+    status: supported_by_simulation
+    depends_on: ["P1"]
+    falsification: >
+      A brand sustains cohort separability beyond tau_mix despite mu < lambda.
+
+  - id: "C2"
+    type: corollary
+    statement: >
+      Pulse emissions can maintain mu > lambda on average even when the inequality
+      fails locally during low-emission intervals, provided the pulse period is
+      shorter than tau_mix.
+    testable: true
+    tested_in_paper: false
+    status: theoretically_derived
+    depends_on: ["P1"]
+
+  - id: "H22"
+    type: hypothesis
+    statement: >
+      Spectral gap collapse precedes brand conviction reorientation by 6 to 18 months.
+    testable: true
+    tested_in_paper: true
+    status: supported_by_simulation
+    depends_on: ["P1"]
+    falsification: >
+      H22 is falsified if gap collapse in R10 dimensional score data coincides with
+      or follows conviction shift, rather than preceding it by 6-18 months.
+
+methodology:
+  type: theoretical_with_monte_carlo_demonstration
+  design: >
+    Kato-Rellich perturbation theory and Diaconis-Stroock spectral-gap-mixing-time bounds
+    establish the sufficient condition analytically. Monte Carlo simulation (32 cohort-dimension
+    cells x 2 regimes x 240 months, seed 2026) demonstrates the threshold with Dove 2003-2023
+    design parameters (lambda=0.10/yr, mu=4.50/yr for high regime; mu=-0.50/yr for low regime).
+    Real Dove data analysis deferred to companion paper using R10 source data.
+  key_results:
+    terminal_spectral_gap_high: 1.10
+    terminal_spectral_gap_low: 0.02
+    terminal_gap_ratio: 52
+    irf_halflife_high_months: 1.4
+    irf_halflife_low_months: 13.1
+
+data:
+  available: true
+  url: "https://github.com/spectralbranding/sbt-papers/tree/main/r22-spectral-gap-restoration"
+  notes: >
+    monte_carlo_simulation.py and monte_carlo_results.json are public.
+    uv run --with statsmodels --with numpy --with scipy python3 monte_carlo_simulation.py
+    reproduces all 64 cells.
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19778549"
+    url: "https://doi.org/10.5281/zenodo.19778549"
+    version: "v1.0.0"
+    date: "2026-04-26"
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/sbt-papers/tree/main/r22-spectral-gap-restoration"
+
+submission_history: []
