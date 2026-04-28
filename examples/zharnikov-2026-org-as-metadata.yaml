@@ -11,7 +11,7 @@ meta:
   doi: "10.5281/zenodo.19024230"
   date: "2026-03-01"
   version: "1.0"
-  venue: "Working Paper (Zenodo); submitted to Organization Theory (OT-26-0095)"
+  venue: "Working Paper (Zenodo); desk-rejected at Organization Theory (OT-26-0095, 2026-04-28, Markus Höllerer Co-Editor); queued for substantial rewrite; next target Organization Science"
   license: "CC-BY-4.0"
   keywords:
     - temporal hierarchy
@@ -472,4 +472,6 @@ submission_history:
   - venue: "Organization Theory (SAGE/EGOS)"
     manuscript_id: "OT-26-0095"
     submitted: "2026-03-18"
-    decision: "pending"
+    decision: "desk_rejected"
+    decision_date: "2026-04-28"
+    notes: "Markus Höllerer Co-Editor. Generic editorial-screening rejection. Queued for substantial metamerism-led rewrite; next target Organization Science."

@@ -469,5 +469,10 @@ submission_history:
     notes: "IJQSS-03-2026-0080. Limited contribution."
   - venue: "M@n@gement"
     date_submitted: "2026-03-23"
+    decision: rejected
+    notes: "Submission ID: 14239. Desk rejection."
+  - venue: "European Journal of Information Systems"
+    date_submitted: "2026-04-01"
+    manuscript_id: "260787449"
     decision: under_review
-    notes: "Submission ID: 14239. Original Research Articles."
+    notes: "Diamond OA. Currently the active venue."
