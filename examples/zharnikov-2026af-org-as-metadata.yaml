@@ -1,0 +1,132 @@
+# paper.yaml -- Paper Spec v0.1.0
+# Zharnikov (2026af): Organizational Metamerism
+spec_version: "0.1.0"
+
+meta:
+  title: "Organizational Metamerism: When Distinct Configurations Produce Equivalent Outputs"
+  authors:
+    - name: "Zharnikov, Dmitry"
+      orcid: "0009-0000-6893-9231"
+      affiliation: "Independent Researcher"
+  doi: "10.5281/zenodo.19869871"
+  date: "2026-04-29"
+  version: "1.0.0"
+  venue: "Working Paper (Zenodo)"
+  license: "CC-BY-4.0"
+  keywords:
+    - organizational metamerism
+    - equifinality
+    - organizational routines
+    - temporal hierarchy
+    - coordination costs
+    - organizational form
+    - process ontology
+    - AI and organizations
+    - observer-relativity
+
+claims:
+  - id: "P1"
+    type: proposition
+    statement: >
+      Temporal Stability Hierarchy. Value outputs change less frequently than the
+      processes that produce them, and processes change less frequently than the
+      organizational configurations that execute them. The ordering holds across
+      industries, technological eras, and national contexts.
+    formal: "rate_of_change(Value) < rate_of_change(Process) < rate_of_change(Organization)"
+    testable: true
+    tested_in_paper: false
+    status: theoretical
+    depends_on: []
+    falsification: >
+      P1 is falsified if a systematic comparison across industries and time periods shows
+      organizational configurations more stable than the processes they execute, or
+      processes more stable than the value outputs they produce.
+
+  - id: "P2"
+    type: proposition
+    statement: >
+      Metamerism Set Expansion. The metamerism set M(P, O) for a given process P and
+      evaluative observer O grows as the proportion of P's coordination logic embedded
+      in the process specification increases, and shrinks as the tacit knowledge intensity
+      of P increases. Codifiability and tacit knowledge intensity enter as independent,
+      additive variables.
+    formal: "|M(P, O)| = f(codifiability(P), 1 / tacit_intensity(P), 1 / coordination_cost)"
+    testable: true
+    tested_in_paper: false
+    status: theoretical
+    depends_on: ["P1"]
+    falsification: >
+      P2 is falsified if process codifiability and tacit knowledge intensity show no
+      separable association with metamerism set size, or if the directions of association
+      reverse.
+
+  - id: "P3"
+    type: proposition
+    statement: >
+      Coordination Cost and Organizational Volatility. As AI reduces the marginal cost
+      of coordination, the rate of change of organizational form increases while the rate
+      of change of process remains stable. The ratio of organizational change frequency
+      to process change frequency rises with the extent of AI coordination adoption.
+    formal: "d(restructuring_frequency / process_change_frequency) / d(AI_coordination_adoption) > 0"
+    testable: true
+    tested_in_paper: false
+    status: theoretical
+    depends_on: ["P1", "P2"]
+    falsification: >
+      P3 is falsified if AI adoption produces equal increases in process change and
+      organizational restructuring, or if AI-adopting industries show no acceleration of
+      restructuring relative to process change.
+
+  - id: "P4"
+    type: proposition
+    statement: >
+      Tacit Knowledge Constraint. The expansion of the metamerism set M(P, O) as
+      coordination costs fall is bounded by the tacit knowledge intensity of P. Firms in
+      high-tacit-knowledge industries show smaller reductions in organizational coordination
+      overhead than firms in high-codification industries at equivalent levels of AI
+      coordination adoption.
+    formal: "d(overhead) / d(AI_adoption) is bounded above by - g(tacit_intensity(P))"
+    testable: true
+    tested_in_paper: false
+    status: theoretical
+    depends_on: ["P2", "P3"]
+    falsification: >
+      P4 is falsified if high-tacit-knowledge industries show overhead reductions equal to
+      or greater than high-codification industries at matched AI adoption levels, or if
+      tacit intensity has no moderating effect on the AI-overhead relationship.
+
+methodology:
+  type: theoretical
+  design: >
+    Conceptual development extending equifinality (Gresov and Drazin 1997) with the
+    state-equivalence concept of metamerism imported from color science (Wyszecki and
+    Stiles 1982). Theoretical foundations engage organizational routines (Pentland and
+    Feldman 2005) and pace layering (Beane and Leonardi 2025). Four propositions stated
+    with explicit confirming and refuting evidence criteria; three empirical research
+    designs (fsQCA on matched codifiability samples, longitudinal network analysis of
+    coordination embedding, observer-evaluation-function manipulation) outlined in the
+    Future Research subsection.
+  key_finding: >
+    Organizational metamerism is the state-equivalence companion to equifinality's
+    path-equivalence: structurally distinct configurations executing the same process
+    produce equivalent value outputs to a given evaluative observer, with set size
+    determined by codifiability, tacit knowledge intensity, and coordination cost.
+
+data:
+  available: false
+  url: ""
+  notes: >
+    Theoretical paper. No primary empirical data collected. Illustrative examples
+    (Toyota, API-first software firms, management consulting) are drawn from existing
+    literature.
+
+repositories:
+  - platform: "Zenodo"
+    doi: "10.5281/zenodo.19869871"
+    url: "https://doi.org/10.5281/zenodo.19869871"
+    version: "v1.0.0"
+    date: "2026-04-29"
+  - platform: "GitHub"
+    url: "https://github.com/spectralbranding/orgschema-papers/tree/main/org-as-metadata"
+
+submission_history: []
