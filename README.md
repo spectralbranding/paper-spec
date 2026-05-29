@@ -1,3 +1,7 @@
+[![MIT License](https://img.shields.io/badge/Code-MIT-blue.svg)](LICENSE)
+[![CC-BY 4.0](https://img.shields.io/badge/Data-CC--BY_4.0-lightgrey.svg)](LICENSE-data)
+![Last Updated](https://img.shields.io/badge/updated-2026--05--29-success)
+
 # Paper Spec
 
 A machine-readable specification format for scientific papers.
@@ -182,3 +186,106 @@ Before proposing new fields, consider whether the information is something a pap
 
 - **Specification:** CC-BY-4.0
 - **Code and tooling:** MIT
+
+---
+
+## 1 | Getting Started
+
+Paper Spec is a Python project anchored at `pyproject.toml` (`name = "paper-spec"`, requires Python `>=3.12`). Recommended environment setup uses [uv](https://docs.astral.sh/uv/):
+
+```bash
+git clone https://github.com/spectralbranding/paper-spec.git
+cd paper-spec
+uv sync
+```
+
+This creates `.venv/` and installs the `paper-spec` package along with the `pyyaml` runtime dependency. Optional dev tooling (black, flake8, mypy) is available via the `dev` extra.
+
+## 2 | Project Layout
+
+```
+paper-spec/
+├── README.md                  # This file
+├── SPECIFICATION.md           # Full paper.yaml specification (CC-BY-4.0)
+├── CITATION.cff               # Machine-readable citation
+├── LICENSE                    # MIT (code)
+├── LICENSE-data               # CC-BY-4.0 (spec, schemas, examples, journal_specs)
+├── pyproject.toml             # Project root anchor
+├── reproduce.sh               # Single-command reproduction
+├── .gitignore                 # Secrets + environment discipline
+├── schema/                    # JSON Schemas for paper.yaml and wiki-schema
+├── src/paper_spec/            # Python package
+├── tools/                     # validate.py, template.py, prompts
+├── examples/                  # 24 real-world paper.yaml examples
+├── journal_specs/             # Venue requirement profiles (machine-readable)
+├── docs/                      # Documentation + wiki scaffold
+└── output/
+    ├── figures/               # Generated figures (.gitkeep)
+    ├── tables/                # Generated tables (.gitkeep)
+    └── logs/                  # Pipeline run logs (.gitkeep)
+```
+
+## 3 | Quick Start
+
+Reproduce every output and validate every example in one command:
+
+```bash
+./reproduce.sh
+```
+
+The orchestrator (i) syncs dependencies via `uv sync`, (ii) validates every file under `examples/` against `schema/paper-spec-v0.1.0.json`, (iii) runs the test suite if present, and (iv) writes a timestamped log to `output/logs/master_run.log`.
+
+For a dependency-only check without running validation:
+
+```bash
+./reproduce.sh --check-only
+```
+
+Validate a single `paper.yaml` directly:
+
+```bash
+uv run python tools/validate.py path/to/paper.yaml
+```
+
+## 4 | Dependencies
+
+| Layer | Tool | Constraint |
+|---|---|---|
+| Runtime | Python | `>=3.12` |
+| Runtime | pyyaml | `>=6.0` |
+| Validation | jsonschema | (installed transitively for examples + tools/validate.py) |
+| Dev | black, flake8, mypy | Optional, via `uv sync --extra dev` |
+| Orchestration | uv | Required for `reproduce.sh`; install via `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+
+All version constraints live in `pyproject.toml`. The lockfile is `uv.lock` (committed for deterministic reproduction).
+
+## 5 | Script Map
+
+| Script | Purpose | Outputs |
+|---|---|---|
+| `reproduce.sh` | Orchestrator — dependency sync, example validation, tests, run log | `output/logs/master_run.log` |
+| `tools/validate.py` | Validate one or more `paper.yaml` files against the JSON Schema | stdout (per-file pass/fail) |
+| `tools/template.py` | Generate a fresh `paper.yaml` skeleton at a chosen validation level | new `paper.yaml` |
+| `tools/prompts/` | Prompts for LLM-assisted paper.yaml authoring | (assistive content) |
+| `src/paper_spec/` | Python package: schema loaders, validators, helpers | importable API |
+
+## 6 | Citation
+
+If you use Paper Spec, please cite the concept DOI (resolves to the latest published version):
+
+> Zharnikov, D. (2026). *Paper Spec: A machine-readable standard for scientific claims*. Zenodo. https://doi.org/10.5281/zenodo.19210037
+
+A machine-readable citation lives in [`CITATION.cff`](CITATION.cff) at the repository root. GitHub and Zenodo render it natively — click "Cite this repository" on GitHub to obtain a formatted citation in 12+ formats.
+
+## 7 | Licence
+
+Dual-licence by artifact type:
+
+- **Code** (scripts under `tools/`, `src/`, `reproduce.sh`, validators): MIT — see [`LICENSE`](LICENSE).
+- **Specification, schemas, journal profiles, examples, documentation** (`SPECIFICATION.md`, `schema/`, `journal_specs/`, `examples/`, `docs/`): Creative Commons Attribution 4.0 International (CC BY 4.0) — see [`LICENSE-data`](LICENSE-data).
+
+Both licences permit commercial use. Attribution to Dmitry Zharnikov and a link to this repository are requested.
+
+---
+
+*Last updated: 2026-05-29*

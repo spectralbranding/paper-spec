@@ -1,7 +1,36 @@
+# Secrets + environment
+.env
+.env.*
+*.env
+!.env.example
+
+# Python
 .venv/
+venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 *.egg-info/
 dist/
 build/
+
+# macOS
 .DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Fleet internal (public repo — nothing tracked)
+.claude/
+.claude-decisions/
+skills/
+.clinerules
+.cursorrules
+.cursorignore
+.rooignore
+.mcp.json
+.flake8
