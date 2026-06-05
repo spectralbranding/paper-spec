@@ -15,7 +15,6 @@ import argparse
 import sys
 from pathlib import Path
 
-
 TEMPLATES = {
     "theoretical": {
         "methodology_type": "theoretical",
