@@ -597,6 +597,45 @@ Paper Spec does not replace existing standards. It complements them.
 
 ---
 
+## The Bundle: paper.yaml in Context
+
+`paper.yaml` does not travel alone. It is one file in a small, machine-readable **bundle**
+that accompanies a paper through development, publication, and archiving. The bundle is the
+unit: the prose and its structured companions are versioned, mirrored, and uploaded
+together, and a tool can check that none has drifted from the others.
+
+| File | What it carries | Role |
+|---|---|---|
+| `paper.md` | the prose | the human rendering |
+| `paper.yaml` | claims, assumptions, dependencies, acceptance, metadata | the spec — what the paper claims and how it was tested |
+| `SPINE.yaml` | the claim / dependency / evidence graph (propositions, their links, the observations/measurements/findings that support them) | the generative skeleton; `paper.yaml`'s claims derive from it |
+| `ONTOLOGY.yaml` | the terms the paper **owns / imports / refines** | the paper's contribution to a shared, linkable vocabulary |
+| `GLOSSARY.md` | a rendered projection of the paper's terms | the human-readable vocabulary view |
+| `experiments/` | inputs + outputs + records of any companion experiment | reproducibility of computed/empirical claims |
+
+**Ordering.** `SPINE.yaml` precedes `paper.yaml`: the spine is the claim/dependency graph,
+and the spec indexes it. A paper drafted spine-first builds the spine before the prose; a
+paper specified after the fact derives a (retrofit) spine from the finished text. Either
+way, `paper.yaml`'s `claims`/`dependencies` should trace to spine entries.
+
+**When the bundle is authored.** During **development**, not at publication time. The spine
+is written with (or before) the prose; the ontology module and glossary evolve as the paper
+does. Publication and archiving only **copy** the bundle — they do not assemble it.
+
+**No-drift obligation (normative).** Whenever the paper changes, its bundle MUST be brought
+back into alignment in the same change: a new prose claim requires a spine entry (extend the
+spine, or drop the claim); a new term requires an ontology entry; a new or removed citation
+requires the citation graph to match. An implementation SHOULD enforce this with a
+**bundle gate** — a check that fails the build (e.g. as a pre-commit hook or CI step) when
+the prose, spine, ontology, or citations have drifted apart — so a bundle file cannot be
+silently forgotten on an edit.
+
+**Archiving.** When a paper is deposited (e.g. to Zenodo), the bundle is uploaded alongside
+the rendered PDF, and the deposit's description and related-identifiers point back to this
+standard, so the archived record is self-describing and machine-readable, not a flat PDF.
+
+---
+
 ## Scope and Non-Goals
 
 Paper Spec is for indexing papers, not writing them. Specifically:
