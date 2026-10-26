@@ -1,4 +1,4 @@
-# Paper Spec v0.1.0
+# Paper Spec v0.2.0
 
 A machine-readable specification format for scientific papers.
 
@@ -37,7 +37,7 @@ A `paper.yaml` file answers six questions that every reader eventually asks:
 A `paper.yaml` file contains the following top-level keys:
 
 ```yaml
-spec_version: "0.1.0"        # Required. Which version of Paper Spec this file conforms to.
+spec_version: "0.2.0"        # Required. Which version of Paper Spec this file conforms to.
 
 meta:           {}            # Required. Bibliographic metadata.
 claims:         []            # Strongly recommended. The paper's truth claims.
@@ -70,10 +70,10 @@ All sections except `meta` are optional. Order does not matter, but the order ab
 | Required | Yes |
 | Format | Semantic version (MAJOR.MINOR.PATCH) |
 
-The version of the Paper Spec that this file conforms to. Validators use this to select the correct schema.
+The version of the Paper Spec that this file conforms to. Validators use this to select the correct schema. The v0.2.0 schema accepts any 0.1.x or 0.2.x version, because every v0.1.0 file is also a valid v0.2.0 file.
 
 ```yaml
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 ```
 
 ---
@@ -90,12 +90,13 @@ Bibliographic metadata. The only required section.
 | authors[].orcid | string | No | ORCID identifier (e.g., "0000-0002-1234-5678"). |
 | authors[].affiliation | string | No | Institutional affiliation. |
 | doi | string | No | DOI if published. Include the full DOI, not a URL. |
-| date | string | No | Publication or preprint date in YYYY-MM-DD format. |
+| date | string | No | Publication or preprint date: YYYY-MM-DD, or YYYY-MM or YYYY when the day or month is not known. |
 | version | string | No | Paper version. Useful for preprints with revisions. |
 | venue | string | No | Journal name, conference name, or "Preprint". |
 | license | string | No | SPDX license identifier (e.g., "CC-BY-4.0"). |
 | keywords | list of strings | No | Subject keywords. |
 | abstract | string | No | Full abstract text. Use YAML multi-line syntax for readability. |
+| superseded_by | string | No | DOI of a later work that replaces this one. Corresponds to the DataCite relation type `IsObsoletedBy` (DataCite Metadata Schema 4.2 and later). Added in 0.2.0. |
 
 Example:
 
@@ -136,15 +137,29 @@ Each claim is an object in a list.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | id | string | Yes | Unique identifier within this paper (e.g., "H1", "P1", "T1", "D1"). |
-| type | enum | Yes | One of: `hypothesis`, `proposition`, `theorem`, `conjecture`, `definition`. |
+| type | enum | Yes | One of: `hypothesis`, `proposition`, `theorem`, `lemma`, `corollary`, `conjecture`, `definition`. |
 | statement | string | Yes | The claim in plain language. |
 | formal | string | No | Formal or mathematical statement. |
 | testable | boolean | No | Is this claim empirically testable? Default: inferred from type. |
 | tested_in_paper | boolean | No | Was this claim tested in this paper? |
-| status | enum | No | One of: `supported`, `refuted`, `inconclusive`, `not_tested`. |
+| status | enum | No | The paper's verdict on the claim. One of: `supported`, `refuted`, `inconclusive`, `not_tested`. |
+| evidence_basis | list of enums | No | The kinds of support the paper gives for the claim. Any of: `deductive`, `computational`, `empirical`, `literature`. Added in 0.2.0. |
 | depends_on | list of strings | No | IDs of other claims within this paper that this claim depends on. |
 
 Claim IDs must be unique within the file and should remain stable across paper versions to preserve external references.
+
+`lemma` and `corollary` follow the JATS `<statement>` element, which names "Theorem, Lemma, Proof, Postulate, Hypothesis, Proposition, Corollary" as formal statements.
+
+**Status and evidence basis.** `status` records the verdict; `evidence_basis` records the kind of support behind it. The two are kept apart, as in the Micropublications model (Clark, Ciccarese and Goble 2014, doi:10.1186/2041-1480-5-28) and the GA4GH Variant Annotation Specification 1.0 (https://va-spec.ga4gh.org), so that a status never has to encode its own evidence ("supported by simulation" is `status: supported` with `evidence_basis: [computational]`). The values follow the Evidence and Conclusion Ontology (ECO):
+
+| Value | Meaning | ECO term |
+|-------|---------|----------|
+| `deductive` | Derived from stated premises by proof or formal derivation in the paper. | ECO:0006185 author inference |
+| `computational` | Shown by simulation or numerical computation. | ECO:0007672 computational evidence |
+| `empirical` | Shown by observation or experiment. | ECO:0000006 experimental evidence |
+| `literature` | Supported by synthesis of cited work. | ECO:0000033 author statement supported by traceable reference |
+
+A proposition that a paper motivates by argument but does not derive or test has `status: not_tested` and no `evidence_basis`. Use `supported` with `deductive` only when the paper contains a complete derivation. `evidence_basis` may also accompany `not_tested`: it then names the kind of support offered when the authors do not claim it settles the claim, for example a formal argument presented as a sketch.
 
 Example:
 
@@ -158,6 +173,7 @@ claims:
     testable: true
     tested_in_paper: true
     status: supported
+    evidence_basis: [empirical]
 
   - id: "H2"
     type: hypothesis
@@ -178,7 +194,8 @@ How the claims were tested or derived.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| type | enum | Yes (if section present) | One of: `empirical`, `theoretical`, `computational`, `mixed`, `meta_analysis`, `review`. |
+| type | enum | Yes (if section present) | One of: `empirical`, `theoretical`, `conceptual`, `computational`, `mixed`, `meta_analysis`, `review`. |
+| secondary_types | list of enums | No | Further methodology types used in a supporting role, from the same list. Added in 0.2.0. |
 | design | string | No | Study design in brief (e.g., "within-subjects RCT", "proof by induction"). |
 | sample | object | No | Sample details. See below. |
 | sample.size | integer | No | Number of participants/observations. |
@@ -192,6 +209,11 @@ How the claims were tested or derived.
 | analysis | object | No | Analysis details. |
 | analysis.method | string | No | Statistical or analytical method. |
 | analysis.software | string | No | Software and version. |
+| analysis.pre_registered | boolean | No | Was the analysis pre-registered? |
+| analysis.pre_registration_url | string | No | URL of the pre-registration. |
+| notes | string | No | Additional context, such as key quantitative results of a formal or computational study. Added in 0.2.0. |
+
+`theoretical` is formal or deductive work (proofs, formal models). `conceptual` is verbal theory building; Jaakkola (2020, doi:10.1007/s13162-020-00161-0) distinguishes four designs for it: theory synthesis, theory adaptation, typology and model. Name the design in `design`. When a paper combines approaches, give the main one in `type` and the others in `secondary_types` (a theoretical paper with a Monte Carlo demonstration is `type: theoretical`, `secondary_types: [computational]`) rather than inventing a combined value. `mixed` remains for studies that combine empirical methods.
 
 Example:
 
@@ -228,8 +250,8 @@ What would confirm or refute each claim. This is the section that makes Paper Sp
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | claim_id | string | Yes (if entry present) | References a claim ID from the `claims` section. |
-| criterion | string | Yes (if entry present) | What would confirm this claim. |
-| falsification | string | No | What would refute this claim. |
+| criterion | string | Yes, unless `falsification` is given | What would confirm this claim. |
+| falsification | string | Yes, unless `criterion` is given | What would refute this claim. |
 | threshold | string | No | Quantitative threshold, if applicable. |
 
 Example:
@@ -255,6 +277,8 @@ acceptance:
       for working memory.
 ```
 
+An entry may state only the refutation condition. Since 0.2.0 `criterion` is required only when `falsification` is absent, because many theoretical papers state what would refute a proposition without a confirmation threshold. Falsification conditions belong here, not in the claim.
+
 ---
 
 ### data
@@ -268,6 +292,7 @@ Data availability and location.
 | format | string | No | File format (e.g., "CSV", "JSON", "Parquet"). |
 | size | string | No | Human-readable size description. |
 | license | string | No | SPDX license identifier for the data. |
+| notes | string | No | Additional context, such as access conditions. Added in 0.2.0. |
 
 Example:
 
@@ -293,7 +318,8 @@ Code availability and location.
 | available | boolean | Yes (if section present) | Is the analysis code publicly available? |
 | url | string | No | URL to the repository or archive. |
 | language | string | No | Programming language and version. |
-| dependencies | string | No | How to install dependencies (e.g., "see requirements.txt"). |
+| dependencies | string or list of strings | No | Key libraries or packages as a list, or how to install them as a string (e.g., "see requirements.txt"). The list form was added in 0.2.0. |
+| notes | string | No | Additional context. Added in 0.2.0. |
 
 Example:
 
@@ -341,9 +367,10 @@ Papers and specific claims this work builds on. This goes beyond a reference lis
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| doi | string | Yes (if entry present) | DOI of the dependency. |
+| doi | string | Yes, unless `reference` is given | DOI of the dependency. |
+| reference | string | Yes, unless `doi` is given | Full citation for a work without a DOI (books, pre-DOI papers). |
 | claim | string | No | Which specific claim is depended upon (free text). |
-| relationship | enum | No | One of: `extends`, `applies`, `tests`, `contradicts`, `refines`. |
+| relationship | enum | No | One of: `extends`, `applies`, `tests`, `contradicts`, `refines`, `cites`, `obtains_background_from`, `cites_as_related`. |
 | critical | boolean | No | Would this paper's claims fail if the dependency were retracted? |
 
 Example:
@@ -361,6 +388,19 @@ dependencies:
     critical: false
 ```
 
+Each relationship value corresponds to a property of the Citation Typing Ontology (CiTO 2.9.0, http://purl.org/spar/cito/; Shotton 2010, doi:10.1186/2041-1480-1-S1-S6):
+
+| Value | CiTO property | Use when this paper |
+|-------|---------------|---------------------|
+| `extends` | `cito:extends` | builds on and goes beyond the cited work |
+| `applies` | `cito:usesMethodIn`, `cito:usesConclusionsFrom` | uses the cited method or result |
+| `tests` | none (closest: `cito:confirms` when the test supports the cited claim, `cito:refutes` when it does not) | puts the cited claim to a test |
+| `contradicts` | `cito:disagreesWith`, `cito:disputes`, `cito:refutes` | argues against the cited work |
+| `refines` | `cito:qualifies`, `cito:updates` | narrows or corrects the cited claim |
+| `cites` | `cito:cites` | cites it with no more specific relation (added in 0.2.0) |
+| `obtains_background_from` | `cito:obtainsBackgroundFrom` | takes context or background from it (added in 0.2.0) |
+| `cites_as_related` | `cito:citesAsRelated` | names it as related work, such as a companion paper (added in 0.2.0) |
+
 ---
 
 ### contradictions
@@ -369,7 +409,8 @@ Known contradictions with other published work. Honest declaration of conflicts 
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| doi | string | Yes (if entry present) | DOI of the contradicting paper. |
+| doi | string | Yes, unless `reference` is given | DOI of the contradicting paper. |
+| reference | string | Yes, unless `doi` is given | Full citation for a work without a DOI. |
 | claim | string | Yes (if entry present) | What the other paper claims. |
 | our_position | string | Yes (if entry present) | How this paper reconciles or disagrees. |
 
@@ -394,7 +435,7 @@ Outcomes mapped back to claims. This creates a direct link between what was clai
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | claim_id | string | Yes (if entry present) | References a claim ID. |
-| status | enum | Yes (if entry present) | One of: `supported`, `refuted`, `partially_supported`, `inconclusive`. |
+| status | enum | Yes (if entry present) | One of: `supported`, `refuted`, `partially_supported`, `inconclusive`, `not_tested`. |
 | effect_size | string | No | Effect size and measure. |
 | confidence_interval | string | No | Confidence interval. |
 | p_value | string | No | p-value. |
@@ -492,9 +533,9 @@ Each entry documents a submission to a venue. An empty array is valid (paper has
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `venue` | string | yes | Journal, conference, or platform name |
-| `date_submitted` | string | yes | Submission date (YYYY-MM-DD) |
+| `date_submitted` | string | yes | Submission date: YYYY-MM-DD, or YYYY-MM or YYYY when the day or month is not known |
 | `manuscript_id` | string | no | Venue-assigned manuscript ID |
-| `date_decision` | string | no | Decision date (YYYY-MM-DD) |
+| `date_decision` | string | no | Decision date, same format |
 | `decision` | enum | no | `under_review`, `desk_reject`, `reject`, `revise_resubmit`, `accepted`, `published`, `withdrawn` |
 | `notes` | string | no | Reviewer feedback summary, reason for rejection, or revision scope |
 | `version_submitted` | string | no | Which version/DOI was submitted (links to `repositories`) |
@@ -531,6 +572,8 @@ submission_history:
 | `published` | Published in final form |
 | `withdrawn` | Withdrawn by the author |
 
+Each entry is a submission that took place. A venue the authors plan to approach is not a submission and is not recorded here. A preprint deposit (Zenodo, arXiv, OSF) is not a submission either: record it in `repositories`. Dates use ISO 8601 at the precision known (EDTF level 0); write `2019` rather than padding an unknown day to `2019-01-01`. `under_review` covers the time between submission and a decision.
+
 ---
 
 ## Validation
@@ -547,6 +590,12 @@ with open('schema/paper-spec.schema.json') as f: schema = json.load(f)
 jsonschema.validate(doc, schema)
 print('Valid.')
 "
+```
+
+The repository also ships `tools/validate.py`, which needs only PyYAML. It reads its vocabularies from the same JSON Schema and adds checks a schema cannot express, such as acceptance and result entries that point at an unknown claim id. It takes files or directories:
+
+```bash
+python tools/validate.py paper.yaml examples/
 ```
 
 Validation levels:
@@ -571,6 +620,17 @@ Paper Spec follows semantic versioning:
 
 The `spec_version` field in each `paper.yaml` declares which version it conforms to. Validators should use this field to select the appropriate schema.
 
+### Version history
+
+**0.2.0 (2026-10-26).** A MINOR release: every v0.1.0 file remains valid.
+
+- New values: claim types `lemma`, `corollary`; methodology type `conceptual`; dependency relationships `cites`, `obtains_background_from`, `cites_as_related`.
+- New optional fields: `claims[].evidence_basis`, `methodology.secondary_types`, `methodology.notes`, `data.notes`, `code.notes`, `meta.superseded_by`.
+- `acceptance` entries need `criterion` or `falsification`, no longer always `criterion`.
+- Clarified: dates may be reduced precision; planned venues and preprint deposits are not submissions; `results.status` lists `not_tested`; `code.dependencies` may also be a list; `dependencies` and `contradictions` accept `reference` instead of `doi`.
+- `tools/validate.py` applies the schema's structural rules itself, so it now also reports fields the schema does not define, as the schema always did.
+- The JSON Schema now matches this document. In 0.1.0 it rejected `spec_version` and author objects, so no conforming file passed it; it also enforced fewer of the required fields stated here. Field names it used that this document does not (`sample.n`, `sample.exclusion_criteria`, `measures[].name`, `construct`, `scale`) are accepted and marked deprecated; use `sample.size`, `sample.exclusion` and `measures[].variable`, `instrument`, `reliability`.
+
 ### Migration policy
 
 When a new major version is released, a migration guide and automated migration tool will be provided. The previous major version will remain supported for at least 12 months.
@@ -583,7 +643,9 @@ Paper Spec does not replace existing standards. It complements them.
 
 **FAIR Data Principles.** Paper Spec's `data` and `code` sections operationalize FAIR (Findable, Accessible, Interoperable, Reusable) for individual papers. A `paper.yaml` file is itself a FAIR metadata record.
 
-**CiTO (Citation Typing Ontology).** The `dependencies.relationship` field draws on CiTO's vocabulary but simplifies it to five terms. Papers that need full CiTO typing can extend this field.
+**CiTO (Citation Typing Ontology).** The `dependencies.relationship` field draws on CiTO's vocabulary but simplifies it to eight terms; the mapping is in the `dependencies` section. The vocabulary is closed: a relation outside the eight uses the nearest value, and tools that need finer CiTO typing map from it.
+
+**Evidence and Conclusion Ontology (ECO).** `claims[].evidence_basis` uses four ECO evidence classes (see the `claims` section), so a claim's kind of support can be translated to ECO term identifiers.
 
 **JATS (Journal Article Tag Suite).** JATS describes document structure (sections, figures, tables). Paper Spec describes epistemic structure (claims, evidence, falsifiability). They are orthogonal. A JATS-encoded paper can include a `paper.yaml` as supplementary material.
 

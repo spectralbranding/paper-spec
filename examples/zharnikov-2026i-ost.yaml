@@ -1,6 +1,6 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml — Paper Spec v0.2.0
 # Zharnikov (2026i): Organizational Schema Theory (OST)
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "The Organizational Schema Theory: Test-Driven Business Design"
@@ -469,7 +469,7 @@ submission_history:
     notes: "IJQSS-03-2026-0080. Limited contribution."
   - venue: "M@n@gement"
     date_submitted: "2026-03-23"
-    decision: rejected
+    decision: desk_reject
     notes: "Submission ID: 14239. Desk rejection."
   - venue: "European Journal of Information Systems"
     date_submitted: "2026-04-01"

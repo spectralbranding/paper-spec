@@ -1,8 +1,8 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml — Paper Spec v0.2.0
 # Zharnikov (2026q): Spectral Portfolio Theory
 # SUPERSEDED by Zharnikov (2026ac): R21 "Spectral Immunity" — DOI 10.5281/zenodo.19765401
 # Retained as a Paper Spec schema example. Do not cite for original claims.
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Spectral Portfolio Theory: Interference, Coherence, and Capacity in Multi-Brand Perception Space"
@@ -452,18 +452,18 @@ repositories:
 
 submission_history:
   - venue: "Marketing Science"
-    id: "MKSC-2026-0149"
     date_submitted: "2026-03-23"
-    date_decided: "2026-03-26"
-    status: "desk_rejected"
+    manuscript_id: "MKSC-2026-0149"
+    date_decision: "2026-03-26"
+    decision: desk_reject
     notes: >
       Editor: Prof. Puneet Manchanda. Reasons: (1) underlying SBT methodology
       not yet peer-reviewed in methods journal, (2) unclear managerial problem,
       (3) incremental contribution concern. Advice: publish methodology first.
   - venue: "International Journal of Research in Marketing"
-    id: "IJRM-D-26-00310"
     date_submitted: "2026-03-26"
-    status: "under_review"
+    manuscript_id: "IJRM-D-26-00310"
+    decision: "under_review"
     notes: >
       Research Paper. Double-blind. 10,876 words, 42 references.
       Suggested AEs: Volkner, Batra, Chernev.

@@ -5,6 +5,7 @@ Usage:
     python tools/template.py                    # theoretical paper (default)
     python tools/template.py --type empirical   # empirical paper
     python tools/template.py --type review      # review/survey paper
+    python tools/template.py --type conceptual  # conceptual paper
     python tools/template.py -o my-paper.yaml   # specify output file
 
 Generates a starter paper.yaml with all sections and placeholder comments.
@@ -22,6 +23,16 @@ TEMPLATES = {
         "claim_types": ["proposition", "theorem", "definition"],
         "data_note": "No primary data collected. Illustrative examples only.",
         "replication_note": "Empirical validation requires survey/experiment design.",
+    },
+    "conceptual": {
+        "methodology_type": "conceptual",
+        "methodology_design": (
+            "Name the design: theory synthesis, theory adaptation, typology, "
+            "or model (Jaakkola 2020)."
+        ),
+        "claim_types": ["proposition", "definition"],
+        "data_note": "No primary data collected.",
+        "replication_note": "Empirical tests of the propositions require new studies.",
     },
     "empirical": {
         "methodology_type": "empirical",
@@ -62,10 +73,10 @@ def generate_template(paper_type: str) -> str:
     cfg = TEMPLATES.get(paper_type, TEMPLATES["theoretical"])
     claim_example = cfg["claim_types"][0]
 
-    return f"""# paper.yaml -- Paper Spec v0.1.0
+    return f"""# paper.yaml -- Paper Spec v0.2.0
 # Generated with: python tools/template.py --type {paper_type}
 # Fill in the sections below, then validate: python tools/validate.py this-file.yaml
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: ""          # Paper title
@@ -92,6 +103,7 @@ claims:
     testable: true
     tested_in_paper: false
     status: not_tested
+    # evidence_basis: []   # any of: deductive, computational, empirical, literature
     depends_on: []
 
 methodology:
@@ -131,7 +143,7 @@ dependencies:
   # Add papers this work builds on. Use DOI or reference string.
   - doi: ""
     claim: "What this paper takes from the dependency"
-    relationship: extends    # extends | applies | tests | contradicts | refines
+    relationship: extends    # extends | applies | tests | contradicts | refines | cites | obtains_background_from | cites_as_related
     critical: true
 
 contradictions: []

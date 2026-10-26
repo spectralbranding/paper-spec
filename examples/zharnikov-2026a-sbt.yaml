@@ -1,6 +1,6 @@
-# paper.yaml -- Paper Spec v0.1.0
+# paper.yaml -- Paper Spec v0.2.0
 # Zharnikov (2026a): Spectral Brand Theory
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Spectral Brand Theory: A Computational Framework for Multi-Dimensional Brand Perception"
@@ -34,7 +34,7 @@ claims:
       spectral profile differences (weights, tolerances, priors, encounter mode).
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "P2"
@@ -44,7 +44,7 @@ claims:
       resulting brand conviction, even when the set of signals is identical.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "P3"
@@ -54,7 +54,7 @@ claims:
       perceived value that cannot be replicated by signal addition in other dimensions.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "P4"
@@ -65,7 +65,7 @@ claims:
       experiential asymmetry, incoherent).
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "P5"
@@ -75,7 +75,7 @@ claims:
       than evidence-rich positive convictions.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "H1"
@@ -86,7 +86,7 @@ claims:
       market position.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P3", "P4"]
 
   - id: "H2"
@@ -96,7 +96,7 @@ claims:
       counter-evidence than evidence-rich positive convictions.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P5"]
 
   - id: "H3"
@@ -106,7 +106,7 @@ claims:
       incoherent brands will exhibit disruption amplification.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P4"]
 
   - id: "H4"
@@ -116,7 +116,7 @@ claims:
       overstate cohort-level resilience relative to longitudinal tracking.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P1", "P2"]
 
   - id: "H5"
@@ -126,43 +126,34 @@ claims:
       two conditions are met: existing demand and a legitimizing heritage context.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P3"]
 
-companion_papers:
-  - key: "2026b"
-    title: "The Atom-Cloud-Fact Epistemological Pipeline"
-    doi: "10.5281/zenodo.18944770"
-    relationship: "epistemological_foundation"
-  - key: "2026c"
-    title: "Geometric Approaches to Brand Perception"
-    doi: "10.5281/zenodo.18945217"
-    relationship: "literature_survey"
-  - key: "2026d"
-    title: "Brand Space Geometry"
-    doi: "10.5281/zenodo.18945295"
-    relationship: "formal_metric"
-  - key: "2026e"
-    title: "Spectral Metamerism in Brand Perception"
-    doi: "10.5281/zenodo.18945352"
-    relationship: "projection_bounds"
-  - key: "2026f"
-    title: "Cohort Boundaries in High-Dimensional Perception Space"
-    doi: "10.5281/zenodo.18945477"
-    relationship: "cohort_formalization"
-  - key: "2026g"
-    title: "How Many Brands Can a Market Hold?"
-    doi: "10.5281/zenodo.18945522"
-    relationship: "capacity_bounds"
-  - key: "2026h"
-    title: "Specification Impossibility in Organizational Design"
-    doi: "10.5281/zenodo.18945591"
-    relationship: "OST_foundation"
-  - key: "2026j"
-    title: "Non-Ergodic Brand Perception"
-    doi: "10.5281/zenodo.18945659"
-    relationship: "dynamics_formalization"
-  - key: "2026k"
-    title: "Spectral Resource Allocation"
-    doi: "10.5281/zenodo.19009268"
-    relationship: "resource_optimization"
+dependencies:
+  - doi: "10.5281/zenodo.18944770"
+    claim: "Companion paper 2026b, The Atom-Cloud-Fact Epistemological Pipeline: epistemological foundation"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945217"
+    claim: "Companion paper 2026c, Geometric Approaches to Brand Perception: literature survey"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945295"
+    claim: "Companion paper 2026d, Brand Space Geometry: formal metric"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945352"
+    claim: "Companion paper 2026e, Spectral Metamerism in Brand Perception: projection bounds"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945477"
+    claim: "Companion paper 2026f, Cohort Boundaries in High-Dimensional Perception Space: cohort formalization"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945522"
+    claim: "Companion paper 2026g, How Many Brands Can a Market Hold?: capacity bounds"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945591"
+    claim: "Companion paper 2026h, Specification Impossibility in Organizational Design: OST foundation"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945659"
+    claim: "Companion paper 2026j, Non-Ergodic Brand Perception: dynamics formalization"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.19009268"
+    claim: "Companion paper 2026k, Spectral Resource Allocation: resource optimization"
+    relationship: cites_as_related

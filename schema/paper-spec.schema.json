@@ -2,17 +2,23 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/spectralbranding/paper-spec/schema/paper-spec.schema.json",
   "title": "paper-spec",
-  "description": "Schema for paper.yaml — a machine-readable specification of a research paper's claims, methodology, and replication requirements.",
+  "description": "Schema for paper.yaml — a machine-readable specification of a research paper's claims, methodology, and replication requirements. Paper Spec v0.2.0; accepts files declaring any 0.1.x or 0.2.x spec_version.",
   "type": "object",
-  "required": ["meta"],
+  "required": ["spec_version", "meta"],
   "additionalProperties": false,
 
   "properties": {
 
+    "spec_version": {
+      "type": "string",
+      "description": "Paper Spec version this file conforms to (e.g. '0.2.0').",
+      "pattern": "^0\\.[12]\\.\\d+$"
+    },
+
     "meta": {
       "description": "Bibliographic metadata for the paper.",
       "type": "object",
-      "required": ["title", "authors", "date"],
+      "required": ["title", "authors"],
       "additionalProperties": false,
       "properties": {
         "title": {
@@ -21,8 +27,26 @@
         },
         "authors": {
           "type": "array",
-          "description": "List of author names in citation order.",
-          "items": { "type": "string" },
+          "description": "Authors in citation order.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Author name, 'Last, First' format."
+              },
+              "orcid": {
+                "type": "string",
+                "description": "ORCID identifier (e.g. '0000-0002-1234-5678'); empty when the author has none."
+              },
+              "affiliation": {
+                "type": "string",
+                "description": "Institutional affiliation."
+              }
+            }
+          },
           "minItems": 1
         },
         "doi": {
@@ -54,6 +78,11 @@
         "abstract": {
           "type": "string",
           "description": "Full abstract text."
+        },
+        "superseded_by": {
+          "type": "string",
+          "description": "DOI of a later work that replaces this one (DataCite relationType IsObsoletedBy, schema 4.2+).",
+          "pattern": "^10\\.\\d{4,}/.+$"
         }
       }
     },
@@ -63,7 +92,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "statement"],
+        "required": ["id", "type", "statement"],
         "additionalProperties": false,
         "properties": {
           "id": {
@@ -73,7 +102,7 @@
           "type": {
             "type": "string",
             "description": "Epistemic type of the claim.",
-            "enum": ["hypothesis", "proposition", "theorem", "conjecture", "definition"]
+            "enum": ["hypothesis", "proposition", "theorem", "lemma", "corollary", "conjecture", "definition"]
           },
           "statement": {
             "type": "string",
@@ -93,8 +122,17 @@
           },
           "status": {
             "type": "string",
-            "description": "Current evidentiary status of the claim.",
+            "description": "The paper's verdict on the claim; the kind of support is in evidence_basis.",
             "enum": ["supported", "refuted", "inconclusive", "not_tested"]
+          },
+          "evidence_basis": {
+            "type": "array",
+            "description": "Kinds of warrant the paper gives for the claim, after the Evidence and Conclusion Ontology: deductive (ECO:0006185 author inference), computational (ECO:0007672), empirical (ECO:0000006 experimental evidence), literature (ECO:0000033 author statement supported by traceable reference).",
+            "items": {
+              "type": "string",
+              "enum": ["deductive", "computational", "empirical", "literature"]
+            },
+            "uniqueItems": true
           },
           "depends_on": {
             "type": "array",
@@ -108,12 +146,22 @@
     "methodology": {
       "description": "Description of the research methodology.",
       "type": "object",
+      "required": ["type"],
       "additionalProperties": false,
       "properties": {
         "type": {
           "type": "string",
-          "description": "Primary methodology type.",
-          "enum": ["empirical", "theoretical", "computational", "mixed", "meta_analysis", "review"]
+          "description": "Primary methodology type. conceptual: verbal theory building (theory synthesis, theory adaptation, typology, model); theoretical: formal or deductive work.",
+          "enum": ["empirical", "theoretical", "conceptual", "computational", "mixed", "meta_analysis", "review"]
+        },
+        "secondary_types": {
+          "type": "array",
+          "description": "Further methodology types used in a supporting role, from the same list (e.g. a theoretical paper with a computational demonstration).",
+          "items": {
+            "type": "string",
+            "enum": ["empirical", "theoretical", "conceptual", "computational", "mixed", "meta_analysis", "review"]
+          },
+          "uniqueItems": true
         },
         "design": {
           "type": "string",
@@ -124,9 +172,14 @@
           "description": "Sample or dataset characteristics (for empirical work).",
           "additionalProperties": false,
           "properties": {
+            "size": {
+              "type": "integer",
+              "description": "Number of participants or observations."
+            },
             "n": {
               "type": "integer",
-              "description": "Sample size."
+              "description": "Deprecated synonym of size.",
+              "deprecated": true
             },
             "population": {
               "type": "string",
@@ -136,9 +189,15 @@
               "type": "string",
               "description": "Recruitment method."
             },
+            "exclusion": {
+              "type": "array",
+              "description": "Exclusion criteria.",
+              "items": { "type": "string" }
+            },
             "exclusion_criteria": {
               "type": "string",
-              "description": "Criteria for excluding observations."
+              "description": "Deprecated: use exclusion.",
+              "deprecated": true
             }
           }
         },
@@ -147,12 +206,15 @@
           "description": "Key variables or constructs measured.",
           "items": {
             "type": "object",
+            "required": ["variable"],
             "additionalProperties": false,
             "properties": {
-              "name": { "type": "string" },
-              "construct": { "type": "string" },
-              "instrument": { "type": "string" },
-              "scale": { "type": "string" }
+              "variable": { "type": "string", "description": "Variable name." },
+              "instrument": { "type": "string", "description": "Measurement instrument." },
+              "reliability": { "type": "string", "description": "Reliability metric (e.g. 'Cronbach alpha = 0.87')." },
+              "name": { "type": "string", "description": "Deprecated: use variable.", "deprecated": true },
+              "construct": { "type": "string", "description": "Deprecated: describe the construct in variable or instrument.", "deprecated": true },
+              "scale": { "type": "string", "description": "Deprecated: describe the scale in instrument.", "deprecated": true }
             }
           }
         },
@@ -166,6 +228,10 @@
             "pre_registered": { "type": "boolean" },
             "pre_registration_url": { "type": "string" }
           }
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional context about the methodology."
         }
       }
     },
@@ -175,7 +241,11 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["claim_id", "criterion"],
+        "required": ["claim_id"],
+        "anyOf": [
+          {"required": ["criterion"]},
+          {"required": ["falsification"]}
+        ],
         "additionalProperties": false,
         "properties": {
           "claim_id": {
@@ -201,6 +271,7 @@
     "data": {
       "description": "Information about underlying data.",
       "type": "object",
+      "required": ["available"],
       "additionalProperties": false,
       "properties": {
         "available": {
@@ -222,6 +293,10 @@
         "license": {
           "type": "string",
           "description": "Data license (e.g. 'CC0', 'CC BY 4.0')."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional context about the data."
         }
       }
     },
@@ -229,6 +304,7 @@
     "code": {
       "description": "Information about analysis code or software.",
       "type": "object",
+      "required": ["available"],
       "additionalProperties": false,
       "properties": {
         "available": {
@@ -244,9 +320,15 @@
           "description": "Primary programming language(s)."
         },
         "dependencies": {
-          "type": "array",
-          "description": "Key libraries or packages required.",
-          "items": { "type": "string" }
+          "description": "Key libraries or packages, as a list, or how to install them, as a string (the v0.1.0 form).",
+          "anyOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional context about the code."
         }
       }
     },
@@ -306,8 +388,8 @@
           },
           "relationship": {
             "type": "string",
-            "description": "How this paper relates to the dependency.",
-            "enum": ["extends", "applies", "tests", "contradicts", "refines"]
+            "description": "How this paper relates to the dependency; each value maps to a CiTO property (SPECIFICATION.md).",
+            "enum": ["extends", "applies", "tests", "contradicts", "refines", "cites", "obtains_background_from", "cites_as_related"]
           },
           "critical": {
             "type": "boolean",
@@ -323,6 +405,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
+        "required": ["claim", "our_position"],
         "anyOf": [
           {"required": ["doi"]},
           {"required": ["reference"]}
@@ -354,7 +437,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["claim_id"],
+        "required": ["claim_id", "status"],
         "additionalProperties": false,
         "properties": {
           "claim_id": {
@@ -438,9 +521,9 @@
         "additionalProperties": false,
         "properties": {
           "venue": {"type": "string"},
-          "date_submitted": {"type": "string"},
+          "date_submitted": {"type": "string", "description": "Submission date, ISO 8601 at the precision known: YYYY-MM-DD, YYYY-MM or YYYY (EDTF level 0)."},
           "manuscript_id": {"type": "string"},
-          "date_decision": {"type": "string"},
+          "date_decision": {"type": "string", "description": "Decision date, same format as date_submitted."},
           "decision": {
             "type": "string",
             "enum": ["under_review", "desk_reject", "reject", "revise_resubmit", "accepted", "published", "withdrawn"]

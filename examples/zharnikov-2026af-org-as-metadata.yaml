@@ -1,6 +1,6 @@
-# paper.yaml -- Paper Spec v0.1.0
+# paper.yaml -- Paper Spec v0.2.0
 # Zharnikov (2026af): Organizational Metamerism
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Organizational Metamerism: When Distinct Configurations Produce Equivalent Outputs"
@@ -35,12 +35,8 @@ claims:
     formal: "rate_of_change(Value) < rate_of_change(Process) < rate_of_change(Organization)"
     testable: true
     tested_in_paper: false
-    status: theoretical
+    status: not_tested
     depends_on: []
-    falsification: >
-      P1 is falsified if a systematic comparison across industries and time periods shows
-      organizational configurations more stable than the processes they execute, or
-      processes more stable than the value outputs they produce.
 
   - id: "P2"
     type: proposition
@@ -53,12 +49,8 @@ claims:
     formal: "|M(P, O)| = f(codifiability(P), 1 / tacit_intensity(P), 1 / coordination_cost)"
     testable: true
     tested_in_paper: false
-    status: theoretical
+    status: not_tested
     depends_on: ["P1"]
-    falsification: >
-      P2 is falsified if process codifiability and tacit knowledge intensity show no
-      separable association with metamerism set size, or if the directions of association
-      reverse.
 
   - id: "P3"
     type: proposition
@@ -70,12 +62,8 @@ claims:
     formal: "d(restructuring_frequency / process_change_frequency) / d(AI_coordination_adoption) > 0"
     testable: true
     tested_in_paper: false
-    status: theoretical
+    status: not_tested
     depends_on: ["P1", "P2"]
-    falsification: >
-      P3 is falsified if AI adoption produces equal increases in process change and
-      organizational restructuring, or if AI-adopting industries show no acceleration of
-      restructuring relative to process change.
 
   - id: "P4"
     type: proposition
@@ -88,12 +76,8 @@ claims:
     formal: "d(overhead) / d(AI_adoption) is bounded above by - g(tacit_intensity(P))"
     testable: true
     tested_in_paper: false
-    status: theoretical
+    status: not_tested
     depends_on: ["P2", "P3"]
-    falsification: >
-      P4 is falsified if high-tacit-knowledge industries show overhead reductions equal to
-      or greater than high-codification industries at matched AI adoption levels, or if
-      tacit intensity has no moderating effect on the AI-overhead relationship.
 
 methodology:
   type: theoretical
@@ -106,11 +90,7 @@ methodology:
     designs (fsQCA on matched codifiability samples, longitudinal network analysis of
     coordination embedding, observer-evaluation-function manipulation) outlined in the
     Future Research subsection.
-  key_finding: >
-    Organizational metamerism is the state-equivalence companion to equifinality's
-    path-equivalence: structurally distinct configurations executing the same process
-    produce equivalent value outputs to a given evaluative observer, with set size
-    determined by codifiability, tacit knowledge intensity, and coordination cost.
+  notes: "Key finding: Organizational metamerism is the state-equivalence companion to equifinality's path-equivalence: structurally distinct configurations executing the same process produce equivalent value outputs to a given evaluative observer, with set size determined by codifiability, tacit knowledge intensity, and coordination cost."
 
 data:
   available: false
@@ -130,3 +110,28 @@ repositories:
     url: "https://github.com/spectralbranding/orgschema-papers/tree/main/org-as-metadata"
 
 submission_history: []
+
+acceptance:
+  - claim_id: "P1"
+    falsification: >
+      P1 is falsified if a systematic comparison across industries and time periods shows
+      organizational configurations more stable than the processes they execute, or
+      processes more stable than the value outputs they produce.
+
+  - claim_id: "P2"
+    falsification: >
+      P2 is falsified if process codifiability and tacit knowledge intensity show no
+      separable association with metamerism set size, or if the directions of association
+      reverse.
+
+  - claim_id: "P3"
+    falsification: >
+      P3 is falsified if AI adoption produces equal increases in process change and
+      organizational restructuring, or if AI-adopting industries show no acceleration of
+      restructuring relative to process change.
+
+  - claim_id: "P4"
+    falsification: >
+      P4 is falsified if high-tacit-knowledge industries show overhead reductions equal to
+      or greater than high-codification industries at matched AI adoption levels, or if
+      tacit intensity has no moderating effect on the AI-overhead relationship.

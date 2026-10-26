@@ -28,7 +28,7 @@ A `paper.yaml` does not replace the paper. It indexes it.
 A minimal `paper.yaml` (just metadata):
 
 ```yaml
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Why Most Published Research Findings Are False"
@@ -44,7 +44,7 @@ meta:
 A more complete one -- Kahneman & Tversky's prospect theory:
 
 ```yaml
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Prospect Theory: An Analysis of Decision under Risk"
@@ -135,7 +135,7 @@ limitations:
 
 Every section except `meta` is optional. Add what you have. Each section adds value independently.
 
-The [examples/](examples/) directory contains 24 real `paper.yaml` files from two active research programs, including papers with full submission histories across multiple journals.
+The [examples/](examples/) directory contains 27 real `paper.yaml` files from two active research programs, including papers with full submission histories across multiple journals.
 
 ## Specification
 
@@ -153,6 +153,9 @@ with open('schema/paper-spec.schema.json') as f: schema = json.load(f)
 jsonschema.validate(doc, schema)
 print('Valid.')
 "
+
+# Or the bundled validator (needs only PyYAML; also checks claim ids)
+python tools/validate.py paper.yaml
 ```
 
 Validation levels range from Level 0 (just metadata) to Level 4 (all sections present). Any level is valid.
@@ -174,7 +177,7 @@ The repository also includes a Research Wiki scaffold (`docs/wiki-scaffold/`) im
 
 ## Contributing
 
-Paper Spec is in early development (v0.1.0). Contributions are welcome:
+Paper Spec is in early development (v0.2.0; changes in SPECIFICATION.md, Version history). Contributions are welcome:
 
 1. **Use it.** Write a `paper.yaml` for one of your papers and report what was unclear or missing.
 2. **Open an issue.** Suggestions for new fields, better names, or structural changes.
@@ -216,7 +219,7 @@ paper-spec/
 ├── schema/                    # JSON Schemas for paper.yaml and wiki-schema
 ├── src/paper_spec/            # Python package
 ├── tools/                     # validate.py, template.py, prompts
-├── examples/                  # 24 real-world paper.yaml examples
+├── examples/                  # 27 real-world paper.yaml examples
 ├── journal_specs/             # Venue requirement profiles (machine-readable)
 ├── docs/                      # Documentation + wiki scaffold
 └── output/
@@ -253,8 +256,7 @@ uv run python tools/validate.py path/to/paper.yaml
 |---|---|---|
 | Runtime | Python | `>=3.14,<3.15` |
 | Runtime | pyyaml | `>=6.0` |
-| Validation | jsonschema | (installed transitively for examples + tools/validate.py) |
-| Dev | black, flake8, mypy | Optional, via `uv sync --extra dev` |
+| Dev | black, flake8, mypy, pytest, jsonschema | Via `uv sync --extra dev`; jsonschema checks every example against the schema in `tests/` |
 | Orchestration | uv | Required for `reproduce.sh`; install via `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 
 All version constraints live in `pyproject.toml`. The lockfile is `uv.lock` (committed for deterministic reproduction).
@@ -288,4 +290,4 @@ Both licences permit commercial use. Attribution to Dmitry Zharnikov and a link 
 
 ---
 
-*Last updated: 2026-05-29*
+*Last updated: 2026-10-26*

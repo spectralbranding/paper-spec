@@ -1,6 +1,6 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml — Paper Spec v0.2.0
 # Zharnikov (2026w): Canon as Repository — Specification-Driven Architecture for Transmedia IP
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Canon as Repository: A Specification-Driven Architecture for Transmedia Intellectual Property"
@@ -36,7 +36,7 @@ claims:
       its rationale, enabling complete reconstruction of any prior canonical state.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "P2"
@@ -47,7 +47,7 @@ claims:
       specification's constraints while introducing medium-specific rendering decisions.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P1"]
 
   - id: "P3"
@@ -58,7 +58,7 @@ claims:
       defined approval authorities, review criteria, and merge conditions.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P1"]
 
   - id: "P4"
@@ -81,7 +81,7 @@ claims:
       specification.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P2"]
 
   - id: "P6"
@@ -92,7 +92,7 @@ claims:
       canonical specification, transforming the author's role from renderer to specifier.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P5"]
 
   - id: "P7"
@@ -104,7 +104,7 @@ claims:
       accessibility.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P5", "P6"]
 
 methodology:
@@ -195,7 +195,7 @@ replication:
     - "Git hosting infrastructure (GitHub, GitLab, or self-hosted)"
 
 dependencies:
-  - citation: "Zharnikov (2026l)"
+  - reference: "Zharnikov (2026l)"
     doi: "10.5281/zenodo.19064426"
     claim: >
       The rendering problem framework: specification of bounded complexity is rendered into
@@ -204,7 +204,7 @@ dependencies:
     relationship: "applies"
     critical: true
 
-  - citation: "Zharnikov (2026a)"
+  - reference: "Zharnikov (2026a)"
     doi: "10.5281/zenodo.18945912"
     claim: >
       Spectral Brand Theory observer model: observer cohorts with distinct spectral profiles
@@ -212,7 +212,7 @@ dependencies:
     relationship: "applies"
     critical: false
 
-  - citation: "Zharnikov (2026e)"
+  - reference: "Zharnikov (2026e)"
     doi: "10.5281/zenodo.18945352"
     claim: >
       Spectral metamerism: same signal field produces different perception clouds. Applied to
@@ -221,7 +221,7 @@ dependencies:
     relationship: "applies"
     critical: false
 
-  - citation: "Zharnikov (2026i)"
+  - reference: "Zharnikov (2026i)"
     doi: "10.5281/zenodo.18946043"
     claim: >
       Organizational Schema Theory: specification-first design. OST's specification-first
@@ -229,28 +229,28 @@ dependencies:
     relationship: "applies"
     critical: false
 
-  - citation: "Jenkins (2006)"
+  - reference: "Jenkins (2006)"
     claim: >
       Transmedia storytelling: integral elements of a fiction dispersed across multiple
       delivery channels. Foundational definition of the consistency problem addressed here.
     relationship: "extends"
     critical: true
 
-  - citation: "Ryan (2015)"
+  - reference: "Ryan (2015)"
     claim: >
       Transmedial narratology: medium-independent vs. medium-specific narrative structures.
       The specification-rendering distinction formalizes Ryan's empirical distinction.
     relationship: "extends"
     critical: true
 
-  - citation: "Sterman et al. (2022)"
+  - reference: "Sterman et al. (2022)"
     claim: >
       Creative professionals develop informal versioning systems recapitulating Git semantics.
       Empirical precedent for the structural need formalized by the canon repository.
     relationship: "extends"
     critical: false
 
-  - citation: "Beck (2003)"
+  - reference: "Beck (2003)"
     claim: >
       Test-driven development: continuous integration and testing against specifications.
       CI/CD construct applied to canon consistency validation.
@@ -267,14 +267,14 @@ results:
       Full NLP-based cross-rendering validation is not implemented.
 
   - claim_id: "P1"
-    status: proposed
+    status: not_tested
     notes: >
       Demonstrated structurally: the Romeo and Juliet canon-repo records specification elements
       as versioned files with Git history. Full commit-based audit trail for a live franchise
       is not demonstrated.
 
   - claim_id: "P2"
-    status: proposed
+    status: not_tested
     notes: >
       Demonstrated structurally: the canon-repo architecture supports fork-based adaptation.
       No live franchise fork has been implemented.
@@ -325,23 +325,13 @@ repositories:
     doi: "10.5281/zenodo.19355800"
     version: "v1.0"
     date: "2026-03-31"
-    notes: "Preprint. 24 refs, 7 propositions."
+    notes: "Preprint v1.0. 24 refs, 12.5% self-cite, 7 propositions. CC BY-NC-ND 4.0."
   - platform: "GitHub"
     url: "https://github.com/spectralbranding/canon-repo"
     notes: "Romeo and Juliet demonstration — specification + 3 rendering forks"
 
-submission_history:
-  - venue: "Zenodo"
-    date_submitted: "2026-03-31"
-    decision: "published"
-    notes: >
-      v1.0 preprint. 24 refs, 12.5% self-cite. /review-paper RESEARCH PAPER 4/5.
-      DOI: 10.5281/zenodo.19355800. CC BY-NC-ND 4.0.
-  - venue: "Convergence (SAGE)"
-    date: ""
-    status: "pending"
-    manuscript_id: ""
-    doi: ""
-    notes: >
-      Target venue. Interdisciplinary journal on media convergence. Requires anonymization.
-      Trimmed version in export/canon-repository/convergence/paper.md.
+# Planned venues, not yet submitted (submission_history records submissions only):
+#   Convergence (SAGE) (pending): Target venue. Interdisciplinary journal on media
+#     convergence. Requires anonymization. Trimmed version in export/canon-
+#     repository/convergence/paper.md.
+submission_history: []
