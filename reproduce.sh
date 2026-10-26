@@ -41,7 +41,7 @@ done
 # 1. Dependency sync via uv
 echo ">>> Syncing dependencies with uv..." | tee -a "$LOG_FILE"
 if command -v uv >/dev/null 2>&1; then
-  uv sync 2>&1 | tee -a "$LOG_FILE"
+  uv sync --extra dev 2>&1 | tee -a "$LOG_FILE"
 else
   echo "ERROR: uv not found. Install via 'curl -LsSf https://astral.sh/uv/install.sh | sh'" | tee -a "$LOG_FILE"
   exit 1
@@ -55,7 +55,8 @@ fi
 # 2. Validate every example paper.yaml against the JSON Schema
 echo ">>> Validating examples/ against schema/paper-spec.schema.json..." | tee -a "$LOG_FILE"
 if [[ -f schema/paper-spec.schema.json ]]; then
-  uv run python tools/validate.py examples/*.yaml 2>&1 | tee -a "$LOG_FILE" || true
+  # Every example must validate; a failure fails the run (set -o pipefail).
+  uv run python tools/validate.py examples/ 2>&1 | tee -a "$LOG_FILE"
 else
   echo "(schema file not found; skipping example validation)" | tee -a "$LOG_FILE"
 fi
@@ -63,7 +64,7 @@ fi
 # 3. Run tests if a test suite is present
 if [[ -d tests ]] || find . -maxdepth 3 -name "test_*.py" -not -path "./.venv/*" -not -path "./.mypy_cache/*" | grep -q .; then
   echo ">>> Running test suite..." | tee -a "$LOG_FILE"
-  uv run pytest 2>&1 | tee -a "$LOG_FILE" || true
+  uv run pytest 2>&1 | tee -a "$LOG_FILE"
 else
   echo ">>> No tests found; skipping pytest." | tee -a "$LOG_FILE"
 fi

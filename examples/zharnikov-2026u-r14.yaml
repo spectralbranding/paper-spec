@@ -1,6 +1,6 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml — Paper Spec v0.2.0
 # Zharnikov (2026u): R14 — Research as Repository
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Research as Repository: A Git-Native Protocol for Scientific Knowledge Production"
@@ -35,7 +35,7 @@ claims:
       making dual submission structurally detectable without relying on author declarations.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "C2"
@@ -47,7 +47,7 @@ claims:
       guarantee.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "C3"
@@ -58,7 +58,7 @@ claims:
       contribution, enabling reviewer portfolios and structural assessment of review quality.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "C4"
@@ -70,7 +70,7 @@ claims:
       fragmentation.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
   - id: "C5"
@@ -94,7 +94,7 @@ claims:
       visible to all fork recipients.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["C1"]
 
   - id: "C7"
@@ -107,7 +107,7 @@ claims:
       honor-system forms.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
 
 methodology:
@@ -238,7 +238,7 @@ results:
       exceedances. Full fork lifecycle validation not implemented.
 
   - claim_id: "C1"
-    status: proposed
+    status: not_tested
     notes: >
       Not yet tested. Fork-based submission requires implementation of the fork lifecycle
       (freeze, transfer, provenance recording) which is specified in Section 2.2 but not
@@ -246,7 +246,7 @@ results:
       in the self-referential implementation.
 
   - claim_id: "C7"
-    status: proposed
+    status: not_tested
     notes: >
       Partially demonstrated by self-referential implementation: R14's CONTRIBUTORS.yaml
       lists 4 contributors (1 human + 3 AI tools) with disclosure statements. Commit-level
@@ -283,34 +283,25 @@ limitations:
     addressable: false
 
 repositories:
-  - name: "paper-repo"
+  - platform: "GitHub"
     url: "https://github.com/spectralbranding/paper-repo"
-    doi: ""  # PENDING
-
-submission_history:
-  - venue: "Zenodo"
-    date: "2026-03-28"
-    status: "published"
+  - platform: "Zenodo"
+    url: "https://doi.org/10.5281/zenodo.19294864"
     doi: "10.5281/zenodo.19294864"
+    date: "2026-03-28"
     notes: >
       v1.0 initial preprint. ~13,850 words, 35 references, 7 claims.
       Self-referential implementation. CC BY-NC-ND 4.0.
+
+# Planned venues, not yet submitted (submission_history records submissions only):
+#   Journal of Electronic Publishing (JEP, U of Michigan) (pending_reformat): Venue #2. Diamond OA (no APC). 30-year history of publishing innovation. Reframing: lead with "publishing lacks version control" gap. ~6,000 word compressed version at export/R14-paper-repository/jep/.
+submission_history:
   - venue: "JASIST (Journal of the Association for Information Science and Technology)"
-    date: "2026-03-29"
-    status: "desk_rejected"
+    date_submitted: "2026-03-29"
     manuscript_id: "JASIST-2026-03-0533"
-    decision_date: "2026-04-02"
-    doi: ""
+    date_decision: "2026-04-02"
+    decision: desk_reject
     notes: >
       Desk rejection #1. Editor: Dr. Steve Sawyer. Reason: "not clear that the
       work draws on information science literature." Paper read as software
       engineering import. ~6,312 words body, 40 refs. Single-blind. ScholarOne.
-  - venue: "Journal of Electronic Publishing (JEP, U of Michigan)"
-    date: null
-    status: "pending_reformat"
-    manuscript_id: null
-    doi: ""
-    notes: >
-      Venue #2. Diamond OA (no APC). 30-year history of publishing innovation.
-      Reframing: lead with "publishing lacks version control" gap. ~6,000 word
-      compressed version at export/R14-paper-repository/jep/.

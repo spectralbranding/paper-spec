@@ -1,6 +1,6 @@
-# paper.yaml -- Paper Spec v0.1.0
+# paper.yaml -- Paper Spec v0.2.0
 # Zharnikov (2026ad): R22 -- Spectral Gap Restoration
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Restoring Perceptual Separability After Coherence Shocks: A μ > λ Threshold Inequality in Brand Perception"
@@ -32,12 +32,10 @@ claims:
       scale of the dominant observer cohort (sufficient condition).
     testable: true
     tested_in_paper: true
-    status: supported_by_simulation
+    status: supported
+    evidence_basis:
+      - computational
     depends_on: []
-    falsification: >
-      P1 is falsified if a brand maintains cohort separability over an extended
-      post-shock window with mu < lambda by independent measurement, or if a brand
-      with documented mu >> lambda loses separability following a coherence shock.
 
   - id: "C1"
     type: corollary
@@ -46,10 +44,10 @@ claims:
       perception distinctions almost surely collapse to the stationary distribution.
     testable: true
     tested_in_paper: true
-    status: supported_by_simulation
+    status: supported
+    evidence_basis:
+      - computational
     depends_on: ["P1"]
-    falsification: >
-      A brand sustains cohort separability beyond tau_mix despite mu < lambda.
 
   - id: "C2"
     type: corollary
@@ -59,7 +57,9 @@ claims:
       shorter than tau_mix.
     testable: true
     tested_in_paper: false
-    status: theoretically_derived
+    status: supported
+    evidence_basis:
+      - deductive
     depends_on: ["P1"]
 
   - id: "H22"
@@ -68,26 +68,22 @@ claims:
       Spectral gap collapse precedes brand conviction reorientation by 6 to 18 months.
     testable: true
     tested_in_paper: true
-    status: supported_by_simulation
+    status: supported
+    evidence_basis:
+      - computational
     depends_on: ["P1"]
-    falsification: >
-      H22 is falsified if gap collapse in R10 dimensional score data coincides with
-      or follows conviction shift, rather than preceding it by 6-18 months.
 
 methodology:
-  type: theoretical_with_monte_carlo_demonstration
+  type: theoretical
+  secondary_types:
+    - computational
   design: >
     Kato-Rellich perturbation theory and Diaconis-Stroock spectral-gap-mixing-time bounds
     establish the sufficient condition analytically. Monte Carlo simulation (32 cohort-dimension
     cells x 2 regimes x 240 months, seed 2026) demonstrates the threshold with Dove 2003-2023
     design parameters (lambda=0.10/yr, mu=4.50/yr for high regime; mu=-0.50/yr for low regime).
     Real Dove data analysis deferred to companion paper using R10 source data.
-  key_results:
-    terminal_spectral_gap_high: 1.10
-    terminal_spectral_gap_low: 0.02
-    terminal_gap_ratio: 52
-    irf_halflife_high_months: 1.4
-    irf_halflife_low_months: 13.1
+  notes: 'Key results: terminal_spectral_gap_high = 1.10; terminal_spectral_gap_low = 0.02; terminal_gap_ratio = 52; irf_halflife_high_months = 1.4; irf_halflife_low_months = 13.1'
 
 data:
   available: true
@@ -107,3 +103,19 @@ repositories:
     url: "https://github.com/spectralbranding/sbt-papers/tree/main/r22-spectral-gap-restoration"
 
 submission_history: []
+
+acceptance:
+  - claim_id: "P1"
+    falsification: >
+      P1 is falsified if a brand maintains cohort separability over an extended
+      post-shock window with mu < lambda by independent measurement, or if a brand
+      with documented mu >> lambda loses separability following a coherence shock.
+
+  - claim_id: "C1"
+    falsification: >
+      A brand sustains cohort separability beyond tau_mix despite mu < lambda.
+
+  - claim_id: "H22"
+    falsification: >
+      H22 is falsified if gap collapse in R10 dimensional score data coincides with
+      or follows conviction shift, rather than preceding it by 6-18 months.

@@ -1,6 +1,6 @@
-# paper.yaml -- Paper Spec v0.1.0
+# paper.yaml -- Paper Spec v0.2.0
 # Zharnikov (2026x): R16 -- AI-Native Brand Identity
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "AI-Native Brand Identity: From Visual Recognition to Cryptographic Verification"
@@ -36,11 +36,8 @@ claims:
       the new observer's verification capabilities.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
-    falsification: >
-      Falsified if the AI-observer transition produces only incremental extensions of
-      logo-based identity rather than a structurally different verification mechanism.
 
   - id: "P2"
     type: proposition
@@ -51,11 +48,8 @@ claims:
       (cryptographic signatures on Brand Functions).
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P1"]
-    falsification: >
-      Falsified if AI agents demonstrably use logos as informational inputs that
-      significantly affect recommendation quality.
 
   - id: "P3"
     type: proposition
@@ -66,11 +60,8 @@ claims:
       perceptual biases and cannot be addressed by human-oriented brand identity tools.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: []
-    falsification: >
-      Falsified if multimodal AI agents processing visual brand elements make measurably
-      better purchasing decisions than text-only agents with identical structured data.
 
   - id: "P4"
     type: proposition
@@ -81,11 +72,8 @@ claims:
       machine-readable brand protocols (brand.json, Brando Schema) cannot.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P3"]
-    falsification: >
-      Falsified if existing protocols prove sufficient for AI agents to measure brand
-      coherence and predict behavioral responses without additional specification layers.
 
   - id: "P5"
     type: proposition
@@ -96,11 +84,8 @@ claims:
       experience.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P2", "P4"]
-    falsification: >
-      Falsified if AI-mediated commerce scales to >20% of category transactions without
-      adopting cryptographic brand verification.
 
   - id: "P6"
     type: proposition
@@ -111,27 +96,50 @@ claims:
       or resolve, requiring behavioral specification for disambiguation.
     testable: true
     tested_in_paper: false
-    status: proposed
+    status: not_tested
     depends_on: ["P4"]
+
+acceptance:
+  - claim_id: "P1"
+    falsification: >
+      Falsified if the AI-observer transition produces only incremental extensions of
+      logo-based identity rather than a structurally different verification mechanism.
+
+  - claim_id: "P2"
+    falsification: >
+      Falsified if AI agents demonstrably use logos as informational inputs that
+      significantly affect recommendation quality.
+
+  - claim_id: "P3"
+    falsification: >
+      Falsified if multimodal AI agents processing visual brand elements make measurably
+      better purchasing decisions than text-only agents with identical structured data.
+
+  - claim_id: "P4"
+    falsification: >
+      Falsified if existing protocols prove sufficient for AI agents to measure brand
+      coherence and predict behavioral responses without additional specification layers.
+
+  - claim_id: "P5"
+    falsification: >
+      Falsified if AI-mediated commerce scales to >20% of category transactions without
+      adopting cryptographic brand verification.
+
+  - claim_id: "P6"  # pilot script: behavioral_metamerism_pilot.py
     falsification: >
       Falsified if augmented-condition LLM discrimination accuracy does not exceed
       statistical-only accuracy by a significant margin (p < 0.05) across >=3 categories.
-    pilot_script: "behavioral_metamerism_pilot.py"
 
-companion_papers:
-  - key: "2026a"
-    title: "Spectral Brand Theory"
-    doi: "10.5281/zenodo.18945912"
-    relationship: "theoretical_foundation"
-  - key: "2026e"
-    title: "Spectral Metamerism in Brand Perception"
-    doi: "10.5281/zenodo.18945352"
-    relationship: "metamerism_formalization"
-  - key: "2026l"
-    title: "The Rendering Problem"
-    doi: "10.5281/zenodo.19064427"
-    relationship: "specification_gap"
-  - key: "2026q"
-    title: "Spectral Portfolio Theory"
-    doi: null
-    relationship: "multi_brand_dynamics"
+dependencies:
+  - doi: "10.5281/zenodo.18945912"
+    claim: "Companion paper 2026a, Spectral Brand Theory: theoretical foundation"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.18945352"
+    claim: "Companion paper 2026e, Spectral Metamerism in Brand Perception: metamerism formalization"
+    relationship: cites_as_related
+  - doi: "10.5281/zenodo.19064427"
+    claim: "Companion paper 2026l, The Rendering Problem: specification gap"
+    relationship: cites_as_related
+  - reference: "Zharnikov (2026q). Spectral Portfolio Theory."
+    claim: "Companion paper 2026q, Spectral Portfolio Theory: multi brand dynamics"
+    relationship: cites_as_related

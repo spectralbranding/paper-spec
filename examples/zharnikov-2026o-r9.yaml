@@ -1,6 +1,6 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml — Paper Spec v0.2.0
 # Zharnikov (2026o): Non-Ergodic Brand Perception
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Non-Ergodic Brand Perception: Why Cross-Sectional Brand Tracking Systematically Misrepresents Individual Trajectories"
@@ -376,6 +376,6 @@ repositories:
 
 submission_history:
   - venue: "Journal of Consumer Psychology"
-    id: "1051973"
     date_submitted: "2026-03-20"
-    status: "under_review"
+    manuscript_id: "1051973"
+    decision: "under_review"

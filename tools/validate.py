@@ -8,6 +8,7 @@ Usage:
 Exit code 0 if all files valid, 1 if any errors found.
 """
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -24,34 +25,30 @@ except ImportError:
 # ---------------------------------------------------------------------------
 DOI_PATTERN = re.compile(r"^10\.\d{4,}/\S+$")
 
-CLAIM_TYPES = {"hypothesis", "proposition", "theorem", "conjecture", "definition"}
-CLAIM_STATUSES = {"supported", "refuted", "inconclusive", "not_tested"}
-RESULT_STATUSES = {
-    "supported",
-    "refuted",
-    "partially_supported",
-    "inconclusive",
-    "not_tested",
-}
-METHODOLOGY_TYPES = {
-    "empirical",
-    "theoretical",
-    "computational",
-    "mixed",
-    "meta_analysis",
-    "review",
-}
-DEPENDENCY_RELATIONSHIPS = {"extends", "applies", "tests", "contradicts", "refines"}
-LIMITATION_SEVERITIES = {"minor", "moderate", "major"}
-SUBMISSION_DECISIONS = {
-    "under_review",
-    "desk_reject",
-    "reject",
-    "revise_resubmit",
-    "accepted",
-    "published",
-    "withdrawn",
-}
+SPEC_VERSION_PATTERN = re.compile(r"^0\.[12]\.\d+$")
+
+# The vocabularies are read from the JSON Schema, so the schema is their one source.
+# Only the standard library is needed for that: callers such as
+# spectral-branding's generate_paper_yaml.py run this file in their own venv.
+SCHEMA_PATH = Path(__file__).resolve().parents[1] / "schema" / "paper-spec.schema.json"
+ROOT_SCHEMA = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+SCHEMA = ROOT_SCHEMA["properties"]
+
+
+def _enum(section: str, field: str) -> set[str]:
+    node = SCHEMA[section]
+    prop = node.get("items", node)["properties"][field]
+    return set(prop.get("items", prop)["enum"])
+
+
+CLAIM_TYPES = _enum("claims", "type")
+CLAIM_STATUSES = _enum("claims", "status")
+EVIDENCE_BASES = _enum("claims", "evidence_basis")
+RESULT_STATUSES = _enum("results", "status")
+METHODOLOGY_TYPES = _enum("methodology", "type")
+DEPENDENCY_RELATIONSHIPS = _enum("dependencies", "relationship")
+LIMITATION_SEVERITIES = _enum("limitations", "severity")
+SUBMISSION_DECISIONS = _enum("submission_history", "decision")
 
 
 class ValidationError:
@@ -109,12 +106,60 @@ class Validator:
         if val is not None and val not in allowed:
             self.err(path, f"'{key}' must be one of {sorted(allowed)}, got '{val}'")
 
+    def _req_enum(self, obj: dict, key: str, allowed: set, path: str) -> None:
+        if obj.get(key) is None:
+            self.err(path, f"required field '{key}' is missing")
+        else:
+            self._opt_enum(obj, key, allowed, path)
+
+    def _opt_enum_list(self, obj: dict, key: str, allowed: set, path: str) -> None:
+        val = obj.get(key)
+        if val is None:
+            return
+        if not isinstance(val, list):
+            self.err(path, f"'{key}' must be a list")
+            return
+        for item in val:
+            if item not in allowed:
+                self.err(
+                    path,
+                    f"'{key}' entries must be one of {sorted(allowed)}, got '{item}'",
+                )
+        if len(set(map(str, val))) != len(val):
+            self.err(path, f"'{key}' must not repeat a value")
+
     def _valid_doi(self, doi: str) -> bool:
         return bool(DOI_PATTERN.match(doi))
 
     # ------------------------------------------------------------------
     # Section validators
     # ------------------------------------------------------------------
+
+    def validate_keys(self, node: dict, value: object, path: str) -> None:
+        """Report keys the schema does not define, wherever it sets additionalProperties false."""
+        if isinstance(value, dict) and "properties" in node:
+            props = node["properties"]
+            for key, item in value.items():
+                if key in props:
+                    self.validate_keys(
+                        props[key], item, f"{path}.{key}" if path else key
+                    )
+                elif node.get("additionalProperties") is False:
+                    self.err(path or "(root)", f"unknown field '{key}'")
+        elif isinstance(value, list) and "items" in node:
+            for i, item in enumerate(value):
+                self.validate_keys(node["items"], item, f"{path}[{i}]")
+
+    def validate_spec_version(self) -> None:
+        version = self.data.get("spec_version")
+        if version is None:
+            self.err("spec_version", "required field 'spec_version' is missing")
+            return
+        if not isinstance(version, str) or not SPEC_VERSION_PATTERN.match(version):
+            self.err(
+                "spec_version",
+                f"'spec_version' must be a 0.1.x or 0.2.x version, got '{version}'",
+            )
 
     def validate_meta(self) -> None:
         path = "meta"
@@ -131,8 +176,11 @@ class Validator:
         authors = self._require_list(meta, "authors", path)
         if authors is not None and len(authors) == 0:
             self.err(path, "'authors' list must not be empty")
-
-        self._require_str(meta, "date", path)
+        for i, author in enumerate(authors or []):
+            if not isinstance(author, dict):
+                self.err(f"{path}.authors[{i}]", "each author must be a mapping")
+            else:
+                self._require_str(author, "name", f"{path}.authors[{i}]")
 
         doi = meta.get("doi")
         if doi is not None:
@@ -169,10 +217,11 @@ class Validator:
                     valid_ids.add(cid)
 
             self._require_str(claim, "statement", path)
-            self._opt_enum(claim, "type", CLAIM_TYPES, path)
+            self._req_enum(claim, "type", CLAIM_TYPES, path)
             self._opt_bool(claim, "testable", path)
             self._opt_bool(claim, "tested_in_paper", path)
             self._opt_enum(claim, "status", CLAIM_STATUSES, path)
+            self._opt_enum_list(claim, "evidence_basis", EVIDENCE_BASES, path)
 
             depends_on = claim.get("depends_on")
             if depends_on is not None:
@@ -189,7 +238,8 @@ class Validator:
         if not isinstance(meth, dict):
             self.err(path, "'methodology' must be a mapping")
             return
-        self._opt_enum(meth, "type", METHODOLOGY_TYPES, path)
+        self._req_enum(meth, "type", METHODOLOGY_TYPES, path)
+        self._opt_enum_list(meth, "secondary_types", METHODOLOGY_TYPES, path)
 
     def validate_acceptance(self, valid_claim_ids: set[str]) -> None:
         acceptance = self.data.get("acceptance")
@@ -208,7 +258,11 @@ class Validator:
                 self.err(
                     path, f"'claim_id' '{cid}' does not reference a known claim id"
                 )
-            self._require_str(ac, "criterion", path)
+            if ac.get("criterion") is None and ac.get("falsification") is None:
+                self.err(path, "needs 'criterion', 'falsification' or both")
+            for key in ("criterion", "falsification"):
+                if ac.get(key) is not None:
+                    self._require_str(ac, key, path)
 
     def validate_dependencies(self) -> set[str]:
         """Returns the set of dependency DOIs declared."""
@@ -266,6 +320,8 @@ class Validator:
                 self.err(
                     path, "each contradiction must have either 'doi' or 'reference'"
                 )
+            self._require_str(c, "claim", path)
+            self._require_str(c, "our_position", path)
 
     def validate_results(self, valid_claim_ids: set[str]) -> None:
         results = self.data.get("results")
@@ -284,7 +340,7 @@ class Validator:
                 self.err(
                     path, f"'claim_id' '{cid}' does not reference a known claim id"
                 )
-            self._opt_enum(result, "status", RESULT_STATUSES, path)
+            self._req_enum(result, "status", RESULT_STATUSES, path)
 
     def validate_limitations(self) -> None:
         limitations = self.data.get("limitations")
@@ -310,6 +366,8 @@ class Validator:
         if not isinstance(data, dict):
             self.err(path, "'data' must be a mapping")
             return
+        if data.get("available") is None:
+            self.err(path, "required field 'available' is missing")
         self._opt_bool(data, "available", path)
 
     def validate_code_section(self) -> None:
@@ -320,6 +378,8 @@ class Validator:
         if not isinstance(code, dict):
             self.err(path, "'code' must be a mapping")
             return
+        if code.get("available") is None:
+            self.err(path, "required field 'available' is missing")
         self._opt_bool(code, "available", path)
 
     def validate_replication(self) -> None:
@@ -376,6 +436,8 @@ class Validator:
     # ------------------------------------------------------------------
 
     def validate(self) -> bool:
+        self.validate_keys(ROOT_SCHEMA, self.data, "")
+        self.validate_spec_version()
         self.validate_meta()
         valid_claim_ids = self.validate_claims()
         self.validate_methodology()
@@ -435,22 +497,23 @@ def validate_file(path: Path) -> bool:
 
 def main() -> int:
     if len(sys.argv) < 2:
-        print("Usage: python tools/validate.py <file.yaml|directory>")
+        print("Usage: python tools/validate.py <file.yaml|directory> [...]")
         return 1
 
-    target = Path(sys.argv[1])
     files: list[Path] = []
-
-    if target.is_dir():
-        files = sorted(target.glob("*.yaml"))
-        if not files:
-            print(f"No .yaml files found in {target}")
+    for arg in sys.argv[1:]:
+        target = Path(arg)
+        if target.is_dir():
+            found = sorted(target.glob("*.yaml"))
+            if not found:
+                print(f"No .yaml files found in {target}")
+                return 1
+            files.extend(found)
+        elif target.is_file():
+            files.append(target)
+        else:
+            print(f"ERROR: Path not found: {target}")
             return 1
-    elif target.is_file():
-        files = [target]
-    else:
-        print(f"ERROR: Path not found: {target}")
-        return 1
 
     results = [validate_file(f) for f in files]
 

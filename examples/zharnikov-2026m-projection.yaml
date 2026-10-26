@@ -1,6 +1,6 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml — Paper Spec v0.2.0
 # Zharnikov (2026m): Position as Projection
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Position as Projection: A Formal Theory of How Process Requirements Generate Organizational Structure"
@@ -276,12 +276,12 @@ dependencies:
 
   - reference: "Hammer, M. (1996). Beyond reengineering. HarperBusiness."
     claim: "Process-centered organization — describes the normative endpoint of fully explicit specifications; reconciled with Davenport via the specification-tacitness continuum"
-    relationship: "contextualizes"
+    relationship: "obtains_background_from"
     critical: true
 
   - reference: "Davenport, T. H. (1993). Process innovation. Harvard Business School Press."
     claim: "Functional departments persist because functional skills remain important — explained by specification-transmission mechanism"
-    relationship: "contextualizes"
+    relationship: "obtains_background_from"
     critical: true
 
   - reference: "Lawrence, P. R., & Lorsch, J. W. (1967). Organization and environment. Harvard University Press."
@@ -306,17 +306,17 @@ dependencies:
 
   - reference: "Ohno, T. (1988). Toyota production system. Productivity Press."
     claim: "One operator, many processes — illustrative case for explicit specification enabling position-process convergence; kanban as embedded coordination"
-    relationship: "illustrates"
+    relationship: "cites"
     critical: false
 
   - reference: "Burton, R. M., Obel, B., & Hakonsson, D. D. (2020). Organizational design. Cambridge University Press."
     claim: "Computational optimization of organizational configuration — addresses which configuration fits; projection framework addresses the prior question of why configurations exist"
-    relationship: "complements"
+    relationship: "cites_as_related"
     critical: false
 
   - reference: "Joseph, J., & Sengul, M. (2025). Organizational design: A review and integration. Journal of Management."
     claim: "Four-approach taxonomy (configuration, control, channelization, coordination) — projection framework cuts across all four as the generative mechanism"
-    relationship: "contextualizes"
+    relationship: "obtains_background_from"
     critical: false
 
 results:
@@ -414,12 +414,12 @@ repositories:
 
 submission_history:
   - venue: "Academy of Management Review"
+    date_submitted: "2026-03-18"
     manuscript_id: "AMR-2026-0406-Original"
-    submitted: "2026-03-18"
-    decision: "desk_rejected"
-    decision_date: "2026-03-20"
-    reason: "Extension of existing theory, not novel theory; fails to join scholarly conversation in management"
+    date_decision: "2026-03-20"
+    decision: desk_reject
+    notes: 'Reason: Extension of existing theory, not novel theory; fails to join scholarly conversation in management.'
   - venue: "Journal of Organization Design"
+    date_submitted: "2026-03-01"
     manuscript_id: "JORG-D-26-00036"
-    submitted: "2026-03-01"
-    decision: "pending"
+    decision: under_review

@@ -1,6 +1,6 @@
-# paper.yaml — Paper Spec v0.1.0
+# paper.yaml — Paper Spec v0.2.0
 # Zharnikov (2026t): R13 — Paper as Specification
-spec_version: "0.1.0"
+spec_version: "0.2.0"
 
 meta:
   title: "Paper as Specification: A Machine-Readable Standard for Scientific Claims"
@@ -324,20 +324,20 @@ limitations:
     addressable: true
 
 repositories:
-  - name: "paper-spec"
+  - platform: "GitHub"
     url: "https://github.com/spectralbranding/paper-spec"
     doi: "10.5281/zenodo.19210037"
 
-submission_history:
-  - venue: "Zenodo"
-    date: "2026-03-24"
-    status: "preprint"
-    doi: "10.5281/zenodo.19210037"
+  - platform: "Zenodo"
     url: "https://zenodo.org/records/19210037"
+    doi: "10.5281/zenodo.19210037"
+    date: "2026-03-24"
+
+submission_history:
   - venue: "Quantitative Science Studies"
-    id: "QSS-2026-0048"
     date_submitted: "2026-03-26"
-    status: "under_review"
+    manuscript_id: "QSS-2026-0048"
+    decision: "under_review"
     notes: >
       Article type. Gold OA (APC $1,200). 6,596 words, 4 propositions.
       Abstract trimmed to 160 words. Table 1 headers fixed.
