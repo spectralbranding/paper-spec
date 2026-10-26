@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "paper-spec"
 version = "0.1.0"
 description = "Machine-readable specification format for scientific papers"
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 license = "MIT"
 authors = [
     {name = "Dmitry Zharnikov", email = "dmitry@spectralbranding.com"},
@@ -23,6 +23,7 @@ dev = [
 ]
 
 [tool.black]
+target-version = ["py314"]
 line-length = 88
 
 [tool.flake8]
@@ -30,4 +31,4 @@ max-line-length = 88
 exclude = [".venv", "__pycache__"]
 
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.14"
