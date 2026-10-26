@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "paper-spec"
 version = "0.1.0"
 description = "Machine-readable specification format for scientific papers"
-requires-python = ">=3.14"
+requires-python = ">=3.14,<3.15"
 license = "MIT"
 authors = [
     {name = "Dmitry Zharnikov", email = "dmitry@spectralbranding.com"},
