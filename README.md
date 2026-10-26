@@ -191,7 +191,7 @@ Before proposing new fields, consider whether the information is something a pap
 
 ## 1 | Getting Started
 
-Paper Spec is a Python project anchored at `pyproject.toml` (`name = "paper-spec"`, requires Python `>=3.14`). Recommended environment setup uses [uv](https://docs.astral.sh/uv/):
+Paper Spec is a Python project anchored at `pyproject.toml` (`name = "paper-spec"`, requires Python `>=3.14,<3.15`). Recommended environment setup uses [uv](https://docs.astral.sh/uv/):
 
 ```bash
 git clone https://github.com/spectralbranding/paper-spec.git
@@ -251,7 +251,7 @@ uv run python tools/validate.py path/to/paper.yaml
 
 | Layer | Tool | Constraint |
 |---|---|---|
-| Runtime | Python | `>=3.14` |
+| Runtime | Python | `>=3.14,<3.15` |
 | Runtime | pyyaml | `>=6.0` |
 | Validation | jsonschema | (installed transitively for examples + tools/validate.py) |
 | Dev | black, flake8, mypy | Optional, via `uv sync --extra dev` |
