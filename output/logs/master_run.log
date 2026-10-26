@@ -1,0 +1,33 @@
+==================================================
+Pipeline run: 2026-10-26T11:39:48Z
+Repo: /Users/d/projects/paper-spec
+Git SHA: 49d604a42c2593cd4d5fd377697484a0b0dea797
+==================================================
+>>> Syncing dependencies with uv...
+Resolved 17 packages in 2ms
+   Building paper-spec @ file:///Users/d/projects/paper-spec
+      Built paper-spec @ file:///Users/d/projects/paper-spec
+Prepared 1 package in 507ms
+Uninstalled 15 packages in 109ms
+Installed 1 package in 1ms
+ - black==26.10.1
+ - click==8.3.1
+ - flake8==7.3.0
+ - librt==0.8.1
+ - mccabe==0.7.0
+ - mypy==1.19.1
+ - mypy-extensions==1.1.0
+ - packaging==26.0
+ ~ paper-spec==0.1.0 (from file:///Users/d/projects/paper-spec)
+ - pathspec==1.0.4
+ - platformdirs==4.9.4
+ - pycodestyle==2.14.0
+ - pyflakes==3.4.0
+ - pytokens==0.4.1
+ - typing-extensions==4.15.0
+>>> Validating examples/ against schema/paper-spec-v0.1.0.json...
+(schema file not found; skipping example validation)
+>>> No tests found; skipping pytest.
+==================================================
+Pipeline complete: 2026-10-26T11:39:49Z
+==================================================
