@@ -149,7 +149,7 @@ pip install jsonschema pyyaml
 python -c "
 import yaml, jsonschema, json
 with open('paper.yaml') as f: doc = yaml.safe_load(f)
-with open('schema/paper-spec-v0.1.0.json') as f: schema = json.load(f)
+with open('schema/paper-spec.schema.json') as f: schema = json.load(f)
 jsonschema.validate(doc, schema)
 print('Valid.')
 "
@@ -233,7 +233,7 @@ Reproduce every output and validate every example in one command:
 ./reproduce.sh
 ```
 
-The orchestrator (i) syncs dependencies via `uv sync`, (ii) validates every file under `examples/` against `schema/paper-spec-v0.1.0.json`, (iii) runs the test suite if present, and (iv) writes a timestamped log to `output/logs/master_run.log`.
+The orchestrator (i) syncs dependencies via `uv sync`, (ii) validates every file under `examples/` against `schema/paper-spec.schema.json`, (iii) runs the test suite if present, and (iv) writes a timestamped log to `output/logs/master_run.log`.
 
 For a dependency-only check without running validation:
 

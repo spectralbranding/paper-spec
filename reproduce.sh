@@ -53,8 +53,8 @@ if [[ "$CHECK_ONLY" == "1" ]]; then
 fi
 
 # 2. Validate every example paper.yaml against the JSON Schema
-echo ">>> Validating examples/ against schema/paper-spec-v0.1.0.json..." | tee -a "$LOG_FILE"
-if [[ -f schema/paper-spec-v0.1.0.json ]]; then
+echo ">>> Validating examples/ against schema/paper-spec.schema.json..." | tee -a "$LOG_FILE"
+if [[ -f schema/paper-spec.schema.json ]]; then
   uv run python tools/validate.py examples/*.yaml 2>&1 | tee -a "$LOG_FILE" || true
 else
   echo "(schema file not found; skipping example validation)" | tee -a "$LOG_FILE"
