@@ -90,7 +90,7 @@ Bibliographic metadata. The only required section.
 | authors[].orcid | string | No | ORCID identifier (e.g., "0000-0002-1234-5678"). |
 | authors[].affiliation | string | No | Institutional affiliation. |
 | doi | string | No | DOI if published. Include the full DOI, not a URL. |
-| date | string | No | Publication or preprint date in YYYY-MM-DD format. |
+| date | string | No | Publication or preprint date: YYYY-MM-DD, or YYYY-MM or YYYY when the day or month is not known. |
 | version | string | No | Paper version. Useful for preprints with revisions. |
 | venue | string | No | Journal name, conference name, or "Preprint". |
 | license | string | No | SPDX license identifier (e.g., "CC-BY-4.0"). |
@@ -150,7 +150,7 @@ Claim IDs must be unique within the file and should remain stable across paper v
 
 `lemma` and `corollary` follow the JATS `<statement>` element, which names "Theorem, Lemma, Proof, Postulate, Hypothesis, Proposition, Corollary" as formal statements.
 
-**Status and evidence basis.** `status` records the verdict; `evidence_basis` records the kind of support behind it. The two are kept apart, as in the Micropublications model (Clark, Ciccarese and Goble 2014, doi:10.1186/2041-1480-5-28) and the GA4GH Variant Annotation specification, so that a status never has to encode its own evidence ("supported by simulation" is `status: supported` with `evidence_basis: [computational]`). The values follow the Evidence and Conclusion Ontology (ECO):
+**Status and evidence basis.** `status` records the verdict; `evidence_basis` records the kind of support behind it. The two are kept apart, as in the Micropublications model (Clark, Ciccarese and Goble 2014, doi:10.1186/2041-1480-5-28) and the GA4GH Variant Annotation Specification 1.0 (https://va-spec.ga4gh.org), so that a status never has to encode its own evidence ("supported by simulation" is `status: supported` with `evidence_basis: [computational]`). The values follow the Evidence and Conclusion Ontology (ECO):
 
 | Value | Meaning | ECO term |
 |-------|---------|----------|
@@ -318,7 +318,7 @@ Code availability and location.
 | available | boolean | Yes (if section present) | Is the analysis code publicly available? |
 | url | string | No | URL to the repository or archive. |
 | language | string | No | Programming language and version. |
-| dependencies | list of strings | No | Key libraries or packages, or how to install them (e.g., "see requirements.txt"). |
+| dependencies | string or list of strings | No | Key libraries or packages as a list, or how to install them as a string (e.g., "see requirements.txt"). The list form was added in 0.2.0. |
 | notes | string | No | Additional context. Added in 0.2.0. |
 
 Example:
@@ -328,7 +328,7 @@ code:
   available: true
   url: "https://github.com/example/sleep-decision-study"
   language: "R 4.3"
-  dependencies: ["renv.lock in repository root"]
+  dependencies: "renv.lock in repository root"
 ```
 
 ---
@@ -394,7 +394,7 @@ Each relationship value corresponds to a property of the Citation Typing Ontolog
 |-------|---------------|---------------------|
 | `extends` | `cito:extends` | builds on and goes beyond the cited work |
 | `applies` | `cito:usesMethodIn`, `cito:usesConclusionsFrom` | uses the cited method or result |
-| `tests` | none (closest: `cito:confirms`, `cito:disconfirms`) | puts the cited claim to a test |
+| `tests` | none (closest: `cito:confirms` when the test supports the cited claim, `cito:refutes` when it does not) | puts the cited claim to a test |
 | `contradicts` | `cito:disagreesWith`, `cito:disputes`, `cito:refutes` | argues against the cited work |
 | `refines` | `cito:qualifies`, `cito:updates` | narrows or corrects the cited claim |
 | `cites` | `cito:cites` | cites it with no more specific relation (added in 0.2.0) |
@@ -627,7 +627,8 @@ The `spec_version` field in each `paper.yaml` declares which version it conforms
 - New values: claim types `lemma`, `corollary`; methodology type `conceptual`; dependency relationships `cites`, `obtains_background_from`, `cites_as_related`.
 - New optional fields: `claims[].evidence_basis`, `methodology.secondary_types`, `methodology.notes`, `data.notes`, `code.notes`, `meta.superseded_by`.
 - `acceptance` entries need `criterion` or `falsification`, no longer always `criterion`.
-- Clarified: dates may be reduced precision; planned venues and preprint deposits are not submissions; `results.status` lists `not_tested`; `code.dependencies` is a list; `dependencies` and `contradictions` accept `reference` instead of `doi`.
+- Clarified: dates may be reduced precision; planned venues and preprint deposits are not submissions; `results.status` lists `not_tested`; `code.dependencies` may also be a list; `dependencies` and `contradictions` accept `reference` instead of `doi`.
+- `tools/validate.py` applies the schema's structural rules itself, so it now also reports fields the schema does not define, as the schema always did.
 - The JSON Schema now matches this document. In 0.1.0 it rejected `spec_version` and author objects, so no conforming file passed it; it also enforced fewer of the required fields stated here. Field names it used that this document does not (`sample.n`, `sample.exclusion_criteria`, `measures[].name`, `construct`, `scale`) are accepted and marked deprecated; use `sample.size`, `sample.exclusion` and `measures[].variable`, `instrument`, `reliability`.
 
 ### Migration policy
@@ -642,7 +643,7 @@ Paper Spec does not replace existing standards. It complements them.
 
 **FAIR Data Principles.** Paper Spec's `data` and `code` sections operationalize FAIR (Findable, Accessible, Interoperable, Reusable) for individual papers. A `paper.yaml` file is itself a FAIR metadata record.
 
-**CiTO (Citation Typing Ontology).** The `dependencies.relationship` field draws on CiTO's vocabulary but simplifies it to eight terms; the mapping is in the `dependencies` section. Papers that need full CiTO typing can extend this field.
+**CiTO (Citation Typing Ontology).** The `dependencies.relationship` field draws on CiTO's vocabulary but simplifies it to eight terms; the mapping is in the `dependencies` section. The vocabulary is closed: a relation outside the eight uses the nearest value, and tools that need finer CiTO typing map from it.
 
 **Evidence and Conclusion Ontology (ECO).** `claims[].evidence_basis` uses four ECO evidence classes (see the `claims` section), so a claim's kind of support can be translated to ECO term identifiers.
 

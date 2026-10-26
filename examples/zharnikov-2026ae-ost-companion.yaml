@@ -81,6 +81,7 @@ methodology:
   type: theoretical
   secondary_types:
     - conceptual
+    - computational
   design: >
     Operator-theoretic formalization of organizational verification. Synthesis of three
     independent research lineages: cybernetics (Beer's variety attenuation), behavioral

@@ -127,7 +127,7 @@
           },
           "evidence_basis": {
             "type": "array",
-            "description": "Kinds of warrant the paper gives for the claim, after the Evidence and Conclusion Ontology: deductive (ECO:0006185 author inference), computational (ECO:0007672), empirical (ECO:0000006 experimental evidence), literature (ECO:0000033 traceable author statement).",
+            "description": "Kinds of warrant the paper gives for the claim, after the Evidence and Conclusion Ontology: deductive (ECO:0006185 author inference), computational (ECO:0007672), empirical (ECO:0000006 experimental evidence), literature (ECO:0000033 author statement supported by traceable reference).",
             "items": {
               "type": "string",
               "enum": ["deductive", "computational", "empirical", "literature"]
@@ -206,6 +206,7 @@
           "description": "Key variables or constructs measured.",
           "items": {
             "type": "object",
+            "required": ["variable"],
             "additionalProperties": false,
             "properties": {
               "variable": { "type": "string", "description": "Variable name." },
@@ -319,9 +320,11 @@
           "description": "Primary programming language(s)."
         },
         "dependencies": {
-          "type": "array",
-          "description": "Key libraries or packages required.",
-          "items": { "type": "string" }
+          "description": "Key libraries or packages, as a list, or how to install them, as a string (the v0.1.0 form).",
+          "anyOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
         },
         "notes": {
           "type": "string",

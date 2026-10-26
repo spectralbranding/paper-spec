@@ -294,7 +294,10 @@ repositories:
       Self-referential implementation. CC BY-NC-ND 4.0.
 
 # Planned venues, not yet submitted (submission_history records submissions only):
-#   Journal of Electronic Publishing (JEP, U of Michigan) (pending_reformat): Venue #2. Diamond OA (no APC). 30-year history of publishing innovation. Reframing: lead with "publishing lacks version control" gap. ~6,000 word compressed version at export/R14-paper-repository/jep/.
+#   Journal of Electronic Publishing (JEP, U of Michigan) (pending_reformat): Venue #2.
+#     Diamond OA (no APC). 30-year history of publishing innovation. Reframing: lead with
+#     "publishing lacks version control" gap. ~6,000 word compressed version at
+#     export/R14-paper-repository/jep/.
 submission_history:
   - venue: "JASIST (Journal of the Association for Information Science and Technology)"
     date_submitted: "2026-03-29"

@@ -140,6 +140,6 @@ dependencies:
   - doi: "10.5281/zenodo.19064427"
     claim: "Companion paper 2026l, The Rendering Problem: specification gap"
     relationship: cites_as_related
-  - reference: "Zharnikov (2026q). Spectral Portfolio Theory."
+  - doi: "10.5281/zenodo.19145099"
     claim: "Companion paper 2026q, Spectral Portfolio Theory: multi brand dynamics"
     relationship: cites_as_related

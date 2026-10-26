@@ -325,11 +325,13 @@ repositories:
     doi: "10.5281/zenodo.19355800"
     version: "v1.0"
     date: "2026-03-31"
-    notes: "Preprint. 24 refs, 7 propositions. v1.0 preprint. 24 refs, 12.5% self-cite. DOI: 10.5281/zenodo.19355800. CC BY-NC-ND 4.0."
+    notes: "Preprint v1.0. 24 refs, 12.5% self-cite, 7 propositions. CC BY-NC-ND 4.0."
   - platform: "GitHub"
     url: "https://github.com/spectralbranding/canon-repo"
     notes: "Romeo and Juliet demonstration — specification + 3 rendering forks"
 
 # Planned venues, not yet submitted (submission_history records submissions only):
-#   Convergence (SAGE) (pending): Target venue. Interdisciplinary journal on media convergence. Requires anonymization. Trimmed version in export/canon-repository/convergence/paper.md.
+#   Convergence (SAGE) (pending): Target venue. Interdisciplinary journal on media
+#     convergence. Requires anonymization. Trimmed version in export/canon-
+#     repository/convergence/paper.md.
 submission_history: []
