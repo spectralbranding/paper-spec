@@ -535,7 +535,7 @@ submission_history:
 
 ## Validation
 
-A JSON Schema for `paper.yaml` is provided at `schema/paper-spec-v0.1.0.json` in the Paper Spec repository. Any YAML/JSON validator can check conformance:
+A JSON Schema for `paper.yaml` is provided at `schema/paper-spec.schema.json` in the Paper Spec repository. Any YAML/JSON validator can check conformance:
 
 ```bash
 # Example using Python
@@ -543,7 +543,7 @@ pip install jsonschema pyyaml
 python -c "
 import yaml, jsonschema, json
 with open('paper.yaml') as f: doc = yaml.safe_load(f)
-with open('schema/paper-spec-v0.1.0.json') as f: schema = json.load(f)
+with open('schema/paper-spec.schema.json') as f: schema = json.load(f)
 jsonschema.validate(doc, schema)
 print('Valid.')
 "
