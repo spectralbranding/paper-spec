@@ -363,7 +363,7 @@ replication:
 
 ### dependencies
 
-Papers and specific claims this work builds on. This goes beyond a reference list -- it identifies which claims in which papers are load-bearing for the current work.
+Papers and specific claims this work builds on. This goes beyond a reference list -- it identifies which claims in which papers are critical to the current work.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|

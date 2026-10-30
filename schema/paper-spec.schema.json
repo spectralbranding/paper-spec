@@ -393,7 +393,7 @@
           },
           "critical": {
             "type": "boolean",
-            "description": "Whether this dependency is load-bearing for the main argument."
+            "description": "Whether this dependency is critical to the main argument."
           }
         }
       }
