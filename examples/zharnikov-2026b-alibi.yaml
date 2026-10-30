@@ -185,7 +185,7 @@ methodology:
       Structural argument; cross-domain mapping (Table 3); competing-framework elimination
       against four requirements; sensitivity analysis of LLM prompt reformulations for
       Condition 4 of C1; qualitative brand transfer demonstration
-    software: "None (architectural analysis). Source code for financial implementation: github.com/viberesearch/alibi"
+    software: "None (architectural analysis)."
 
 acceptance:
   - claim_id: "P1"
@@ -250,16 +250,14 @@ data:
     No primary data collected in this paper. The financial implementation processed
     approximately 500 real business transactions during development; those records are
     proprietary and not publicly available. Brand analyses referenced use publicly available
-    brand information. The alibi repository (github.com/viberesearch/alibi) contains a
-    sterilized version of the financial implementation code. Primary data for testing P1-P4
+    brand information. Primary data for testing P1-P4
     would require controlled analyst studies and consumer survey instruments.
 
 code:
   available: true
-  url: "https://github.com/viberesearch/alibi"
+  url: "https://github.com/spectralbranding/sbt-papers/tree/main/alibi-epistemology"
   notes: >
-    The alibi repository contains a sterilized implementation of the financial document
-    reconciliation pipeline demonstrating all seven principles. The sbt-framework repository
+    The paper's machine-readable source bundle. The sbt-framework repository
     (github.com/spectralbranding/sbt-framework) implements the brand perception domain transfer
     as a structured prompt sequence across 7 modules. The financial implementation uses Python;
     the brand perception implementation uses natural language prompts for LLM execution.
