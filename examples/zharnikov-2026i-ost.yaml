@@ -268,8 +268,7 @@ code:
   notes: >
     The public config-org-demo repository contains the Spectra Coffee specification artifact:
     25 YAML files across L0-L5 and the GitHub Actions CI/CD validation pipeline. This is the
-    demonstration artifact from Section 5.1. The full private implementation is in the
-    config-org repository (viberesearch/config-org).
+    demonstration artifact from Section 5.1. The full implementation is not public.
 
 replication:
   feasible: true
