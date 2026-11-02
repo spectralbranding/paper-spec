@@ -1,12 +1,12 @@
 ==================================================
 Pipeline run: 2026-10-26T11:39:48Z
-Repo: /Users/d/projects/paper-spec
+Repo: <repo>
 Git SHA: 49d604a42c2593cd4d5fd377697484a0b0dea797
 ==================================================
 >>> Syncing dependencies with uv...
 Resolved 17 packages in 2ms
-   Building paper-spec @ file:///Users/d/projects/paper-spec
-      Built paper-spec @ file:///Users/d/projects/paper-spec
+   Building paper-spec @ file://<repo>
+      Built paper-spec @ file://<repo>
 Prepared 1 package in 507ms
 Uninstalled 15 packages in 109ms
 Installed 1 package in 1ms
@@ -18,7 +18,7 @@ Installed 1 package in 1ms
  - mypy==1.19.1
  - mypy-extensions==1.1.0
  - packaging==26.0
- ~ paper-spec==0.1.0 (from file:///Users/d/projects/paper-spec)
+ ~ paper-spec==0.1.0 (from file://<repo>)
  - pathspec==1.0.4
  - platformdirs==4.9.4
  - pycodestyle==2.14.0
